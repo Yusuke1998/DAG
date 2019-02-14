@@ -25,3 +25,7 @@ Route::group(['prefix'	=>	'inventario'],function(){
 	Route::resource('producto','ProductController');
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

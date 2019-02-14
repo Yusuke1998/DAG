@@ -58,29 +58,37 @@
           <!-- Left -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link waves-effect" href="#">INICIO</a>
+              <a class="nav-link waves-effect" href="{{ URL('/') }}">INICIO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="#">PRODUCTOS</a>
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/producto') }}">PRODUCTOS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="#">ENTRADAS</a>
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/entradas') }}">ENTRADAS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="#">SALIDAS</a>
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/salidas') }}">SALIDAS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="#">CONSOLIDADOS</a>
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/consolidados') }}">CONSOLIDADOS</a>
             </li>
           </ul>
-
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">
+            @guest
             <li class="nav-item">
-              <a href="#" class="nav-link border border-light rounded waves-effect">
-                <i class="fab fa-github mr-2"></i>Salir
-              </a>
+                <a class="nav-link" href="{{ route('login') }}">{{ __('ACCEDER') }}</a>
             </li>
+            @else
+            <li class="nav-item">
+              <a href="{{ route('logout') }}"  class="nav-link border border-light rounded waves-effect" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fab fa-github mr-2"></i>{{ __('SALIR') }}<
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
+            </li>
+            @endguest
           </ul>
 
         </div>
@@ -97,16 +105,16 @@
       </a>
 
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item active waves-effect">
+        <a href="{{ URL('/') }}" class="list-group-item active waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>INICIO
         </a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{ URL('/inventario/producto') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-table mr-3"></i>PRODUCTOS</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{ URL('/inventario/entradas') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-table mr-3"></i>ENTRADAS</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{ URL('/inventario/salidas') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-map mr-3"></i>SALIDAS</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{ URL('/inventario/consolidados') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-money-bill-alt mr-3"></i>CONSOLIDADOS</a>
       </div>
 
