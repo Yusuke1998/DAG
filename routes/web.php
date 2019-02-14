@@ -10,4 +10,18 @@ Route::group(['prefix'	=>	'inventario'],function(){
 		return ['Autores'=>['Jhonny Perez','Fidel Herrera']];
 	});
 
+	Route::get('entradas',function(){
+		return view('entradas');
+	});
+
+	Route::get('salidas',function(){
+		return view('salidas');
+	});
+
+	Route::get('consolidados',function(){
+		return view('consolidados');
+	});
+
+	Route::resource('producto','ProductController');
+
 });
