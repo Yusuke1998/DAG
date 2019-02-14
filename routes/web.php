@@ -1,9 +1,13 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('dashboard');
 });
 
-Route::get('/cool',function(){
-	return view('template.layout');
+Route::group(['prefix'	=>	'inventario'],function(){
+
+	Route::get('DireccionDeInformatica',function(){
+		return ['Autores'=>['Jhonny Perez','Fidel Herrera']];
+	});
+
 });
