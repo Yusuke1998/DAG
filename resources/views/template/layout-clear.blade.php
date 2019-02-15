@@ -16,6 +16,8 @@
   <link href="{{asset('mdb/css/style.min.css')}}" rel="stylesheet">
   <!-- MDBootstrap Datatables  -->
   <link href="{{asset('mdb/css/addons/datatables.min.css')}}" rel="stylesheet">
+  <!-- Alertify  -->
+  <link rel="stylesheet" href="{{asset('alertifyjs/css/alertify.min.css')}}"/>
   <style>
 
     .map-container{
@@ -79,6 +81,11 @@
   <script type="text/javascript" src="{{asset('mdb/js/mdb.min.js')}}"></script>
   <!-- MDBootstrap Datatables  -->
   <script type="text/javascript" src="{{asset('mdb/js/addons/datatables.min.js')}}"></script>
+  <!-- alertify  -->
+  <script type="text/javascript" src="{{asset('alertifyjs/alertify.js')}}"></script>
+  <!-- alertify  -->
+  <script type="text/javascript" src="{{asset('alertifyjs/alertify.min.js')}}"></script>
+
 
   <!-- Initializations -->
   <script type="text/javascript">
