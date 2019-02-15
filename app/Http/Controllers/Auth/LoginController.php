@@ -20,18 +20,24 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/inventario/inicio';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    // MIS CAMBIOS
+    public function username()
+    {
+        return 'name';
+    }
+
+    public function redirectPath()
+    {
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+    }
+    // MIS CAMBIOS 
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

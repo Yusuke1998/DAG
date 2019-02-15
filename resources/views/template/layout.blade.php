@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -14,6 +15,10 @@
   <link href="{{asset('mdb/css/mdb.min.css')}}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="{{asset('mdb/css/style.min.css')}}" rel="stylesheet">
+  <!-- MDBootstrap Datatables  -->
+  <link href="{{asset('mdb/css/addons/datatables.min.css')}}" rel="stylesheet">
+  <style>
+
   <style>
 
     .map-container{
@@ -57,19 +62,19 @@
 
           <!-- Left -->
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item {{ (request()->is('inventario/inicio'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/') }}">INICIO</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" href="{{ URL('/inventario/producto') }}">PRODUCTOS</a>
+            <li class="nav-item {{ (request()->is('inventario/productos'))?'active':'' }}">
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/productos') }}">PRODUCTOS</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ (request()->is('inventario/entradas'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/entradas') }}">ENTRADAS</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ (request()->is('inventario/salidas'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/salidas') }}">SALIDAS</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ (request()->is('inventario/consolidados'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/consolidados') }}">CONSOLIDADOS</a>
             </li>
           </ul>
@@ -81,8 +86,7 @@
             </li>
             @else
             <li class="nav-item">
-              <a href="{{ route('logout') }}"  class="nav-link border border-light rounded waves-effect" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fab fa-github mr-2"></i>{{ __('SALIR') }}<
+              <a href="{{ route('logout') }}"  class="nav-link border border-light rounded waves-effect" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('SALIR') }}
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                   @csrf
@@ -105,10 +109,10 @@
       </a>
 
       <div class="list-group list-group-flush">
-        <a href="{{ URL('/') }}" class="list-group-item active waves-effect">
+        <a href="{{ URL('/') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-chart-pie mr-3"></i>INICIO
         </a>
-        <a href="{{ URL('/inventario/producto') }}" class="list-group-item list-group-item-action waves-effect">
+        <a href="{{ URL('/inventario/productos') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-table mr-3"></i>PRODUCTOS</a>
         <a href="{{ URL('/inventario/entradas') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-table mr-3"></i>ENTRADAS</a>
@@ -154,6 +158,8 @@
   <script type="text/javascript" src="{{asset('mdb/js/bootstrap.min.js')}}"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{{asset('mdb/js/mdb.min.js')}}"></script>
+  <!-- MDBootstrap Datatables  -->
+  <script type="text/javascript" src="{{asset('mdb/js/addons/datatables.min.js')}}"></script>
   <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization

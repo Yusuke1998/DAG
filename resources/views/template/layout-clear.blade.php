@@ -14,6 +14,8 @@
   <link href="{{asset('mdb/css/mdb.min.css')}}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="{{asset('mdb/css/style.min.css')}}" rel="stylesheet">
+  <!-- MDBootstrap Datatables  -->
+  <link href="{{asset('mdb/css/addons/datatables.min.css')}}" rel="stylesheet">
   <style>
 
     .map-container{
@@ -75,6 +77,9 @@
   <script type="text/javascript" src="{{asset('mdb/js/bootstrap.min.js')}}"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{{asset('mdb/js/mdb.min.js')}}"></script>
+  <!-- MDBootstrap Datatables  -->
+  <script type="text/javascript" src="{{asset('mdb/js/addons/datatables.min.js')}}"></script>
+
   <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization
