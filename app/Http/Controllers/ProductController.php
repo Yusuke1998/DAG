@@ -11,7 +11,7 @@ class ProductController extends Controller
     {
         $this->middleware('admin');
     }
-    
+
     public function index()
     {
         $productos = Product::all();
@@ -25,7 +25,9 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $productos = productos::create($request->all());
+
+        return response()->json($productos);
     }
 
     public function show($id)

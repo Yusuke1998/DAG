@@ -18,6 +18,7 @@
   <link href="{{asset('mdb/css/addons/datatables.min.css')}}" rel="stylesheet">
   <!-- Alertify  -->
   <link rel="stylesheet" href="{{asset('alertifyjs/css/alertify.min.css')}}"/>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <style>
 
     .map-container{
@@ -85,7 +86,9 @@
   <script type="text/javascript" src="{{asset('alertifyjs/alertify.js')}}"></script>
   <!-- alertify  -->
   <script type="text/javascript" src="{{asset('alertifyjs/alertify.min.js')}}"></script>
-
+  <!-- alertify  -->
+  <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/myjs.js')}}"></script>
 
   <!-- Initializations -->
   <script type="text/javascript">

@@ -53,23 +53,23 @@
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <i class="fas fa-user prefix grey-text"></i>
-	          <input type="number" id="orangeForm-name" class="form-control validate">
+	          <input type="number" id="codigo" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-name">Codigo</label>
 	        </div>
 	        <div class="md-form mb-5">
 	          <i class="fas fa-envelope prefix grey-text"></i>
-	          <input type="text" id="orangeForm-email" class="form-control validate">
+	          <input type="text" id="nombre" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Nombre</label>
 	        </div>
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="text" id="orangeForm-pass" class="form-control validate">
+	          <input type="text" id="descripcion" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Descripcion</label>
 	        </div>
 
 	        <div class="md-form mb-4">
-	          	<select id="mdb-select" class="custom-select">
+	          	<select id="unidadMedida" class="custom-select">
 				  <option value="" disabled selected>Unidad de medida</option>
 				  <option value="1">One</option>
 				  <option value="2">Two</option>
@@ -79,20 +79,20 @@
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="text" id="orangeForm-pass" class="form-control validate">
+	          <input type="text" id="fechaV" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Fecha de vencimiento</label>
 	        </div>
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="text" id="orangeForm-pass" class="form-control validate">
+	          <input type="text" id="imagen" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Imagen</label>
 	        </div>
 	      </div>
 
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
-	        <button type="button" class="btn btn-primary btn-sm">Guardar</button>
+	        <button type="button" id="bsubmit" class="btn btn-primary btn-sm">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
