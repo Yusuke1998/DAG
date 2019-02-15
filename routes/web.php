@@ -3,8 +3,13 @@
 Route::get('/', function () {
 	return redirect(route('login'));
 });
+Route::get('inventario',function(){
+	return redirect(Route('dashboard'));
+});
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'	=>	'inventario'],function(){
+Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'admin'],function(){
 
 	Route::get('inicio', function () {
 		return view('dashboard');
@@ -36,5 +41,3 @@ Route::group(['prefix'	=>	'inventario'],function(){
 
 });
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
