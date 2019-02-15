@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Delivery;
 
-class DeliveryController extends Controller
+class ConsolidatedController extends Controller
 {
     public function __construct()
     {
         $this->middleware('admin');
     }
 
-    public function index()
-    {
-        return view('salidas');
+    public function index(){
+        return view('consolidados');
     }
 
     public function create()
@@ -27,22 +25,22 @@ class DeliveryController extends Controller
         //
     }
 
-    public function show(Delivery $delivery)
+    public function show($id)
     {
         //
     }
 
-    public function edit(Delivery $delivery)
+    public function edit($id)
     {
         //
     }
 
-    public function update(Request $request, Delivery $delivery)
+    public function update(Request $request, $id)
     {
         //
     }
 
-    public function destroy(Delivery $delivery)
+    public function destroy($id)
     {
         //
     }

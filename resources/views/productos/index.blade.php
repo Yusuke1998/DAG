@@ -4,7 +4,9 @@
 	<div class="container">
 		<div class="row">
 		    <div class="col">
-		      <center><p style="padding-top: 10px;" class="h5">Todos los productos</p></center>
+		      <!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">Nuevo</button>
+
 			    <table id="dtBasicExample" class="table table-striped table-bordered dtBasicExample" cellspacing="0" width="100%">
 				  <thead class="black white-text">
 				    <tr>
@@ -34,22 +36,77 @@
 		    </div>
 		</div>
 	</div>
+
+	<!-- Central Modal Small -->
+	<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	  aria-hidden="true">
+
+	  <!-- Change class .modal-sm to change the size of the modal -->
+	  <div class="modal-dialog modal-md" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title w-100" id="myModalLabel">Nuevo producto</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <i class="fas fa-user prefix grey-text"></i>
+	          <input type="number" id="orangeForm-name" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-name">Codigo</label>
+	        </div>
+	        <div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <input type="text" id="orangeForm-email" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Nombre</label>
+	        </div>
+
+	        <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="text" id="orangeForm-pass" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Descripcion</label>
+	        </div>
+
+	        <div class="md-form mb-4">
+	          	<select id="mdb-select" class="custom-select">
+				  <option value="" disabled selected>Unidad de medida</option>
+				  <option value="1">One</option>
+				  <option value="2">Two</option>
+				  <option value="3">Three</option>
+				</select>
+	        </div>
+
+	        <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="text" id="orangeForm-pass" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Fecha de vencimiento</label>
+	        </div>
+
+	        <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="text" id="orangeForm-pass" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Imagen</label>
+	        </div>
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+	        <button type="button" class="btn btn-primary btn-sm">Guardar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Central Modal Small -->
+
 	@section('my-js')
 	<script type="text/javascript">
 
 		$(document).ready(function () {
 		  $('.dtBasicExample').DataTable();
-
-		  // $('.dtBasicExample').DataTable({
-		  // 	"serverSide": true,
-		  // 	"ajax": " {{ url('inventario/usuarios') }} ",
-		  // 	"columns": [
-		  // 		{data: 'id'},
-		  // 		{data: 'name'},
-		  // 	]
-		  // });
-
 		  $('.dataTables_length').addClass('bs-select');
+		// Material Select Initialization
+		  $('#mdb-select').materialSelect();
 		});
 
 	</script>

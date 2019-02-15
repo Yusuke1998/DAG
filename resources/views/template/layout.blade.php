@@ -143,7 +143,7 @@
     <!--Copyright-->
     <div class="footer-copyright py-3">
       © 2019 Copyright:
-      <a href="#" target="_blank"> DIRECCIÓN DE INFORMATICA - UNERG </a>
+      <a href="{{ route('autores') }}" target="_blank"> DIRECCIÓN DE INFORMATICA - UNERG </a>
     </div>
     <!--/.Copyright-->
   </footer>
