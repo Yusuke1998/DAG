@@ -84,11 +84,6 @@
   <script type="text/javascript" src="{{asset('mdb/js/addons/datatables.min.js')}}"></script>
   <!-- alertify  -->
   <script type="text/javascript" src="{{asset('alertifyjs/alertify.js')}}"></script>
-  <!-- alertify  -->
-  <script type="text/javascript" src="{{asset('alertifyjs/alertify.min.js')}}"></script>
-  <!-- alertify  -->
-  <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/myjs.js')}}"></script>
 
   <!-- Initializations -->
   <script type="text/javascript">
