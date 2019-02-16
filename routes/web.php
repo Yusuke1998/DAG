@@ -9,6 +9,8 @@ Route::get('inventario',function(){
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/charts','ProductController@charts')->name('charts');
+
 Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 
 	Route::get('inicio', function () {
