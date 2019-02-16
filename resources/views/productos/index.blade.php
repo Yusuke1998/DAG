@@ -41,6 +41,7 @@
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	  aria-hidden="true">
 	<form action="{{ route('productos.store') }}" method="post" id="my_form">
+	{{-- enctype='multipart/form-data' --}}
 	{{ csrf_field() }}
 	  <!-- Change class .modal-sm to change the size of the modal -->
 	  <div class="modal-dialog modal-md" role="document">
@@ -80,15 +81,15 @@
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="text" id="fechaV" name="date_maturity" class="form-control validate">
+	          <input type="date" id="fechaV" name="date_maturity" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Fecha de vencimiento</label>
 	        </div>
 
-	        <div class="md-form mb-4">
+	        {{-- <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="text" id="imagen" name="image" class="form-control validate">
+	          <input type="file" id="imagen" name="image" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Imagen</label>
-	        </div>
+	        </div> --}}
 	      </div>
 
 	      <div class="modal-footer">
@@ -159,7 +160,9 @@
 		    });
 
 		    var form = $('#my_form').serialize();
+		    // var form = $('#my_form').FormData();
 		    var url = '{{ Route('productos.store') }}';
+		    // var parametros = new FormData(this);
 
 		    $.ajax({
 		        type: 'post',
