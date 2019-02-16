@@ -25,9 +25,11 @@
 				      <td>{{ $producto->name }}</td>
 				      <td>{{ $producto->unity_m }}</td>
 				      <td>
-				      		<a class="btn btn-sm" href="{{ Route('productos.show',$producto->id) }}" title="">Ver</a>
-				      		<a class="btn btn-sm" href="{{ Route('productos.editar',$producto->id) }}" title="">Editar</a>
-				      		<a class="btn btn-sm" href="{{ Route('productos.eliminar',$producto->id) }}" title="">Eliminar</a>
+				      		<a class="btn btn-sm" id="mostrar" href="{{ Route('productos.show',$producto->id) }}" title="">Ver</a>
+
+				      		<a class="btn btn-sm" id="editar" onclick="editarP({{ $producto->id }});" title="">Editar</a>
+
+				      		<a class="btn btn-sm" id="eliminar" href="{{ Route('productos.eliminar',$producto->id) }}" title="">Eliminar</a>
 				      </td>
 				    </tr>
 				    @endforeach
@@ -85,11 +87,6 @@
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Fecha de vencimiento</label>
 	        </div>
 
-	        {{-- <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="file" id="imagen" name="image" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Imagen</label>
-	        </div> --}}
 	      </div>
 
 	      <div class="modal-footer">
@@ -103,50 +100,6 @@
 	<!-- Central Modal Small -->
 
 	@section('my-js')
-
-	
-
-	{{-- <script>
-		$(document).ready(function() {
-
-			$.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		        }
-		    });
-
-		    $('#bsubmit').click(function(e){
-		    	e.preventDefault();
-		    	
-		    	var url_producto = '{{ route('productos.store') }}';
-		        var codigo=$("#codigo").val();
-		        var nombre=$("#nombre").val();
-		        var descripcion=$("#descripcion").val();
-		        var unidadMedida=$("#unidadMedida").val();
-		        var fechaV=$("#fechaV").val();
-		        var imagen=$("#imagen").val();
-
-	            $.ajax({
-	                cache: false,
-	                url: url_producto,
-	                type: 'POST',
-	                dataType: 'json',
-	                data: {
-	            	  'code':codigo,
-	                  'name': nombre,
-	                  'description': descripcion,
-	                  'unity_m': unidadMedida,
-	                  'date_maturity': fechaV,
-	                  'image': imagen
-	                },
-	                success: function (data) {
-	                    console.log(data);
-	                }
-	            });
-
-		     });
-		  });
-	</script> --}}
 
 	<script> 
 
@@ -179,6 +132,35 @@
 		        }
 		    });
 		});
+
+
+		function editarP(id){
+
+    		$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+		    });
+
+		    var url = '{{ Route('productos.editar',$id") }}';
+		    console.log(url);
+		    $.ajax({
+		        type: 'get',
+		        url: url,
+		        data: form,
+		        dataType: 'json',
+		        success: function(data) {
+		            console.log('success: '+data);
+		            // alert('error');
+		        },
+		        error: function(data) {
+		            var errors = data.responseJSON;
+		            // alert('success');
+		        }
+		    });
+
+		    console.log(id);
+		};
 
 	</script>
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Entrance;
+use App\Delivery;
 use Yajra\Datatables\Services\DataTable;
 
 class ProductController extends Controller
