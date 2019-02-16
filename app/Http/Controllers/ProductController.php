@@ -74,6 +74,18 @@ class ProductController extends Controller
         }
     }
 
+    public function charts()
+    {
+        $productos  = Product::all()->count();
+        $entradas   = Entrance::all()->count();
+        $salidas    = Delivery::all()->count();
+        $consolidado = $productos+$entradas-$salidas;
+
+        $data = [$productos,$entradas,$salidas,$consolidado];
+
+        return Response()->json($data);
+    }
+
     public function show($id)
     {
         return view('productos.show');
