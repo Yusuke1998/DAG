@@ -5,8 +5,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  @yield('meta')
   <title> @yield('title') </title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
@@ -16,15 +16,12 @@
   <link href="{{asset('mdb/css/mdb.min.css')}}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="{{asset('mdb/css/style.min.css')}}" rel="stylesheet">
-  <!-- MDBootstrap Datatables  -->
-  <link href="{{asset('mdb/css/addons/datatables.min.css')}}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="{{asset('DataTables/datatables.css')}}" rel="stylesheet">
   <!-- Alertify  -->
   <link rel="stylesheet" href="{{asset('alertifyjs/css/alertify.min.css')}}"/>
 
   <style>
-
-  <style>
-
     .map-container{
     overflow:hidden;
     padding-bottom:56.25%;
@@ -155,6 +152,7 @@
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
+  
   <script type="text/javascript" src="{{asset('mdb/js/jquery-3.3.1.min.js')}}"></script>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="{{asset('mdb/js/popper.min.js')}}"></script>
@@ -163,14 +161,23 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{{asset('mdb/js/mdb.min.js')}}"></script>
   <!-- MDBootstrap Datatables  -->
-  <script type="text/javascript" src="{{asset('mdb/js/addons/datatables.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('DataTables/datatables.js')}}"></script>
   <!-- alertify  -->
   <script type="text/javascript" src="{{asset('alertifyjs/alertify.js')}}"></script>
 
+  {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
   <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();
+
+  </script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#tb').DataTable();
+    });
 
   </script>
 

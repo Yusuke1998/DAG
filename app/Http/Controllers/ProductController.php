@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Yajra\Datatables\Services\DataTable;
 
 class ProductController extends Controller
 {
@@ -25,8 +26,21 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $productos = Product::create($request->all());
-        return response()->json($productos);
+        // $data = Request::validate(
+        //     [
+        //         'code'              =>  'required|min:4|max:10',
+        //         'name'              =>  'required|min:4|max:10',
+        //         'description'       =>  'max:150',
+        //         'unity_m'           =>  'required',
+        //         'date_maturity'     =>  'required',
+        //     ]
+        //     ,
+        //     [
+        //         'code.required'     =>  'El codigo es requerido'
+        //     ]);
+        if ($productos = Product::create($request->all())) {
+            return Response()->json($productos);
+        }
     }
 
     public function show($id)

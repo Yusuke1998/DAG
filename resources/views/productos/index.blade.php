@@ -1,16 +1,13 @@
 @extends('template.layout')
 @section('title') Productos @stop
 @section('content')
-@section('meta')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@stop
 	<div class="container">
 		<div class="row">
 		    <div class="col">
 		      <!-- Button trigger modal -->
 				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">Nuevo</button>
 
-			    <table id="dtBasicExample" class="table table-striped table-bordered dtBasicExample" cellspacing="0" width="100%">
+			    <table id="tb" class="table table-striped table-bordered tb" cellspacing="0" width="100%">
 				  <thead class="black white-text">
 				    <tr>
 				      <th scope="col">#</th>
@@ -21,8 +18,8 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
 				    @foreach($productos as $producto)
+				    <tr>
 				      <td>{{ $producto->code }}</td>
 				      <th>{{ $producto->id }}</th>
 				      <td>{{ $producto->name }}</td>
@@ -32,16 +29,16 @@
 				      		<a class="btn btn-sm" href="{{ Route('productos.editar',$producto->id) }}" title="">Editar</a>
 				      		<a class="btn btn-sm" href="{{ Route('productos.eliminar',$producto->id) }}" title="">Eliminar</a>
 				      </td>
-				    @endforeach
 				    </tr>
+				    @endforeach
 				  </tbody>
 				</table>		      
 		    </div>
 		</div>
 	</div>
 
-	<!-- Central Modal Small -->
-	<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!-- Central Modal Small -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	  aria-hidden="true">
 	<form action="{{ route('productos.store') }}" method="post" id="my_form">
 	{{ csrf_field() }}
@@ -89,37 +86,37 @@
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="text" id="imagen" name="imagen" class="form-control validate">
+	          <input type="text" id="imagen" name="image" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Imagen</label>
 	        </div>
 	      </div>
 
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
-	        <button type="submit" id="bsubmit" class="btn btn-primary btn-sm">Guardar</button>
+	        <button type="button" id="bsubmit" class="btn btn-primary btn-sm">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
 	</form>
-	</div>
+</div>
 	<!-- Central Modal Small -->
 
 	@section('my-js')
 
-	{{-- <script type="text/javascript">
-
-		$(document).ready(function () {
-		  $('.dtBasicExample').DataTable();
-		  $('.dataTables_length').addClass('bs-select');
-		// Material Select Initialization
-		  $('#mdb-select').materialSelect();
-		});
-
-	</script> --}}
+	
 
 	{{-- <script>
 		$(document).ready(function() {
+
+			$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+		    });
+
 		    $('#bsubmit').click(function(e){
+		    	e.preventDefault();
+		    	
 		    	var url_producto = '{{ route('productos.store') }}';
 		        var codigo=$("#codigo").val();
 		        var nombre=$("#nombre").val();
@@ -128,22 +125,59 @@
 		        var fechaV=$("#fechaV").val();
 		        var imagen=$("#imagen").val();
 
-		        $.post(
-		        	url_producto,
-		        	{
+	            $.ajax({
+	                cache: false,
+	                url: url_producto,
+	                type: 'POST',
+	                dataType: 'json',
+	                data: {
 	            	  'code':codigo,
 	                  'name': nombre,
 	                  'description': descripcion,
 	                  'unity_m': unidadMedida,
 	                  'date_maturity': fechaV,
-	                  'image': imagen,
+	                  'image': imagen
 	                },
-	            function(){
-	              	alert('hola');
+	                success: function (data) {
+	                    console.log(data);
+	                }
 	            });
+
 		     });
 		  });
 	</script> --}}
+
+	<script> 
+
+		$('#bsubmit').on('click', function(e){
+    		e.preventDefault();
+
+    		$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+		    });
+
+		    var form = $('#my_form').serialize();
+		    var url = '{{ Route('productos.store') }}';
+
+		    $.ajax({
+		        type: 'post',
+		        url: url,
+		        data: form,
+		        dataType: 'json',
+		        success: function(data) {
+		            console.log('success: '+data);
+		            // alert('error');
+		        },
+		        error: function(data) {
+		            var errors = data.responseJSON;
+		            // alert('success');
+		        }
+		    });
+		});
+
+	</script>
 
 	@stop
 @stop
