@@ -110,7 +110,7 @@
 <!-- Central Modal Update -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	  aria-hidden="true">
-	<form action="{{ route('productos.store') }}" method="post" id="my_form">
+	<form action="{{ route('productos.store') }}" method="post" id="my_formu">
 	{{-- enctype='multipart/form-data' --}}
 	{{ csrf_field() }}
 	  <!-- Change class .modal-sm to change the size of the modal -->
@@ -141,7 +141,7 @@
 	        </div>
 
 	        <div class="md-form mb-4">
-	          	<select id="unidadMedida" name="unity_mu" class="custom-select">
+	          	<select id="unidadMedidau" name="unity_mu" class="custom-select">
 				  <option value="" disabled selected>Unidad de medida</option>
 				  <option value="1">GRM</option>
 				  <option value="2">KG</option>
@@ -156,7 +156,7 @@
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="date" id="fechaV" name="date_maturityu" class="form-control validate">
+	          <input type="date" id="date_maturityu" name="date_maturityu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass"></label>
 	        </div>
 
@@ -217,19 +217,30 @@
 		        headers: {
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
-		    });
-            var url2 = '{{ Route('productos.ajax_editar',$producto->id) }}';
-            console.log(url2);
-            // var parametros = new FormData(this);
-            console.log(id);
+            });
+           // alert(location.href+'/editar/'+id)
+           // var url2 = '{{ Route('productos.ajax_editar',$producto->id) }}';
+            var url2 = location.href+'/editar/'+id;
+            //console.log(id);
+            //console.log(url2);
 		    $.ajax({
 		        type: 'post',
 		        url: url2,
 		        success: function(data) {
-                    $('#code').val(data.code)
+                    $('#codigou').val(data.code)
+                    $('#nombreu').val(data.name)
+                    $('#descripcionu').val(data.description)
+                    $('#unidadMedidau').val(data.unity_m)
+                    $('#quantityu').val(data.quantity)
+                    $('#date_maturityu').val(data.date_maturity)
+                    console.log(/*'success: '+*/data);
 
-		            console.log(/*'success: '+*/data);
-		            // alert('error');
+                        $('#bsubmitu').on('click', function(e){
+                             alert('error');
+
+
+                        });
+		                    // alert('error');
 		        },
 		        error: function(data) {
 		            var errors = data.responseJSON;
@@ -240,7 +251,40 @@
 
 		};
 
+       /* $('#bsubmitu').on('click', function(e){
+    		e.preventDefault();
 
+    		$.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+		    });
+
+		    var form = $('#my_formu').serialize();
+		    // var form = $('#my_form').FormData();
+		    var url3 = location.href+'/editar/'+id;
+		    // var parametros = new FormData(this);
+
+		    $.ajax({
+		        type: 'post',
+		        url: url3,
+		        data: form,
+		        dataType: 'json',
+		        success: function(data) {
+                        $("#tb").load(" #tb");
+                        $('#updateModal').modal('toggle');
+                        alertify.success("Actualizado con exito");
+    		            console.log('success: '+data);
+
+		            // alert('error');
+		        },
+		        error: function(data) {
+                    alertify.error("Fallo al actualizar");
+		            var errors = data.responseJSON;
+		            // alert('success');
+		        }
+		    });
+		});*/
 
 	</script>
 

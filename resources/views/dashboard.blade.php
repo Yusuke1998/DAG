@@ -203,7 +203,7 @@
 	    var myChart = new Chart(ctx, {
 	      type: 'bar',
 	      data: {
-	        labels: ["Inicial", "Endtradas", "Salidas", "Existencia"],
+	        labels: ["Inicial", "Entradas", "Salidas", "Existencia"],
 	        datasets: [{
 	          label: 'Estadisticas generales',
 	          data: data,
