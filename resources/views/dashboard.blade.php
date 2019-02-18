@@ -32,14 +32,17 @@
 
                 <!-- List group links -->
                 <div class="list-group list-group-flush">
-                  <a class="list-group-item list-group-item-action waves-effect">Productos
-                    <span class="badge badge-success badge-pill pull-right">22%</span>
+                  <a class="list-group-item list-group-item-action waves-effect">Inicial
+                    <span class="badge badge-warning badge-pill pull-right">22%</span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Entradas
-                    <span class="badge badge-danger badge-pill pull-right">5%</span>
+                    <span class="badge badge-success badge-pill pull-right">5%</span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Salidas
-                    <span class="badge badge-primary badge-pill pull-right">14%</span>
+                    <span class="badge badge-danger badge-pill pull-right">14%</span>
+                  </a>
+                  <a class="list-group-item list-group-item-action waves-effect">Consolidado
+                    <span class="badge badge-primary badge-pill pull-right">22%</span>
                   </a>
                 </div>
                 <!-- List group links -->
@@ -254,11 +257,11 @@
                 var myPieChart = new Chart(ctxP, {
                   type: 'pie',
                   data: {
-                    labels: ["Productos", "Entradas", "Salidas"],
+                    labels: ["Productos", "Entradas", "Salidas", "Existencia"],
                     datasets: [{
                       data: data,
-                      backgroundColor: ["#ff3547", "#00c851", "#4285f4"],
-                      hoverBackgroundColor: ["#ff3560", "#009751", "#4265f4"]
+                      backgroundColor: ["#ffcc00", "#00c851", "#ff3547", "#4285f4"],
+                      hoverBackgroundColor: ["#ffaa00", "#009751", "#ff3560", "#4265f4"]
                     }]
                   },
                   options: {

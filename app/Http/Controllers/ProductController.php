@@ -43,11 +43,14 @@ class ProductController extends Controller
                 'name'              =>  'required|min:4|max:100',
                 'description'       =>  'max:150|min:4|max:100',
                 'unity_m'           =>  'required',
+                'quantity'          =>  'required',
+                'date_maturity'     =>  'required',
                 'date_maturity'     =>  'required',
             ]
             ,
             [
                 'code.required'             =>  'El codigo es requerido',
+                'quantity.required'         =>  'La cantidad es requerida',
                 'name.required'             =>  'El nombre es requerido',
                 'unity_m.required'          =>  'La unidad de medida es requerida',
                 'date_maturity.required'    =>  'La fecha de vencimiento es requerida',
@@ -60,16 +63,9 @@ class ProductController extends Controller
 
             ]);
 
-        // $productos = Product::create([
-        //     'code'              =>  $data['code'],
-        //     'name'              =>  $data['name'],
-        //     'description'       =>  $data['description'],
-        //     'unity_m'           =>  $data['unity_m'],
-        //     'date_maturity'     =>  $data['date_maturity'],
-        // ]);
 
+            // return dd($data);
         if ($productos = Product::create($data)) {
-
             return Response()->json($productos);
         }
     }
@@ -94,6 +90,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         return view('productos.edit');
+    }
+
+    public function ajax_editar($id){
+        $producto = Product::find($id);
+        return Response()->json($producto);
     }
 
     public function editar($id)

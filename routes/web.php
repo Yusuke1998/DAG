@@ -39,6 +39,7 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	// Productos
 	Route::resource('productos','ProductController');
 	Route::get('productos/editar/{id}','ProductController@editar')->name('productos.editar');
+	Route::post('productos/editar/{id}','ProductController@ajax_editar')->name('productos.ajax_editar');
 	Route::get('productos/eliminar/{id}','ProductController@eliminar')->name('productos.eliminar');
 	// Productos
 

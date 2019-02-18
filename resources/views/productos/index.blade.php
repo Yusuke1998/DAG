@@ -14,27 +14,30 @@
 				      <th scope="col">Codigo</th>
 				      <th scope="col">Nombre</th>
 				      <th scope="col">Unidad de Medida</th>
+				      <th scope="col">Cantidad</th>
 				      <th scope="col">accion</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				    @foreach($productos as $producto)
 				    <tr>
+                      <th>{{ $producto->id }}</th>
 				      <td>{{ $producto->code }}</td>
-				      <th>{{ $producto->id }}</th>
 				      <td>{{ $producto->name }}</td>
 				      <td>{{ $producto->unity_m }}</td>
+				      <td>{{ $producto->quantity }}</td>
+
 				      <td>
 				      		<a class="btn btn-sm" id="mostrar" href="{{ Route('productos.show',$producto->id) }}" title="">Ver</a>
 
-				      		<a class="btn btn-sm" id="editar" onclick="editarP({{ $producto->id }});" title="">Editar</a>
+				      		<a class="btn btn-sm" href="#" data-toggle="modal" data-target="#updateModal" onclick="editarP({{ $producto->id }});" title="">Editar</a>
 
 				      		<a class="btn btn-sm" id="eliminar" href="{{ Route('productos.eliminar',$producto->id) }}" title="">Eliminar</a>
 				      </td>
 				    </tr>
 				    @endforeach
 				  </tbody>
-				</table>		      
+				</table>
 		    </div>
 		</div>
 	</div>
@@ -80,11 +83,16 @@
 				  <option value="3">TN</option>
 				</select>
 	        </div>
+            <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="number" name="quantity" id="quantity" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
+	        </div>
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
 	          <input type="date" id="fechaV" name="date_maturity" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Fecha de vencimiento</label>
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass"></label>
 	        </div>
 
 	      </div>
@@ -97,11 +105,76 @@
 	  </div>
 	</form>
 </div>
-	<!-- Central Modal Small -->
+    <!-- Central Modal Small -->
+
+<!-- Central Modal Update -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	  aria-hidden="true">
+	<form action="{{ route('productos.store') }}" method="post" id="my_form">
+	{{-- enctype='multipart/form-data' --}}
+	{{ csrf_field() }}
+	  <!-- Change class .modal-sm to change the size of the modal -->
+	  <div class="modal-dialog modal-md" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title w-100" id="myModalLabelu">Editar producto</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <i class="fas fa-user prefix grey-text"></i>
+	          <input type="number" name="code" id="codigou" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-name">Codigo</label>
+	        </div>
+	        <div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <input type="text" name="name" id="nombreu" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Nombre</label>
+	        </div>
+
+	        <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="text" name="description" id="descripcionu" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Descripcion</label>
+	        </div>
+
+	        <div class="md-form mb-4">
+	          	<select id="unidadMedida" name="unity_mu" class="custom-select">
+				  <option value="" disabled selected>Unidad de medida</option>
+				  <option value="1">GRM</option>
+				  <option value="2">KG</option>
+				  <option value="3">TN</option>
+				</select>
+	        </div>
+            <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="number" name="quantity" id="quantityu" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
+	        </div>
+
+	        <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="date" id="fechaV" name="date_maturityu" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass"></label>
+	        </div>
+
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+	        <button type="button" id="bsubmitu" class="btn btn-primary btn-sm">Guardar</button>
+	      </div>
+	    </div>
+	  </div>
+	</form>
+</div>
+	<!-- Central Modal Update -->
 
 	@section('my-js')
 
-	<script> 
+	<script>
 
 		$('#bsubmit').on('click', function(e){
     		e.preventDefault();
@@ -123,10 +196,15 @@
 		        data: form,
 		        dataType: 'json',
 		        success: function(data) {
-		            console.log('success: '+data);
+                        $("#tb").load(" #tb");
+                        $('#createModal').modal('toggle');
+                        alertify.success("agregado con exito");
+    		            console.log('success: '+data);
+
 		            // alert('error');
 		        },
 		        error: function(data) {
+                    alertify.error("Fallo al agregar");
 		            var errors = data.responseJSON;
 		            // alert('success');
 		        }
@@ -135,22 +213,22 @@
 
 
 		function editarP(id){
-
-    		$.ajaxSetup({
+            $.ajaxSetup({
 		        headers: {
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
 		    });
-
-		    var url = '{{ Route('productos.editar',$id") }}';
-		    console.log(url);
+            var url2 = '{{ Route('productos.ajax_editar',$producto->id) }}';
+            console.log(url2);
+            // var parametros = new FormData(this);
+            console.log(id);
 		    $.ajax({
-		        type: 'get',
-		        url: url,
-		        data: form,
-		        dataType: 'json',
+		        type: 'post',
+		        url: url2,
 		        success: function(data) {
-		            console.log('success: '+data);
+                    $('#code').val(data.code)
+
+		            console.log(/*'success: '+*/data);
 		            // alert('error');
 		        },
 		        error: function(data) {
@@ -159,8 +237,10 @@
 		        }
 		    });
 
-		    console.log(id);
+
 		};
+
+
 
 	</script>
 
