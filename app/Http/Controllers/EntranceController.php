@@ -20,6 +20,24 @@ class EntranceController extends Controller
         return view('entradas',compact('entradas','productos'));
     }
 
+
+    public function editar($id){
+        $entrada = Entrance::find($id);
+        return Response()->json($entrada);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $edit = Entrance::find($id)->update($request->all());
+        // if ($edit) {
+        //     return Response::json($edit);
+        // }
+    }
+
+    public function eliminar($id){
+        $entrada = Entrance::find($id)->delete();
+    }
+
     public function create()
     {
         //
@@ -39,11 +57,6 @@ class EntranceController extends Controller
     }
 
     public function edit(Entrance $entrance)
-    {
-        //
-    }
-
-    public function update(Request $request, Entrance $entrance)
     {
         //
     }

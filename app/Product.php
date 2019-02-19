@@ -11,22 +11,22 @@ class Product extends Model
     ];
 
     public function area(){
-    	return $this->belognsTo(Area::class);
+    	return $this->belongsTo(Area::class);
     }
 
     public function site(){
-    	return $this->belognsTo(Site::class);
+    	return $this->belongsTo(Site::class);
     }
 
-    public function entrance(){
-    	return $this->belognsTo(Entrance::class);
+    public function entrances(){
+    	return $this->hasMany(Entrance::class);
     }
 
     public function delivery(){
-    	return $this->belognsTo(Delivery::class);
+    	return $this->belongsTo(Delivery::class);
     }
 
     public function shopping(){
-    	return $this->belognsTo(Shopping::class);
+    	return $this->belongsTo(Shopping::class);
     }
 }

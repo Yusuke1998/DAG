@@ -17,8 +17,12 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 		return view('dashboard');
 	})->name('dashboard');
 
+	Route::resource('entradas','EntranceController');
 	Route::get('entradas','EntranceController@index')->name('entradas');
-	Route::post('entradas','EntranceController@store')->name('entradas.store');
+	// Route::post('entradas','EntranceController@store')->name('entradas.store');
+	Route::get('entradas/eliminar/{id}','EntranceController@eliminar')->name('entradas.eliminar');
+	Route::post('entradas/editar/{id}','EntranceController@editar')->name('entradas.editar');
+
 
 	Route::get('salidas','DeliveryController@index')->name('salidas');
 

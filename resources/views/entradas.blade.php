@@ -5,7 +5,7 @@
 
       <!--Grid row-->
       <div class="text-center">
-        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Nueva entrada</a>
+        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalnewentrance">Nueva entrada</a>
       </div>
       <div class="row wow fadeIn">
 
@@ -23,10 +23,11 @@
                 <thead class="blue-grey lighten-4">
                   <tr>
                     <th>#</th>
-                    <th>Producto</th>
+                    <th>Productos</th>
                     <th>Recibido por</th>
                     <th>Comentario</th>
                     <th>Fecha</th>
+                    <th scope="col">accion</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
@@ -35,15 +36,18 @@
                 <tbody>
                   @forelse($entradas as $entrada)
                   <tr>
-                    <th scope="row">1</th>
-                    <td>{{ $entrada->product_id }}</td>
+                    <th scope="row">{{ $entrada->id }}</th>
+                    <td>{{ $entrada->product->name }}</td>
+                    <td>{{ $entrada->reception }}</td>
+                    <td>{{ $entrada->commentary }}</td>
+                    <td>{{ $entrada->date }}</td>
                     <td>
-                      @foreach($entrada->products as $producto)
-                        {{ $producto->name }}
-                      @endforeach
+                        <a class="btn btn-sm" id="mostrar" href="{{ Route('entradas.show',$entrada->id) }}" title="">Ver</a>
+
+                        <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#updateModal" onclick="editarP({{ $entrada->id }});" title="">Editar</a>
+
+                        <a class="btn btn-sm" id="eliminar" onclick="eliminar({{ $entrada->id }});">Eliminar</a>
                     </td>
-                    <td>{{ $entrada->product_id }}</td>
-                    <td>{{ $entrada->product_id }}</td>
                   </tr>
                   @empty
                   <tr>
@@ -66,7 +70,7 @@
       </div>
       <!--Grid row-->
 
-      <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      <div class="modal fade" id="modalnewentrance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
       <form id="my_form" method="post">
         {{ csrf_field() }}
@@ -101,6 +105,48 @@
             </div>
             <div class="modal-footer d-flex justify-content-center">
               <button id="esubmit" class="btn btn-default">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+
+      <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+      <form id="my_formu" action="location.href+'/editar/'+id;" method="post">
+        {{ csrf_field() }}
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Editar entrada</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="text" id="receptionu" name="reception" class="form-control validate">
+                <input type="hidden" name="_method" value="PUT">
+                <label data-error="wrong" data-success="right" for="reception">Recibe</label>
+              </div>
+              <div class="md-form mb-5">
+                <i class="fas fa-pencil-alt prefix"></i>
+                <textarea type="text" id="commentaryu" name="commentary" class="md-textarea form-control" rows="3"></textarea>
+                <label data-error="wrong" data-success="right" for="commentary">Comentario</label>
+              </div>
+              <select class="browser-default custom-select" id="product_idu" name="product_id">
+                <option selected disabled>Productos</option>
+                @foreach($productos as $producto)
+                <option value="{{ $producto->id }}">{{ $producto->name }}</option>
+                @endforeach
+              </select>
+              <div class="md-form mb-5">
+                <input placeholder="Ingresa fecha" type="date" name="date" id="dateu" class="form-control datepicker">
+              </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button id="bsubmitu" class="btn btn-default">Actualizar</button>
             </div>
           </div>
         </div>
@@ -142,6 +188,92 @@
             }
         });
     });
+
+
+    function editarP(id){
+
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        var url2 = location.href+'/editar/'+id;
+
+        $.ajax({
+            type: 'post',
+            url: url2,
+            success: function(data) {
+                    $('#receptionu').val(data.reception)
+                    $('#commentaryu').val(data.commentary)
+                    $('#dateu').val(data.date)
+                    $('#product_idu').val(data.product_id)
+
+                    $('#bsubmitu').on('click', function(e){
+                        e.preventDefault();
+                        $.ajaxSetup({
+                        headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                        });
+                        var formu = $('#my_formu').serialize();
+                        var url3 = location.href+'/'+id;
+                        console.log(url3);
+
+                        $.ajax({
+                        type: 'post',
+                        url: url3,
+                        data: formu,
+
+                        success: function(data) {
+                                console.log("funciona");
+                                $("#tb").load(" #tb");
+                                $('#updateModal').modal('toggle');
+                                alertify.success("Editado con exito");
+                                console.log("Success");
+                            },
+                            
+                        error: function(data) {
+                            $("#tb").load(" #tb");
+                            $('#updateModal').modal('toggle');
+                            alertify.error("Valio");
+                            console.log("Error");
+                        }
+                    });
+                });
+            },
+            error: function(data) {
+                alert('error');
+            }
+        });
+
+    };
+
+    function eliminar(id){
+      
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        var url4 = location.href+'/eliminar/'+id;
+
+        $.ajax({
+            type: "get",
+            url: url4,
+            success: function() {            
+                $("#tb").load(" #tb");
+                alertify.success("Eliminado con exito");
+                console.log("Success");
+
+            },error: function(){
+                alertify.error("Error al eliminar");
+                console.log("Error");
+            }
+        });
+
+    };
 
     // $(document).ready(function() {
     //   // Material Select Initialization
