@@ -176,7 +176,7 @@
   <script type="text/javascript">
 
     $(document).ready(function() {
-        $('#tb').DataTable();
+        var table = $('#tb').DataTable();
     });
 
   </script>

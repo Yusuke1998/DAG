@@ -175,7 +175,7 @@
             dataType: 'json',
             success: function(data) {
                         $("#tb").load(" #tb");
-                        $('#createModal').modal('toggle');
+                        $('#modalnewentrance').modal('toggle');
                         alertify.success("agregado con exito");
                     console.log('success');
                     console.log(data);  
@@ -248,7 +248,7 @@
         });
 
     };
-
+    
     function eliminar(id){
       
         $.ajaxSetup({
@@ -262,14 +262,14 @@
         $.ajax({
             type: "get",
             url: url4,
-            success: function() {            
-                $("#tb").load(" #tb");
-                alertify.success("Eliminado con exito");
+            success: function() { 
+                $("#tb").load("#tb");
                 console.log("Success");
+                alertify.success("Eliminado con exito");
 
             },error: function(){
-                alertify.error("Error al eliminar");
                 console.log("Error");
+                alertify.error("Error al eliminar");
             }
         });
 

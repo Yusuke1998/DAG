@@ -33,16 +33,16 @@
                 <!-- List group links -->
                 <div class="list-group list-group-flush">
                   <a class="list-group-item list-group-item-action waves-effect">Inicial
-                    <span class="badge badge-warning badge-pill pull-right">22%</span>
+                    <span id="inicial" class="badge badge-warning badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Entradas
-                    <span class="badge badge-success badge-pill pull-right">5%</span>
+                    <span id="entradas" class="badge badge-success badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Salidas
-                    <span class="badge badge-danger badge-pill pull-right">14%</span>
+                    <span id="salidas" class="badge badge-danger badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Consolidado
-                    <span class="badge badge-primary badge-pill pull-right">22%</span>
+                    <span id="consolidado" class="badge badge-primary badge-pill pull-right"></span>
                   </a>
                 </div>
                 <!-- List group links -->
@@ -272,6 +272,28 @@
                   // console.log('success: '+data);
                   // alert('success'+data);
               },
+              error: function(data) {
+                  var errors = data.responseJSON;
+                  // alert('error');
+              }
+          });
+
+
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+          $.ajax({
+              type: 'get',
+              url: url,
+              success: function(data) {
+                console.log(data);
+                $('#inicial').text(data[0]);
+                $('#entradas').text(data[1]);
+                $('#salidas').text(data[2]);
+                $('#consolidado').text(data[3]);
+          },
               error: function(data) {
                   var errors = data.responseJSON;
                   // alert('error');
