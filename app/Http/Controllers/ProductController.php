@@ -95,6 +95,7 @@ class ProductController extends Controller
     public function ajax_editar($id){
         $producto = Product::find($id);
         return Response()->json($producto);
+
     }
 
     public function editar($id)
@@ -104,7 +105,9 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $edit = Product::find($id);
+        $update = $edit->update($request->all());
+        return Response::json($update);
     }
 
     public function destroy($id)
