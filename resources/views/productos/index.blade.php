@@ -110,7 +110,7 @@
 <!-- Central Modal Update -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	  aria-hidden="true">
-	<form action="{{ route('productos.store') }}" method="post" id="my_formu">
+	<form action="location.href+'/editar/'+id;" method="post" id="my_formu">
 	{{-- enctype='multipart/form-data' --}}
 	{{ csrf_field() }}
 	  <!-- Change class .modal-sm to change the size of the modal -->
@@ -152,6 +152,7 @@
 	          <i class="fas fa-lock prefix grey-text"></i>
 	          <input type="number" name="quantity" id="quantityu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
+              <input type="hidden" name="_method" value="PUT">
 	        </div>
 
 	        <div class="md-form mb-4">
@@ -185,7 +186,8 @@
 		        }
 		    });
 
-		    var form = $('#my_form').serialize();
+            var form = $('#my_form').serialize();
+            console.log(form);
 		    // var form = $('#my_form').FormData();
 		    var url = '{{ Route('productos.store') }}';
 		    // var parametros = new FormData(this);
@@ -233,13 +235,45 @@
                     $('#unidadMedidau').val(data.unity_m)
                     $('#quantityu').val(data.quantity)
                     $('#date_maturityu').val(data.date_maturity)
-                    console.log(/*'success: '+*/data);
+                    console.log(data);
 
-                        $('#bsubmitu').on('click', function(e){
-                             alert('error');
+                    $('#bsubmitu').on('click', function(e){
+                        $.ajaxSetup({
+		                    headers: {
+		                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		                    }
+                        });
+                        console.log("funciona");
+                        var formu = $('#my_formu').serialize();
+                        var url3 = location.href+'/'+id;
+                        console.log(formu);
 
+
+                        $.ajax({
+                            type: 'post',
+		                    url: url3,
+		                    data: formu,
+		                    dataType: 'json',
+		                    success: function(data) {
+                                alert('aqui');
+                                console.log(data);
+                                $("#tb").load(" #tb");
+                                $('#updateModal').modal('toggle');
+                                alertify.error("agregado con exito");
+
+                            },
+                            error: function(data) {
+                                $("#tb").load(" #tb");
+                                $('#updateModal').modal('toggle');
+                                alertify.success("agregado con exito");
+		                        console.log(data);
+		                        // alert('success');
+		                    }
 
                         });
+                    });
+
+
 		                    // alert('error');
 		        },
 		        error: function(data) {
@@ -251,40 +285,7 @@
 
 		};
 
-       /* $('#bsubmitu').on('click', function(e){
-    		e.preventDefault();
 
-    		$.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		        }
-		    });
-
-		    var form = $('#my_formu').serialize();
-		    // var form = $('#my_form').FormData();
-		    var url3 = location.href+'/editar/'+id;
-		    // var parametros = new FormData(this);
-
-		    $.ajax({
-		        type: 'post',
-		        url: url3,
-		        data: form,
-		        dataType: 'json',
-		        success: function(data) {
-                        $("#tb").load(" #tb");
-                        $('#updateModal').modal('toggle');
-                        alertify.success("Actualizado con exito");
-    		            console.log('success: '+data);
-
-		            // alert('error');
-		        },
-		        error: function(data) {
-                    alertify.error("Fallo al actualizar");
-		            var errors = data.responseJSON;
-		            // alert('success');
-		        }
-		    });
-		});*/
 
 	</script>
 
