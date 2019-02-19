@@ -18,7 +18,7 @@ class Product extends Model
     	return $this->belognsTo(Site::class);
     }
 
-    public function entrances(){
+    public function entrance(){
     	return $this->belognsTo(Entrance::class);
     }
 
@@ -26,7 +26,7 @@ class Product extends Model
     	return $this->belognsTo(Delivery::class);
     }
 
-    public function shoppings(){
+    public function shopping(){
     	return $this->belognsTo(Shopping::class);
     }
 }

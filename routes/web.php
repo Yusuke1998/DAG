@@ -18,6 +18,7 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	})->name('dashboard');
 
 	Route::get('entradas','EntranceController@index')->name('entradas');
+	Route::post('entradas','EntranceController@store')->name('entradas.store');
 
 	Route::get('salidas','DeliveryController@index')->name('salidas');
 

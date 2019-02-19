@@ -20,33 +20,35 @@
                 <thead class="blue-grey lighten-4">
                   <tr>
                     <th>#</th>
-                    <th>Lorem</th>
-                    <th>Ipsum</th>
-                    <th>Dolor</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Entregado por</th>
+                    <th>Recibido por</th>
+                    <th>Area</th>
+                    <th>Comentario</th>
+                    <th>Fecha</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
 
                 <!-- Table body -->
                 <tbody>
+                  @forelse($salidas as $salida)
                   <tr>
                     <th scope="row">1</th>
-                    <td>Cell 1</td>
+                    <td>{{ $salida->product_id }}</td>
                     <td>Cell 2</td>
                     <td>Cell 3</td>
+                    <td>Cell 3</td>
+                    <td>Cell 3</td>
+                    <td>Cell 3</td>
+                    <td>Cell 3</td>
                   </tr>
+                  @empty
                   <tr>
-                    <th scope="row">2</th>
-                    <td>Cell 4</td>
-                    <td>Cell 5</td>
-                    <td>Cell 6</td>
+                    <p>No hay salidas...</p>
                   </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Cell 7</td>
-                    <td>Cell 8</td>
-                    <td>Cell 9</td>
-                  </tr>
+                  @endforelse
                 </tbody>
                 <!-- Table body -->
               </table>

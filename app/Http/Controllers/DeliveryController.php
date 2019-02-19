@@ -14,7 +14,8 @@ class DeliveryController extends Controller
 
     public function index()
     {
-        return view('salidas');
+        $salidas = Delivery::all();
+        return view('salidas')->with('salidas',$salidas);
     }
 
     public function create()
