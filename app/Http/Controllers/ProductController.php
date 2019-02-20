@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Product;
 use App\Entrance;
 use App\Delivery;
@@ -108,6 +109,14 @@ class ProductController extends Controller
         $edit = Product::find($id);
         $update = $edit->update($request->all());
         return Response::json($update);
+    }
+
+    public function pdf_general(){
+        $data = ['hola'=>'hola mundo'];
+
+        $pdf = PDF::loadView('reportes.general', compact('data'));
+        return $pdf->stream('reporte_general.pdf');
+        // return "PDF GENERAL";
     }
 
     public function destroy($id)

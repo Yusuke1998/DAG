@@ -47,5 +47,15 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	Route::post('productos/editar/{id}','ProductController@ajax_editar')->name('productos.ajax_editar');
 	Route::get('productos/eliminar/{id}','ProductController@eliminar')->name('productos.eliminar');
 	// Productos
+	
+	// Entradas y salidas por producto
+	Route::get('productos/entradas/{id}','ProductController@entradas')->name('productos.entradas');
+	Route::get('productos/salidas/{id}','ProductController@salidas')->name('productos.salidas');
+	// Entradas y salidas por producto
+
+
+	// Reportes
+	Route::get('reporte/general','ProductController@pdf_general')->name('pdf.general');
+	// Reportes
 
 });

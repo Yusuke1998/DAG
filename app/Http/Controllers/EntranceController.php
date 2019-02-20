@@ -29,9 +29,6 @@ class EntranceController extends Controller
     public function update(Request $request, $id)
     {
         $edit = Entrance::find($id)->update($request->all());
-        // if ($edit) {
-        //     return Response::json($edit);
-        // }
     }
 
     public function eliminar($id){
@@ -48,7 +45,6 @@ class EntranceController extends Controller
         $entradas = Entrance::create($request->all());
 
         return Response()->json($entradas);
-        // return Response()->json($request->all());
     }
 
     public function show(Entrance $entrance)
@@ -59,6 +55,18 @@ class EntranceController extends Controller
     public function edit(Entrance $entrance)
     {
         //
+    }
+
+    public function entradas($id)
+    {
+        $data = Product::find($id);
+        return view('productos.entradas');
+    }
+
+    public function salidas($id)
+    {
+        $data = Product::find($id);
+        return view('productos.salidas');
     }
 
     public function destroy(Entrance $entrance)
