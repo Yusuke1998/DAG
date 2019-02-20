@@ -30,6 +30,10 @@
 				      <td>
 				      		<a class="btn btn-sm" id="mostrar" href="{{ Route('productos.show',$producto->id) }}" title="">Ver</a>
 
+                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#entranceModal" onclick="entradaP({{ $producto->id }});" title="">Entrada</a>
+
+                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#deliveryModal" onclick="salidaP({{ $producto->id }});" title="">Salida</a>
+
 				      		<a class="btn btn-sm" href="#" data-toggle="modal" data-target="#updateModal" onclick="editarP({{ $producto->id }});" title="">Editar</a>
 
 				      		<a class="btn btn-sm" id="eliminar" href="{{ Route('productos.eliminar',$producto->id) }}" title="">Eliminar</a>
@@ -38,6 +42,7 @@
 				    @endforeach
 				  </tbody>
 				</table>
+
 		    </div>
 		</div>
 	</div>
@@ -253,7 +258,6 @@
                             type: 'post',
 		                    url: url3,
 		                    data: formu,
-		                    dataType: 'json',
 		                    success: function(data) {
                                 alert('aqui');
                                 console.log(data);

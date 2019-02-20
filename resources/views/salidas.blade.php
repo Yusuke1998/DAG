@@ -2,8 +2,10 @@
 @section('title') Direccion General de Administracion @stop
 @section('content')
   <!--Grid row-->
-      <!--Grid row-->
-      <div class="row wow fadeIn">
+    <div class="text-center">
+        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalnewdeliveries">Nueva salida</a>
+    </div>
+    <div class="row wow fadeIn">
 
         <!--Grid column-->
         <div class="col-md-12 mb-12">
@@ -65,6 +67,6 @@
       </div>
       <!--Grid row-->
   @section('my-js')
-  
+
   @stop
 @stop
