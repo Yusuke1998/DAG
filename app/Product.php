@@ -22,8 +22,8 @@ class Product extends Model
     	return $this->hasMany(Entrance::class);
     }
 
-    public function delivery(){
-    	return $this->belongsTo(Delivery::class);
+    public function deliverys(){
+    	return $this->hasMany(Delivery::class);
     }
 
     public function shopping(){

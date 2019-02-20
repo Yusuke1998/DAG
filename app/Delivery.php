@@ -10,7 +10,7 @@ class Delivery extends Model
     	'quantity','date','commentary','functionary_e','functionary_s','area_id','product_id',
     ];
 
-    public function products(){
-    	return $this->hasMany(Product::class);
+    public function product(){
+    	return $this->belongsTo(Product::class);
     }
 }

@@ -57,18 +57,6 @@ class EntranceController extends Controller
         //
     }
 
-    public function entradas($id)
-    {
-        $data = Product::find($id);
-        return view('productos.entradas');
-    }
-
-    public function salidas($id)
-    {
-        $data = Product::find($id);
-        return view('productos.salidas');
-    }
-
     public function destroy(Entrance $entrance)
     {
         //

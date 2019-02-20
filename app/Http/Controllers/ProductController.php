@@ -119,6 +119,32 @@ class ProductController extends Controller
         // return "PDF GENERAL";
     }
 
+    public function entradas($id)
+    {
+        $data = Product::find($id)->entrances()->get();
+        if($data == '[]'){
+                return Response()->json(['info'=>'No hay datos']);
+        }
+        else
+        {
+            return Response()->json($data->all());
+        }
+        // return view('productos.entradas');
+    }
+
+    public function salidas($id)
+    {
+        $data = Product::find($id)->deliverys()->get();
+        if($data == '[]'){
+                return Response()->json(['info'=>'No hay datos']);
+        }
+        else
+        {
+            return Response()->json($data->all());
+        }
+        // return view('productos.salidas');
+    }
+
     public function destroy($id)
     {
         //

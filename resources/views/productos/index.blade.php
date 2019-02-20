@@ -30,9 +30,9 @@
 				      <td>
 				      		<a class="btn btn-sm" id="mostrar" href="{{ Route('productos.show',$producto->id) }}" title="">Ver</a>
 
-                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#entranceModal" onclick="entradaP({{ $producto->id }});" title="">Entrada</a>
+                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#entranceModal" onclick="entradaP({{ $producto->id }});" title="">Entradas</a>
 
-                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#deliveryModal" onclick="salidaP({{ $producto->id }});" title="">Salida</a>
+                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#deliveryModal" onclick="salidaP({{ $producto->id }});" title="">Salidas</a>
 
 				      		<a class="btn btn-sm" href="#" data-toggle="modal" data-target="#updateModal" onclick="editarP({{ $producto->id }});" title="">Editar</a>
 
@@ -225,11 +225,7 @@
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
             });
-           // alert(location.href+'/editar/'+id)
-           // var url2 = '{{ Route('productos.ajax_editar',$producto->id) }}';
             var url2 = location.href+'/editar/'+id;
-            //console.log(id);
-            //console.log(url2);
 		    $.ajax({
 		        type: 'post',
 		        url: url2,
@@ -289,6 +285,58 @@
 
 		};
 
+
+		function entradaP(id){
+
+            $.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+            });
+
+            var urle = location.href+'/entradas/'+id;
+
+            console.log(urle); 
+		    $.ajax({
+		        type: 'get',
+		        url: urle,
+		        dataType: 'json',
+		        success: function(data) {
+                    console.log(data);
+		            // alert('success');
+		        },
+		        error: function(data) {
+                    console.log(data);
+		            // alert('error');
+		        }
+		    });
+		};
+
+		function salidaP(id){
+
+            $.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+            });
+
+            var urls = location.href+'/salidas/'+id;
+
+            console.log(urls); 
+		    $.ajax({
+		        type: 'get',
+		        url: urls,
+		        dataType: 'json',
+		        success: function(data) {
+                    console.log(data);
+		            // alert('success');
+		        },
+		        error: function(data) {
+                    console.log(data);
+		            // alert('error');
+		        }
+		    });
+		};
 
 
 	</script>
