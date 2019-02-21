@@ -17,7 +17,7 @@
 <div class="card-body">
 
 <!-- Table  -->
-<table class="table table-hover">
+<table id="dt" class="table table-hover">
 <!-- Table head -->
 <thead class="blue-grey lighten-4">
 <tr>
@@ -198,7 +198,7 @@ $('#esubmit').on('click', function(e){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    }); 
+    });
 
     var form = $('#my_form').serialize();
     var url = '{{ Route('salidas.store') }}';
@@ -211,7 +211,7 @@ $('#esubmit').on('click', function(e){
             data: form,
             dataType: 'json',
             success: function(data) {
-                        $("#tb").load("#tb");
+                        $("#dt").load("#dt");
                         $('#modalnewdeliveries').modal('toggle');
                         alertify.success("agregado con exito");
                         console.log('success');
