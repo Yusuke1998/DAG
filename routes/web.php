@@ -27,6 +27,8 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	Route::resource('salidas','DeliveryController');
     Route::get('salidas','DeliveryController@index')->name('salidas');
 
+    Route::post('salidas/editar/{id}','DeliveryController@editar')->name('salidas.editar');
+
 	//Route::get('salidas/eliminar/{id}','DeliveryController@eliminar')->name('salidas.eliminar');
 	//Route::post('salidas/editar/{id}','DeliveryController@editar')->name('salidas.editar');
 
