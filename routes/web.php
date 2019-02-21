@@ -26,7 +26,11 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	Route::post('entradas/editar/{id}','EntranceController@editar')->name('entradas.editar');
 
 
-	Route::get('salidas','DeliveryController@index')->name('salidas');
+	Route::resource('salidas','DeliveryController');
+    Route::get('salidas','DeliveryController@index')->name('salidas');
+
+	//Route::get('salidas/eliminar/{id}','DeliveryController@eliminar')->name('salidas.eliminar');
+	//Route::post('salidas/editar/{id}','DeliveryController@editar')->name('salidas.editar');
 
 	Route::get('consolidados','ConsolidatedController@index')->name('consolidados');
 
@@ -49,7 +53,7 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	Route::post('productos/editar/{id}','ProductController@ajax_editar')->name('productos.ajax_editar');
 	Route::get('productos/eliminar/{id}','ProductController@eliminar')->name('productos.eliminar');
 	// Productos
-	
+
 	// Entradas y salidas por producto
 	Route::get('productos/entradas/{id}','ProductController@entradas')->name('productos.entradas');
 	Route::get('productos/salidas/{id}','ProductController@salidas')->name('productos.salidas');
