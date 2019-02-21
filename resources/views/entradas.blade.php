@@ -88,6 +88,11 @@
                 <input type="text" id="reception" name="reception" class="form-control validate">
                 <label data-error="wrong" data-success="right" for="reception">Recibe</label>
               </div>
+              <div class="md-form mb-4">
+                <i class="fas fa-lock prefix grey-text"></i>
+                <input type="number" name="quantity" id="quantity" class="form-control validate">
+                <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
+              </div>
               <div class="md-form mb-5">
                 <i class="fas fa-pencil-alt prefix"></i>
                 <textarea type="text" id="commentary" name="commentary" class="md-textarea form-control" rows="3"></textarea>
@@ -134,6 +139,11 @@
                 <i class="fas fa-pencil-alt prefix"></i>
                 <textarea type="text" id="commentaryu" name="commentary" class="md-textarea form-control" rows="3"></textarea>
                 <label data-error="wrong" data-success="right" for="commentary">Comentario</label>
+              </div>
+              <div class="md-form mb-4">
+                <i class="fas fa-lock prefix grey-text"></i>
+                <input type="number" name="quantity" id="quantity" class="form-control validate">
+                <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
               </div>
               <select class="browser-default custom-select" id="product_idu" name="product_id">
                 <option selected disabled>Productos</option>

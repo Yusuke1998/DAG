@@ -43,7 +43,14 @@ class EntranceController extends Controller
     public function store(Request $request)
     {
         $entradas = Entrance::create($request->all());
+        // $newQuantity = Entrance::where('product_id',$request->product_id)->quantity;
+        // dd($newQuantity);
 
+        // $entrada = Entrance::where('product_id',$request->product_id)->update([
+        //     'quantity' => $newQuantity
+        // ]);
+
+        // return Response()->json($newQuantity);
         return Response()->json($entradas);
     }
 
