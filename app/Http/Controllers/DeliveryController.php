@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Delivery;
+use App\Product;
+use App\Area;
 
 class DeliveryController extends Controller
 {
@@ -15,7 +17,9 @@ class DeliveryController extends Controller
     public function index()
     {
         $salidas = Delivery::all();
-        return view('salidas')->with('salidas',$salidas);
+        $productos = Product::all();
+        $areas = Area::all();
+        return view('salidas',compact('salidas','productos','areas'));
     }
 
     public function create()
@@ -25,10 +29,11 @@ class DeliveryController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $salidas = Delivery::create($request->all());
+        return Response()->json($salidas);
     }
 
-    public function show(Delivery $delivery)
+    public function show(Delivery $salidas)
     {
         //
     }

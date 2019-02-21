@@ -12,7 +12,7 @@ class EntranceController extends Controller
     {
         $this->middleware('admin');
     }
-    
+
     public function index()
     {
         $entradas = Entrance::all();

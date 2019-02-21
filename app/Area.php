@@ -17,4 +17,8 @@ class Area extends Model
     public function sites(){
     	return $this->hasMany(Site::class);
     }
+
+    public function deliveries(){
+    	return $this->hasMany(Delivery::class);
+    }
 }
