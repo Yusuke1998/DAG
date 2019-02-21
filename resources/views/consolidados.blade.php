@@ -10,20 +10,12 @@
           <div class="card">
             <div class="card-header">Graficas</div>
             <div class="card-body">
-              <canvas id="entradas" width="600" height="400"></canvas>
-            </div>              
+              <canvas id="entradas_salidas" width="600" height="400"></canvas>
+            </div>
           </div>
         </div>
+        
         <div class="col-md-12 mb-12">
-          <div class="card">
-            <div class="card-header">Graficas</div>
-            <div class="card-body">
-              <canvas id="salidas" width="600" height="400"></canvas>
-            </div>
-              
-            </div>
-          </div>
-
           <!--Card-->
           <div class="card">
            <div class="card-header">Consolidados</div>
@@ -62,7 +54,6 @@
 
           </div>
           <!--/.Card-->
-
         </div>
         <!--Grid column-->
 
@@ -72,99 +63,92 @@
     <!-- Charts -->
     <script>
 
-      //Entradas
+          // TODO
+
+          var entradas_salidas = document.getElementById("entradas_salidas");
+          var urlt = '{{ Route('consolidados.charts_entradas_salidas') }}';
+          // console.log(entradas_salidas);
+          console.log(urlt);
+
           $.ajaxSetup({
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               }
           });
-          var entradas = document.getElementById("entradas");
-          var urle = '{{ Route('consolidados.charts_entradas') }}';
 
           $.ajax({
               type: 'get',
-              url: urle,
+              url: urlt,
               success: function(data) {
-                  console.log(data);
                   Chart.defaults.global.defaultFontFamily = "Lato";
                   Chart.defaults.global.defaultFontSize = 18;
-                  var densityData = {
-                    label: 'GRAFICA GENERAL DE ENTRADAS',
-                    data:data
+
+                  console.log(data.entradas);
+                  console.log(data.salidas);
+
+                  var entradasData = {
+                    label: 'ENTRADAS',
+                    data: data.entradas,
+                    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+                    borderWidth: 0,
+                    yAxisID: "y-axis-entradas"
                   };
 
-                  var barChart = new Chart(entradas, {
-                    type: 'bar',
-                    data: {
-                      labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                      datasets: [densityData]
+                  var salidasData = {
+                    label: 'SALIDAS',
+                    data: data.salidas,
+                    borderWidth: 0,
+                    backgroundColor: 'rgba(99, 132, 0, 0.6)',
+                    yAxisID: "y-axis-salidas"
+                  };
+
+                  var totalData = {
+                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    datasets: [entradasData, salidasData]
+                  };
+
+                  var chartOptions = {
+                    scales: {
+                      xAxes: [{
+                        barPercentage: 1,
+                        categoryPercentage: 0.6
+                      }],
+
+                      yAxes: [{
+                        id: "y-axis-salidas",
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Salidas'
+                        }
+                      }, {
+                        id: "y-axis-entradas",
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Entradas'
+                        }
+                      }]
                     }
+                  };
+
+                  var barChart = new Chart(entradas_salidas, {
+                    type: 'bar',
+                    data: totalData,
+                    options: chartOptions
                   });
+                  
               },
               error: function(data) {
                   var errors = data.responseJSON;
               }
           });
 
+          // TODO
 
-          // salidas
-          $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-          });
-          var salidas = document.getElementById("salidas");
-          var urls = '{{ Route('consolidados.charts_salidas') }}';
+          // DATATABLE SERVER SIDE
 
-          $.ajax({
-              type: 'get',
-              url: urls,
-              success: function(data) {
-                  console.log(data);
-                  Chart.defaults.global.defaultFontFamily = "Lato";
-                  Chart.defaults.global.defaultFontSize = 18;
-                  var densityData = {
-                    label: 'GRAFICA GENERAL DE SALIDAS',
-                    data:data
-                  };
+          
 
-                  var barChart = new Chart(salidas, {
-                    type: 'bar',
-                    data: {
-                      labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                      datasets: [densityData]
-                    }
-                  });
-              },
-              error: function(data) {
-                  var errors = data.responseJSON;
-              }
-          });
-
-
-
-
-
-          // $.ajaxSetup({
-          //     headers: {
-          //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          //     }
-          // });
-          // $.ajax({
-          //     type: 'get',
-          //     url: url,
-          //     success: function(data) {
-          //       console.log(data);
-          //       $('#inicial').text(data[0]);
-          //       $('#entradas').text(data[1]);
-          //       $('#salidas').text(data[2]);
-          //       $('#consolidado').text(data[3]);
-          // },
-          //     error: function(data) {
-          //         var errors = data.responseJSON;
-          //         // alert('error');
-          //     }
-          // });
+          // DATATABLE SERVER SIDE
 
     </script>
     <!-- Charts -->
