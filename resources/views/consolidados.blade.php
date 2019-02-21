@@ -7,6 +7,22 @@
 
         <!--Grid column-->
         <div class="col-md-12 mb-12">
+          <div class="card">
+            <div class="card-header">Graficas</div>
+            <div class="card-body">
+              <canvas id="entradas" width="600" height="400"></canvas>
+            </div>              
+          </div>
+        </div>
+        <div class="col-md-12 mb-12">
+          <div class="card">
+            <div class="card-header">Graficas</div>
+            <div class="card-body">
+              <canvas id="salidas" width="600" height="400"></canvas>
+            </div>
+              
+            </div>
+          </div>
 
           <!--Card-->
           <div class="card">
@@ -20,9 +36,10 @@
                 <thead class="blue-grey lighten-4">
                   <tr>
                     <th>#</th>
-                    <th>Lorem</th>
-                    <th>Ipsum</th>
-                    <th>Dolor</th>
+                    <th>Producto</th>
+                    <th>Entradas</th>
+                    <th>Salidas</th>
+                    <th>Existencias</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
@@ -34,18 +51,7 @@
                     <td>Cell 1</td>
                     <td>Cell 2</td>
                     <td>Cell 3</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Cell 4</td>
-                    <td>Cell 5</td>
-                    <td>Cell 6</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Cell 7</td>
-                    <td>Cell 8</td>
-                    <td>Cell 9</td>
+                    <td>Cell 3</td>
                   </tr>
                 </tbody>
                 <!-- Table body -->
@@ -63,6 +69,104 @@
       </div>
       <!--Grid row-->
   @section('my-js')
-  
+    <!-- Charts -->
+    <script>
+
+      //Entradas
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+          var entradas = document.getElementById("entradas");
+          var urle = '{{ Route('consolidados.charts_entradas') }}';
+
+          $.ajax({
+              type: 'get',
+              url: urle,
+              success: function(data) {
+                  console.log(data);
+                  Chart.defaults.global.defaultFontFamily = "Lato";
+                  Chart.defaults.global.defaultFontSize = 18;
+                  var densityData = {
+                    label: 'GRAFICA GENERAL DE ENTRADAS',
+                    data:data
+                  };
+
+                  var barChart = new Chart(entradas, {
+                    type: 'bar',
+                    data: {
+                      labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                      datasets: [densityData]
+                    }
+                  });
+              },
+              error: function(data) {
+                  var errors = data.responseJSON;
+              }
+          });
+
+
+          // salidas
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+          var salidas = document.getElementById("salidas");
+          var urls = '{{ Route('consolidados.charts_salidas') }}';
+
+          $.ajax({
+              type: 'get',
+              url: urls,
+              success: function(data) {
+                  console.log(data);
+                  Chart.defaults.global.defaultFontFamily = "Lato";
+                  Chart.defaults.global.defaultFontSize = 18;
+                  var densityData = {
+                    label: 'GRAFICA GENERAL DE SALIDAS',
+                    data:data
+                  };
+
+                  var barChart = new Chart(salidas, {
+                    type: 'bar',
+                    data: {
+                      labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                      datasets: [densityData]
+                    }
+                  });
+              },
+              error: function(data) {
+                  var errors = data.responseJSON;
+              }
+          });
+
+
+
+
+
+          // $.ajaxSetup({
+          //     headers: {
+          //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          //     }
+          // });
+          // $.ajax({
+          //     type: 'get',
+          //     url: url,
+          //     success: function(data) {
+          //       console.log(data);
+          //       $('#inicial').text(data[0]);
+          //       $('#entradas').text(data[1]);
+          //       $('#salidas').text(data[2]);
+          //       $('#consolidado').text(data[3]);
+          // },
+          //     error: function(data) {
+          //         var errors = data.responseJSON;
+          //         // alert('error');
+          //     }
+          // });
+
+    </script>
+    <!-- Charts -->
   @stop
 @stop

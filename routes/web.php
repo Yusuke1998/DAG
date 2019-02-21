@@ -10,6 +10,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/charts','ProductController@charts')->name('charts');
+Route::get('/charts/entradas','ConsolidatedController@charts_entradas')->name('consolidados.charts_entradas');
+Route::get('/charts/salidas','ConsolidatedController@charts_salidas')->name('consolidados.charts_salidas');
 
 Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 
