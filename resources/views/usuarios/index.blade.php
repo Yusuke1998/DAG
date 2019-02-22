@@ -114,9 +114,9 @@ $('#esubmit').on('click', function(e){
         });
     });
 
-function editar(id){
-	console.log(id);
-}
+// function editar(id){
+// 	console.log(id);
+// }
 
 function eliminar(id){
 
