@@ -78,6 +78,12 @@
             <li class="nav-item {{ (request()->is('inventario/consolidados'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/consolidados') }}">CONSOLIDADOS</a>
             </li>
+            @if(\Auth::User()->type == "administrador")
+            <li class="nav-item {{ (request()->is('inventario/usuarios'))?'active':'' }}">
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/usuarios') }}">USUARIOS</a>
+            </li>
+            @endif
+
           </ul>
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">

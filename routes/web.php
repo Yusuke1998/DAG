@@ -53,7 +53,11 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 		];
 	})->name('autores');
 
+	// USUARIOS
 	Route::resource('usuarios','UsersController');
+	Route::get('usuarios/tabla','UsersController@userTable')->name('usuarios.table');
+	Route::get('usuarios/eliminar/{id}','UsersController@eliminar')->name('usuarios.eliminar');
+	// USUARIOS
 
 	// Productos
 	Route::resource('productos','ProductController');

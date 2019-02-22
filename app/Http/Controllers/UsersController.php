@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Yajra\Datatables\Services\DataTable;
+
 
 class UsersController extends Controller
 {
@@ -15,7 +17,15 @@ class UsersController extends Controller
     public function index()
     {
         $usuarios = User::all();
-        return Response($usuarios);
+        return view('usuarios.index',compact('usuarios'));
+    }
+
+    public function userTable()
+    {
+        $model = User::all();
+        // $model=["info"=>"No funciona"];
+        // return DataTable($model)->toJson();
+        return $model;     
     }
 
     public function create()
@@ -46,5 +56,10 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function eliminar($id)
+    {
+        $usuario = User::find($id)->delete();
     }
 }
