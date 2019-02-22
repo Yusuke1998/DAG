@@ -51,10 +51,16 @@ class DeliveryController extends Controller
     public function update(Request $request, $id)
     {
         $edit = Delivery::find($id)->update($request->all());
+        return Response()->json($edit);
     }
 
     public function destroy(Delivery $delivery)
     {
         //
+    }
+
+    public function eliminar($id)
+    {
+        $salida = Delivery::find($id)->delete();
     }
 }

@@ -254,6 +254,9 @@
             $('#tabla_entradas').DataTable({
               "serverSide":true,
               "searching": false,
+              "pagine": false,
+              "lengthChange": false,
+              "info": false,
               "ajax": "{{ route('ultimas_entradas') }}",
               "columns": [
                 {data: 'product_id'},
@@ -265,6 +268,9 @@
             $('#tabla_salidas').DataTable({
               "serverSide":true,
               "searching": false,
+              "pagine": false,
+              "lengthChange": false,
+              "info": false,
               "ajax": "{{ route('ultimas_salidas') }}",
               "columns": [
                 {data: 'product_id'},
