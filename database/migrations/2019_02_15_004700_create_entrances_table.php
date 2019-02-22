@@ -14,6 +14,8 @@ class CreateEntrancesTable extends Migration
             $table->string('commentary')->nullable();
             $table->integer('quantity');
             $table->string('date');
+            $table->string('supplier');
+            $table->integer('price');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
