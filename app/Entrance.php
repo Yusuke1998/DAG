@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Entrance extends Model
 {
     protected $fillable = [
-    	'reception','commentary','date','product_id','quantity',
+    	'reception','commentary','date','product_id','quantity','supplier','price',
     ];
 
     public function product(){

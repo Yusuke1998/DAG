@@ -26,6 +26,9 @@
                     <th>Productos</th>
                     <th>Recibido por</th>
                     <th>Comentario</th>
+                    <th>Cantidad</th>
+                    <th>Proveedor</th>
+                    <th>Precio</th>
                     <th>Fecha</th>
                     <th scope="col">accion</th>
                   </tr>
@@ -40,6 +43,9 @@
                     <td>{{ $entrada->product->name }}</td>
                     <td>{{ $entrada->reception }}</td>
                     <td>{{ $entrada->commentary }}</td>
+                    <td>{{ $entrada->quantity }}</td>
+                    <td>{{ $entrada->supplier }}</td>
+                    <td>{{ $entrada->price }}</td>
                     <td>{{ $entrada->date }}</td>
                     <td>
                         <a class="btn btn-sm" id="mostrar" href="{{ Route('entradas.show',$entrada->id) }}" title="">Ver</a>
@@ -105,6 +111,16 @@
                 @endforeach
               </select>
               <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="text" id="supplier" name="supplier" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="supplier">Proveedor</label>
+              </div>
+              <div class="md-form mb-5">
+	            <i class="fas fa-user prefix grey-text"></i>
+	            <input type="number" name="price" id="price" class="form-control validate">
+	            <label data-error="Error" data-success="Bien" for="orangeForm-name">Precio</label>
+	         </div>
+              <div class="md-form mb-5">
                 <input placeholder="Ingresa fecha" type="date" name="date" id="date-picker" class="form-control datepicker">
               </div>
             </div>
@@ -131,8 +147,8 @@
             <div class="modal-body mx-3">
               <div class="md-form mb-5">
                 <i class="fas fa-envelope prefix grey-text"></i>
+                 <input type="hidden" name="_method" value="PUT">
                 <input type="text" id="receptionu" name="reception" class="form-control validate">
-                <input type="hidden" name="_method" value="PUT">
                 <label data-error="wrong" data-success="right" for="reception">Recibe</label>
               </div>
               <div class="md-form mb-5">
@@ -142,7 +158,7 @@
               </div>
               <div class="md-form mb-4">
                 <i class="fas fa-lock prefix grey-text"></i>
-                <input type="number" name="quantity" id="quantity" class="form-control validate">
+                <input type="number" name="quantity" id="quantityu" class="form-control validate">
                 <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
               </div>
               <select class="browser-default custom-select" id="product_idu" name="product_id">
@@ -151,6 +167,16 @@
                 <option value="{{ $producto->id }}">{{ $producto->name }}</option>
                 @endforeach
               </select>
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="text" id="supplieru" name="supplier" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="supplier">Proveedor</label>
+              </div>
+              <div class="md-form mb-5">
+	            <i class="fas fa-user prefix grey-text"></i>
+	            <input type="number" name="price" id="priceu" class="form-control validate">
+	            <label data-error="Error" data-success="Bien" for="orangeForm-name">Precio</label>
+	         </div>
               <div class="md-form mb-5">
                 <input placeholder="Ingresa fecha" type="date" name="date" id="dateu" class="form-control datepicker">
               </div>
@@ -165,7 +191,7 @@
 
   @section('my-js')
   <script type="text/javascript">
-    
+
     $('#esubmit').on('click', function(e){
         e.preventDefault();
 
@@ -178,6 +204,9 @@
         var form = $('#my_form').serialize();
         var url = '{{ Route('entradas.store') }}';
 
+        console.log(form);
+        console.log(url);
+
         $.ajax({
             type: 'post',
             url: url,
@@ -188,7 +217,7 @@
                         $('#modalnewentrance').modal('toggle');
                         alertify.success("agregado con exito");
                     console.log('success');
-                    console.log(data);  
+                    console.log(data);
                 // alert('success');
             },
             error: function(data) {
@@ -218,6 +247,9 @@
                     $('#commentaryu').val(data.commentary)
                     $('#dateu').val(data.date)
                     $('#product_idu').val(data.product_id)
+                    $('#supplieru').val(data.supplier)
+                    $('#priceu').val(data.price)
+                    $('#quantityu').val(data.quantity)
 
                     $('#bsubmitu').on('click', function(e){
                         e.preventDefault();
@@ -242,7 +274,7 @@
                                 alertify.success("Editado con exito");
                                 console.log("Success");
                             },
-                            
+
                         error: function(data) {
                             $("#tb").load(" #tb");
                             $('#updateModal').modal('toggle');
@@ -258,9 +290,9 @@
         });
 
     };
-    
+
     function eliminar(id){
-      
+
         $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -272,7 +304,7 @@
         $.ajax({
             type: "get",
             url: url4,
-            success: function() { 
+            success: function() {
                 $("#tb").load("#tb");
                 console.log("Success");
                 alertify.success("Eliminado con exito");
