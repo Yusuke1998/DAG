@@ -34,16 +34,23 @@
 	  border-top: 1px solid #111;
 	}
 
-	td {
+	tfoot thead td th{
 		text-align: center;
 	}
 
+	ul{
+		list-style-type: none;
+	}
+
+	li{
+		list-style: none;
+	}
 
 </style>
 	<p style="text-align: right;">Fecha: {{ date('d/m/Y') }}</p>
 	<p align="center">DIRECCIÓN GENERAL DE ADMINISTRACIÓN</p>
 	<small>
-		<p align="center">Reporte general de productos.</p>
+		<p align="center">Reporte general de {{$producto->name}}.</p>
 	</small>
 	<table class="table">
 		<thead>
@@ -52,25 +59,49 @@
 				<th>Producto</th>
 				<th>Descripción</th>
 				<th>U/M</th>
-				<th>Inicial</th>
-				<th>Entradas</th>
-				<th>Salidas</th>
-				<th>Existencias</th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($productos as $producto)
 			<tr>
 				<td>{{ $producto->code }}</td>
 				<td>{{ $producto->name }}</td>
 				<td>{{ $producto->description }}</td>
 				<td>{{ $producto->unity_m }}</td>
-				<td>{{ $producto->id }}</td>
-				<td>{{ $producto->entrances()->count() }}</td>
-				<td>{{ $producto->deliverys()->count() }}</td>
-				<td>{{ $producto->id }}</td>
 			</tr>
-			@endforeach
+		</tbody>
+			</tr>
+	</table>
+	<hr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Entradas</th>
+				<th>Salidas</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+				@foreach($producto->entrances as $entradas)
+				<ul>
+					<li>Cantitad: {{$entradas->quantity}}</li>
+					<li>Recibe: {{$entradas->reception}}</li>
+					<li>Fecha: {{$entradas->date}}</li>
+				</ul>
+				@endforeach
+				</td>
+				<td>
+				@foreach($producto->deliverys as $salidas)
+				<ul>
+					<li>Cantidad: {{$salidas->quantity}}</li>
+					<li>Fecha: {{$salidas->date}}</li>
+					<li>Entrega: {{$salidas->functionary_e}}</li>
+					<li>Recibe: {{$salidas->functionary_r}}</li>
+					<li>Area: {{$salidas->area->name}}</li>
+				</ul>
+				@endforeach
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </body>

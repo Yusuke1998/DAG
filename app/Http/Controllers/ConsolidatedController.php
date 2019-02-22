@@ -8,6 +8,8 @@ use App\Delivery;
 use App\Entrance;
 use App\Product;
 use App\Shopping;
+use App\User;
+use DataTables;
 
 class ConsolidatedController extends Controller
 {
@@ -17,8 +19,8 @@ class ConsolidatedController extends Controller
     }
 
     public function index(){
-
-        return view('consolidados');
+        $productos = Product::orderBy('created_at','DESC')->paginate(5);
+        return view('consolidados',compact('productos'));
     }
 
     public function create()
@@ -49,6 +51,18 @@ class ConsolidatedController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function tabla_consolidados($id)
+    {
+        $producto       = Product::find($id)->quantity;
+        $entradas       = $producto->entrances()->count();
+        $salidas        = $producto->deliverys()->count();
+        $existencias    = $producto+$entradas-$salidas;
+
+        $data = [$producto,$entradas,$salidas,$existencias];
+
+        return Response()->json($data);
     }
 
     public function charts_entradas_salidas()

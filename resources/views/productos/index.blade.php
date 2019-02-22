@@ -83,9 +83,9 @@
 	        <div class="md-form mb-4">
 	          	<select id="unidadMedida" name="unity_m" class="custom-select">
 				  <option value="" disabled selected>Unidad de medida</option>
-				  <option value="1">GRM</option>
-				  <option value="2">KG</option>
-				  <option value="3">TN</option>
+				  <option value="Gr">Gr</option>
+				  <option value="Kg">Kg</option>
+				  <option value="Tn">Tn</option>
 				</select>
 	        </div>
             <div class="md-form mb-4">
@@ -148,9 +148,9 @@
 	        <div class="md-form mb-4">
 	          	<select id="unidadMedidau" name="unity_mu" class="custom-select">
 				  <option value="" disabled selected>Unidad de medida</option>
-				  <option value="1">GRM</option>
-				  <option value="2">KG</option>
-				  <option value="3">TN</option>
+				  <option value="Gr">Gr</option>
+				  <option value="Kg">Kg</option>
+				  <option value="Tn">Tn</option>
 				</select>
 	        </div>
             <div class="md-form mb-4">

@@ -18,42 +18,55 @@
         <div class="col-md-12 mb-12">
           <!--Card-->
           <div class="card">
-           <div class="card-header">Consolidados</div>
+           <div class="card-header">Consolidados
+            <a class="btn btn-sm btn-warning" href="{{ route('pdf.productos') }}" title="">pdf de productos</a>
+            <a class="btn btn-sm btn-warning" href="{{ route('pdf.general') }}" title="">pdf general</a>
+           </div>
             <!--Card content-->
             <div class="card-body">
 
               <!-- Table  -->
-              <table class="table table-hover">
+              <table id="table_server" class="table table-hover">
                 <!-- Table head -->
                 <thead class="blue-grey lighten-4">
                   <tr>
                     <th>#</th>
                     <th>Producto</th>
+                    <th>Inicial</th>
                     <th>Entradas</th>
                     <th>Salidas</th>
-                    <th>Existencias</th>
+                    <th>Existencia</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
-
                 <!-- Table body -->
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                    <td>Cell 3</td>
-                  </tr>
+                @forelse($productos as $producto)
+                <tr>
+                  <th scope="row">{{ $producto->id }}</th>
+                  <td>{{ $producto->name }}</td>
+                  <td>{{ $producto->entrances()->count() }}</td>
+                  <td>{{ $producto->deliverys()->count() }}</td>
+                  <td>{{ $producto->id }}</td>
+                  <td>
+                      <a class="btn btn-sm" id="mostrar" onclick="ver({{ $producto->id }});" href="#" title="Ver detalles del producto">Ver</a>
+                      <a class="btn btn-sm" id="pdf" href="{{ route('pdf.producto_id',$producto->id) }}" title="Pdf con detalles del producto">PDF</a>
+                  </td>
+                </tr>
+                @empty
+                <tr>
+                <p>No hay productos para mostrar...</p>
+                </tr>
+                @endforelse
                 </tbody>
                 <!-- Table body -->
               </table>
               <!-- Table  -->
-
             </div>
 
           </div>
           <!--/.Card-->
+          <div class="card-footer">{{ $productos->render() }}</div>
         </div>
         <!--Grid column-->
 
@@ -67,8 +80,6 @@
 
           var entradas_salidas = document.getElementById("entradas_salidas");
           var urlt = '{{ Route('consolidados.charts_entradas_salidas') }}';
-          // console.log(entradas_salidas);
-          console.log(urlt);
 
           $.ajaxSetup({
               headers: {
@@ -82,9 +93,6 @@
               success: function(data) {
                   Chart.defaults.global.defaultFontFamily = "Lato";
                   Chart.defaults.global.defaultFontSize = 18;
-
-                  console.log(data.entradas);
-                  console.log(data.salidas);
 
                   var entradasData = {
                     label: 'ENTRADAS',
@@ -144,11 +152,13 @@
 
           // TODO
 
-          // DATATABLE SERVER SIDE
+          // Tabla
 
-          
+          function ver($id){
+            console.log($id);
+          }
 
-          // DATATABLE SERVER SIDE
+          // Tabla
 
     </script>
     <!-- Charts -->

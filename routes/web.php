@@ -9,12 +9,18 @@ Route::get('inventario',function(){
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/charts','ProductController@charts')->name('charts');
-Route::get('/charts/entradas','ConsolidatedController@charts_entradas')->name('consolidados.charts_entradas');
-Route::get('/charts/salidas','ConsolidatedController@charts_salidas')->name('consolidados.charts_salidas');
-Route::get('/charts/entradas/salidas','ConsolidatedController@charts_entradas_salidas')->name('consolidados.charts_entradas_salidas');
 
 Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
+
+	Route::get('/charts','ProductController@charts')->name('charts');
+
+	Route::get('/charts/entradas','ConsolidatedController@charts_entradas')->name('consolidados.charts_entradas');
+
+	Route::get('/charts/salidas','ConsolidatedController@charts_salidas')->name('consolidados.charts_salidas');
+
+	Route::get('/charts/entradas/salidas','ConsolidatedController@charts_entradas_salidas')->name('consolidados.charts_entradas_salidas');
+
+	Route::get('/tabla/consolidados/{id}','ConsolidatedController@tabla_consolidados')->name('consolidados.tabla');
 
 	Route::get('inicio', function () {
 		return view('dashboard');
@@ -62,9 +68,16 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	Route::get('productos/salidas/{id}','ProductController@salidas')->name('productos.salidas');
 	// Entradas y salidas por producto
 
+	// Tablas de entradas y salidas
+	Route::get('ultimas/entradas','ProductController@entradas_tabla')->name('ultimas_entradas');
+	Route::get('ultimas/salidas','ProductController@salidas_tabla')->name('ultimas_salidas');
+	// Tablas de entradas y salidas
+
 
 	// Reportes
 	Route::get('reporte/general','ProductController@pdf_general')->name('pdf.general');
+	Route::get('reporte/productos','ProductController@pdf_productos')->name('pdf.productos');
+	Route::get('reporte/producto/{id}','ProductController@pdf_producto_id')->name('pdf.producto_id');
 	// Reportes
 
 });

@@ -81,40 +81,16 @@
             <div class="card-body">
 
               <!-- Table  -->
-              <table class="table table-hover">
+              <table id="tabla_entradas" class="table table-hover">
                 <!-- Table head -->
                 <thead class="blue-grey lighten-4">
                   <tr>
-                    <th>#</th>
-                    <th>Lorem</th>
-                    <th>Ipsum</th>
-                    <th>Dolor</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
-
-                <!-- Table body -->
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Cell 4</td>
-                    <td>Cell 5</td>
-                    <td>Cell 6</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Cell 7</td>
-                    <td>Cell 8</td>
-                    <td>Cell 9</td>
-                  </tr>
-                </tbody>
-                <!-- Table body -->
               </table>
               <!-- Table  -->
 
@@ -136,40 +112,16 @@
             <div class="card-body">
 
               <!-- Table  -->
-              <table class="table table-hover">
+              <table id="tabla_salidas" class="table table-hover">
                 <!-- Table head -->
                 <thead class="blue lighten-4">
                   <tr>
-                    <th>#</th>
-                    <th>Lorem</th>
-                    <th>Ipsum</th>
-                    <th>Dolor</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
-
-                <!-- Table body -->
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Cell 4</td>
-                    <td>Cell 5</td>
-                    <td>Cell 6</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Cell 7</td>
-                    <td>Cell 8</td>
-                    <td>Cell 9</td>
-                  </tr>
-                </tbody>
-                <!-- Table body -->
               </table>
               <!-- Table  -->
 
@@ -298,6 +250,31 @@
                   var errors = data.responseJSON;
                   // alert('error');
               }
+          });
+
+
+          $(document).ready(function(){
+
+            $('#tabla_entradas').DataTable({
+              "serverSide":true,
+              "ajax": "{{ route('ultimas_entradas') }}",
+              "columns": [
+                {data: 'product_id'},
+                {data: 'quantity'},
+                {data: 'date'},
+              ]
+            });
+
+            $('#tabla_salidas').DataTable({
+              "serverSide":true,
+              "ajax": "{{ route('ultimas_salidas') }}",
+              "columns": [
+                {data: 'product_id'},
+                {data: 'quantity'},
+                {data: 'date'},
+              ]
+            });
+
           });
 
 	  </script>

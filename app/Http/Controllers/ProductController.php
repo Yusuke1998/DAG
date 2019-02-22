@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Product;
+use App\Shopping;
 use App\Entrance;
 use App\Delivery;
 use Yajra\Datatables\Services\DataTable;
@@ -29,15 +30,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // if ($request->file('image')) {
-        //     $file = $request->file('image');
-        //     $nameImage = 'producto'.time().'.'.$file->getClientOriginalExtension();
-        //     $path = public_path().'\productos';
-        //     $file->move($path,$nameImage);
-        // }else{
-        //     $nameImage = $request->image;
-        // }
-
         $data = request()->validate(
             [
                 'code'              =>  'required|min:4|max:100',
@@ -64,8 +56,22 @@ class ProductController extends Controller
 
             ]);
 
+        // $data2 =  request()->validate(
+        //     [
+        //         'date'          =>  'required',
+        //         'supplier'      =>  'required',
+        //         'price'         =>  'required',
+        //         'quantity'      =>  'required',
+        //         'product_id'    =>  'required',
+        //     ]); 
 
-            // return dd($data);
+        // $producto = Product::create($data);
+        // $compra = Shopping::create($data2);
+
+        // if ($producto && $compra) {
+        //     return Response()->json([$producto,$compra]);
+        // }
+
         if ($productos = Product::create($data)) {
             return Response()->json($productos);
         }
@@ -112,11 +118,24 @@ class ProductController extends Controller
     }
 
     public function pdf_general(){
-        $data = ['hola'=>'hola mundo'];
+        $productos = Product::all();
 
-        $pdf = PDF::loadView('reportes.general', compact('data'));
+        $pdf = PDF::loadView('reportes.general', compact('productos'));
         return $pdf->stream('reporte_general.pdf');
-        // return "PDF GENERAL";
+    }
+
+    public function pdf_productos(){
+        $productos = Product::all();
+
+        $pdf = PDF::loadView('reportes.productos', compact('productos'));
+        return $pdf->stream('reporte_productos.pdf');
+    }
+
+    public function pdf_producto_id($id){
+        $producto = Product::find($id);
+
+        $pdf = PDF::loadView('reportes.producto', compact('producto'));
+        return $pdf->stream('reporte_producto.pdf');
     }
 
     public function entradas($id)
@@ -129,7 +148,6 @@ class ProductController extends Controller
         {
             return Response()->json($data->all());
         }
-        // return view('productos.entradas');
     }
 
     public function salidas($id)
@@ -142,7 +160,6 @@ class ProductController extends Controller
         {
             return Response()->json($data->all());
         }
-        // return view('productos.salidas');
     }
 
     public function destroy($id)
@@ -154,5 +171,15 @@ class ProductController extends Controller
     {
         $producto = Product::find($id)->delete();
         return back();
+    }
+
+    public function entradas_tabla(){
+        $model = Entrance::all();
+        return datatables($model)->toJson();
+    }
+
+    public function salidas_tabla(){
+        $model = Delivery::all();
+        return datatables($model)->toJson();
     }
 }
