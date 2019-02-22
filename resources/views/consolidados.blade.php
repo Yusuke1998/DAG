@@ -36,6 +36,7 @@
                     <th>Entradas</th>
                     <th>Salidas</th>
                     <th>Existencia</th>
+                    <th>Opciones</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
@@ -45,11 +46,12 @@
                 <tr>
                   <th scope="row">{{ $producto->id }}</th>
                   <td>{{ $producto->name }}</td>
-                  <td>{{ $producto->entrances()->count() }}</td>
-                  <td>{{ $producto->deliverys()->count() }}</td>
-                  <td>{{ $producto->id }}</td>
+                  <td>{{ $producto->quantity }}</td>
+                  <td>{{ $producto->entrances()->count('quantity') }}</td>
+                  <td>{{ $producto->deliverys()->count('quantity') }}</td>
+                  <td>{{ $producto->quantity+$producto->entrances()->count('quantity')-$producto->deliverys()->count('quantity') }}</td>
                   <td>
-                      <a class="btn btn-sm" id="mostrar" onclick="ver({{ $producto->id }});" href="#" title="Ver detalles del producto">Ver</a>
+                      <a class="btn btn-sm" id="mostrar" onclick="ver({{ $producto->id }});" title="Ver detalles del producto">Ver</a>
                       <a class="btn btn-sm" id="pdf" href="{{ route('pdf.producto_id',$producto->id) }}" title="Pdf con detalles del producto">PDF</a>
                   </td>
                 </tr>
@@ -76,7 +78,8 @@
     <!-- Charts -->
     <script>
 
-          // TODO
+    // TODO
+      $(document).ready(function(){
 
           var entradas_salidas = document.getElementById("entradas_salidas");
           var urlt = '{{ Route('consolidados.charts_entradas_salidas') }}';
@@ -149,16 +152,15 @@
                   var errors = data.responseJSON;
               }
           });
+      });
 
-          // TODO
+    // TODO
 
-          // Tabla
-
+    // TABLA
           function ver($id){
             console.log($id);
           }
-
-          // Tabla
+    // TABLA
 
     </script>
     <!-- Charts -->
