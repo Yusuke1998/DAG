@@ -28,8 +28,6 @@
 				      <td>{{ $producto->quantity }}</td>
 
 				      <td>
-				      		<a class="btn btn-sm" id="mostrar" href="{{ Route('productos.show',$producto->id) }}" title="">Ver</a>
-
                             <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#entranceModal" onclick="entradaP({{ $producto->id }});" title="">Entradas</a>
 
                             <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#deliveryModal" onclick="salidaP({{ $producto->id }});" title="">Salidas</a>
@@ -288,7 +286,6 @@
 
                         });
                     });
-
 
 		                    // alert('error');
 		        },
