@@ -23,8 +23,8 @@
 		      <td>{{ $usuario->email }}</td>
 		      <td>{{ $usuario->type }}</td>
 		      <td>
-		      	<a class="btn btn-info btn-sm" onclick="editar({{$usuario->id}})">Editar</a>
-		      	<a class="btn btn-info btn-sm" onclick="eliminar({{$usuario->id}})">Eliminar</a>
+		      	{{-- <a class="btn btn-info btn-sm" onclick="editar({{$usuario->id}})">Editar</a> --}}
+		      	<a class="" onclick="eliminar({{$usuario->id}})">Eliminar</a>
 		      </td>
 		    </tr>
 		    @endforeach
@@ -53,9 +53,9 @@
 //     });
 // });
 
-function editar(id){
-	console.log(id);
-}
+// function editar(id){
+// 	console.log(id);
+// }
 
 function eliminar(id){
       

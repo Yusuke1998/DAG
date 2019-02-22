@@ -65,10 +65,10 @@
 				<td>{{ $producto->name }}</td>
 				<td>{{ $producto->description }}</td>
 				<td>{{ $producto->unity_m }}</td>
-				<td>{{ $producto->id }}</td>
-				<td>{{ $producto->entrances()->count() }}</td>
-				<td>{{ $producto->deliverys()->count() }}</td>
-				<td>{{ $producto->id }}</td>
+				<td>{{ $producto->quantity }}</td>
+				<td>{{ $producto->entrances()->count('quantity') }}</td>
+				<td>{{ $producto->deliverys()->count('quantity') }}</td>
+				<td>{{ $producto->quantity+$producto->entrances()->count('quantity')-$producto->deliverys()->count('quantity') }}</td>
 			</tr>
 			@endforeach
 		</tbody>

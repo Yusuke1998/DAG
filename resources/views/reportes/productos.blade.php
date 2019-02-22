@@ -68,7 +68,7 @@
 				<td>{{ $producto->id }}</td>
 				<td>{{ $producto->entrances()->count() }}</td>
 				<td>{{ $producto->deliverys()->count() }}</td>
-				<td>{{ $producto->id }}</td>
+				<td>{{ $producto->quantity+$producto->entrances()->count('quatity')-$producto->deliverys()->count('quantity') }}</td>
 			</tr>
 			@endforeach
 		</tbody>

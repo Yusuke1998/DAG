@@ -49,7 +49,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand waves-effect" href="{{ URL('/') }}">
-          <strong class="blue-text">DIG</strong>
+          <strong class="blue-text">DAG</strong>
         </a>
 
         <!-- Collapse -->
@@ -111,8 +111,8 @@
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
 
-      <a class="logo-wrapper waves-effect">
-        <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
+      <a class="logo-wrapper waves-effect"  href="{{ URL('/') }}">
+        <img src="{{ asset('dag.png') }}" width="200px" height="200px" class="img-fluid" alt="">
       </a>
 
       <div class="list-group list-group-flush">
