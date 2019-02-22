@@ -36,13 +36,13 @@
                     <span id="inicial" class="float-right badge badge-warning badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Entradas
-                    <span id="entradas" class="float-right badge badge-success badge-pill pull-right"></span>
+                    <span id="entradas" class="float-right badge badge-primary badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Salidas
                     <span id="salidas" class="float-right badge badge-danger badge-pill pull-right"></span>
                   </a>
-                  <a class="list-group-item list-group-item-action waves-effect">Consolidado
-                    <span id="consolidado" class="float-right badge badge-primary badge-pill pull-right"></span>
+                  <a class="list-group-item list-group-item-action waves-effect">Existencia
+                    <span id="consolidado" class="float-right badge badge-success badge-pill pull-right"></span>
                   </a>
                 </div>
                 <!-- List group links -->
@@ -164,7 +164,7 @@
 	          borderColor: [
 	            'rgba(255, 206, 86,1)',
 	            'rgba(54, 162, 235, 1)',
-	            'rgba(255, 206, 86, 1)',
+	            'rgba(255, 99, 132, 1)',
 	            'rgba(75, 192, 192, 1)'
 	          ],
 	          borderWidth: 1
@@ -208,8 +208,8 @@
                     labels: ["Productos", "Entradas", "Salidas", "Existencia"],
                     datasets: [{
                       data: data,
-                      backgroundColor: ["#ffcc00", "#00c851", "#ff3547", "#4285f4"],
-                      hoverBackgroundColor: ["#ffaa00", "#009751", "#ff3560", "#4265f4"]
+                      backgroundColor: ["#ffcc00", "#4285f4", "#ff3547", "#00c851"],
+                      hoverBackgroundColor: ["#ffaa00", "#4265f4", "#ff3560", "#009751"]
                     }]
                   },
                   options: {
