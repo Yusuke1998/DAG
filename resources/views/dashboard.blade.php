@@ -33,16 +33,16 @@
                 <!-- List group links -->
                 <div class="list-group list-group-flush">
                   <a class="list-group-item list-group-item-action waves-effect">Inicial
-                    <span id="inicial" class="badge badge-warning badge-pill pull-right"></span>
+                    <span id="inicial" class="float-right badge badge-warning badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Entradas
-                    <span id="entradas" class="badge badge-success badge-pill pull-right"></span>
+                    <span id="entradas" class="float-right badge badge-success badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Salidas
-                    <span id="salidas" class="badge badge-danger badge-pill pull-right"></span>
+                    <span id="salidas" class="float-right badge badge-danger badge-pill pull-right"></span>
                   </a>
                   <a class="list-group-item list-group-item-action waves-effect">Consolidado
-                    <span id="consolidado" class="badge badge-primary badge-pill pull-right"></span>
+                    <span id="consolidado" class="float-right badge badge-primary badge-pill pull-right"></span>
                   </a>
                 </div>
                 <!-- List group links -->
@@ -51,10 +51,6 @@
           <!--/.Card-->
         <!--Card-->
           <div class="card mb-4">
-            <!-- Card header -->
-            <div class="card-header text-center">
-              Pie chart
-            </div>
             <!--Card content-->
             <div class="card-body">
               <canvas id="pieChart"></canvas>
@@ -230,33 +226,37 @@
               }
           });
 
-
-          $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
+          $(document).ready(function(){
+              $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+              $.ajax({
+                  type: 'get',
+                  url: url,
+                  success: function(data) {
+                    console.log(data);
+                    $('#inicial').text(data[0]);
+                    $('#entradas').text(data[1]);
+                    $('#salidas').text(data[2]);
+                    $('#consolidado').text(data[3]);
+              },
+                  error: function(data) {
+                      var errors = data.responseJSON;
+                      // alert('error');
+                  }
+              });
           });
-          $.ajax({
-              type: 'get',
-              url: url,
-              success: function(data) {
-                console.log(data);
-                $('#inicial').text(data[0]);
-                $('#entradas').text(data[1]);
-                $('#salidas').text(data[2]);
-                $('#consolidado').text(data[3]);
-          },
-              error: function(data) {
-                  var errors = data.responseJSON;
-                  // alert('error');
-              }
-          });
-
 
           $(document).ready(function(){
 
             $('#tabla_entradas').DataTable({
               "serverSide":true,
+              "searching": false,
+              "pagine": false,
+              "lengthChange": false,
+              "info": false,
               "ajax": "{{ route('ultimas_entradas') }}",
               "columns": [
                 {data: 'product_id'},
@@ -267,6 +267,10 @@
 
             $('#tabla_salidas').DataTable({
               "serverSide":true,
+              "searching": false,
+              "pagine": false,
+              "lengthChange": false,
+              "info": false,
               "ajax": "{{ route('ultimas_salidas') }}",
               "columns": [
                 {data: 'product_id'},

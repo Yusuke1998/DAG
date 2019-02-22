@@ -47,9 +47,8 @@
 <td>{{ $salida->commentary }}</td>
 <td>{{ $salida->date }}</td>
 <td>
-<a class="btn btn-sm" id="mostrar" href="{{ Route('salidas.show',$salida->id) }}" title="">Ver</a>
 
-<a class="btn btn-sm" href="#" data-toggle="modal" data-target="#modalupdatedeliveries" onclick="editarP({{ $salida->id }});" title="">Editar</a>
+<a class="btn btn-sm" href="#" data-toggle="modal" data-target="#modalupdatedeliveries" onclick="editar({{ $salida->id }});" title="">Editar</a>
 
 <a class="btn btn-sm" id="eliminar" onclick="eliminar({{ $salida->id }});">Eliminar</a>
 </td>
@@ -147,15 +146,15 @@
 <div class="modal-body mx-3">
 <div class="md-form mb-5">
 <i class="fas fa-envelope prefix grey-text"></i>
-<input type="text" id="functionary_eu" name="functionary_eu" class="form-control validate">
+<input type="text" id="functionary_eu" name="functionary_e" class="form-control validate">
 <label data-error="wrong" data-success="right" for="functionary_e">Entrega</label>
 </div>
 <div class="md-form mb-5">
 <i class="fas fa-envelope prefix grey-text"></i>
-<input type="text" id="functionary_ru" name="functionary_ru" class="form-control validate">
+<input type="text" id="functionary_ru" name="functionary_r" class="form-control validate">
 <label data-error="wrong" data-success="right" for="reception">Recibe</label>
 </div>
-<select class="browser-default custom-select" id="area_idu" name="area_idu">
+<select class="browser-default custom-select" id="area_idu" name="area_id">
 <option selected disabled>Areas</option>
 @foreach($areas as $area)
 <option value="{{ $area->id }}">{{ $area->name }}</option>
@@ -163,12 +162,12 @@
 </select>
 <div class="md-form mb-4">
 <i class="fas fa-lock prefix grey-text"></i>
-<input type="number" name="quantityu" id="quantityu" class="form-control validate">
+<input type="number" name="quantity" id="quantityu" class="form-control validate">
 <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
 </div>
 <div class="md-form mb-5">
 <i class="fas fa-pencil-alt prefix"></i>
-<textarea type="text" id="commentaryu" name="commentaryu" class="md-textarea form-control" rows="3"></textarea>
+<textarea type="text" id="commentaryu" name="commentary" class="md-textarea form-control" rows="3"></textarea>
 <label data-error="wrong" data-success="right" for="commentary">Comentario</label>
 </div>
 <select class="browser-default custom-select" id="product_idu" name="product_id">
@@ -178,7 +177,7 @@
 @endforeach
 </select>
 <div class="md-form mb-5">
-<input placeholder="Ingresa fecha" type="date" name="dateu" id="dateu" class="form-control datepicker">
+<input placeholder="Ingresa fecha" type="date" name="date" id="dateu" class="form-control datepicker">
 </div>
 </div>
 <div class="modal-footer d-flex justify-content-center">
@@ -218,19 +217,17 @@ $('#esubmit').on('click', function(e){
                         alertify.success("agregado con exito");
                         console.log('success');
                         console.log(data);
-                // alert('success');
             },
             error: function(data) {
                     alertify.error("Fallo al agregar");
                 var errors = data.responseJSON;
-                // alert('error');
             }
         });
 
 });
 
 
-function editarP(id){
+function editar(id){
 
 $.ajaxSetup({
 headers: {
@@ -242,6 +239,7 @@ var url2 = location.href+'/editar/'+id;
 
 $.ajax({
     type: 'post',
+    dataType: 'json',
     url: url2,
     success: function(data) {
             $('#functionary_eu').val(data.functionary_e)
@@ -261,19 +259,21 @@ $.ajax({
             });
 
             var formu = $('#my_form2').serialize();
+
             var url3 = location.href+'/'+id;
 
-            console.log(formu);
+            console.log(url3);
+
             $.ajax({
                 type: 'post',
                 url: url3,
                 data: formu,
 
                 success: function(data) {
-                    $("#tb").load(" #tb");
+                    $("#tb").load("#tb");
                     $('#modalupdatedeliveries').modal('toggle');
                     alertify.success("Editado con exito");
-                    console.log("Success");
+                    console.log("success");
                 },
 
                 error: function(data) {
@@ -289,6 +289,36 @@ $.ajax({
 });
 
 };
+
+
+function eliminar(id){
+      
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        var url4 = location.href+'/eliminar/'+id;
+
+        $.ajax({
+            type: "get",
+            url: url4,
+            success: function() { 
+                // $("#tb").load("#tb");
+                console.log("Success");
+                alertify.success("Eliminado con exito");
+
+            },error: function(){
+                console.log("Error");
+                alertify.error("Error al eliminar");
+            }
+        });
+
+    };
+
+
+
 </script>
 
 @stop

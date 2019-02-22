@@ -10,8 +10,8 @@ class Shopping extends Model
     	'date','supplier','price','quantity','product_id',
     ];
 
-    public function products()
+    public function product()
     {
-    	return $this->hasMany(Product::class);
+    	return $this->belongsTo(Product::class);
     }
 }

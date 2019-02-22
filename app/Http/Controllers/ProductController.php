@@ -32,49 +32,42 @@ class ProductController extends Controller
     {
         $data = request()->validate(
             [
-                'code'              =>  'required|min:4|max:100',
-                'name'              =>  'required|min:4|max:100',
-                'description'       =>  'max:150|min:4|max:100',
+                'code'              =>  'required',
+                'name'              =>  'required',
+                'description'       =>  'max:150',
                 'unity_m'           =>  'required',
                 'quantity'          =>  'required',
                 'date_maturity'     =>  'required',
-                'date_maturity'     =>  'required',
-            ]
-            ,
-            [
-                'code.required'             =>  'El codigo es requerido',
-                'quantity.required'         =>  'La cantidad es requerida',
-                'name.required'             =>  'El nombre es requerido',
-                'unity_m.required'          =>  'La unidad de medida es requerida',
-                'date_maturity.required'    =>  'La fecha de vencimiento es requerida',
-                'description.max'           =>  'La descripcion es muy larga',
-                'description.min'           =>  'La descripcion es muy corta',
-                'code.max'                  =>  'El codigo es muy largo',
-                'code.min'                  =>  'El codigo es muy corto',
-                'name.max'                  =>  'El nombre es muy largo',
-                'name.min'                  =>  'El nombre es muy corto',
-
+                'date'              =>  'required',
+                'supplier'          =>  'required',
+                'price'             =>  'required',
             ]);
 
-        // $data2 =  request()->validate(
-        //     [
-        //         'date'          =>  'required',
-        //         'supplier'      =>  'required',
-        //         'price'         =>  'required',
-        //         'quantity'      =>  'required',
-        //         'product_id'    =>  'required',
-        //     ]); 
-
-        // $producto = Product::create($data);
-        // $compra = Shopping::create($data2);
-
-        // if ($producto && $compra) {
-        //     return Response()->json([$producto,$compra]);
+        // if ($productos = Product::create($data)) {
+        //     return Response()->json($productos);
         // }
 
-        if ($productos = Product::create($data)) {
-            return Response()->json($productos);
-        }
+        // FLECHAS --->
+
+        $producto = Product::create([
+            'code'              =>  $data['code'],
+            'name'              =>  $data['name'],
+            'description'       =>  $data['description'],
+            'unity_m'           =>  $data['unity_m'],
+            'quantity'          =>  $data['quantity'],
+            'date_maturity'     =>  $data['date_maturity'],
+        ]);
+
+        $compra = Shopping::create([
+            'date'          =>  $data['date'],
+            'supplier'      =>  $data['supplier'],
+            'price'         =>  $data['price'],
+            'quantity'      =>  $data['quantity'],
+            'product_id'    =>  $producto->id,
+        ]);
+
+        return Response()->json($compra->all());
+
     }
 
     public function charts()

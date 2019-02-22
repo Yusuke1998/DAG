@@ -28,8 +28,6 @@
 				      <td>{{ $producto->quantity }}</td>
 
 				      <td>
-				      		<a class="btn btn-sm" id="mostrar" href="{{ Route('productos.show',$producto->id) }}" title="">Ver</a>
-
                             <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#entranceModal" onclick="entradaP({{ $producto->id }});" title="">Entradas</a>
 
                             <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#deliveryModal" onclick="salidaP({{ $producto->id }});" title="">Salidas</a>
@@ -66,20 +64,36 @@
 	        <div class="md-form mb-5">
 	          <i class="fas fa-user prefix grey-text"></i>
 	          <input type="number" name="code" id="codigo" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-name">Codigo</label>
+	          <label data-error="Error" data-success="Bien" for="codigo">Codigo</label>
 	        </div>
 	        <div class="md-form mb-5">
 	          <i class="fas fa-envelope prefix grey-text"></i>
 	          <input type="text" name="name" id="nombre" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Nombre</label>
+	          <label data-error="Error" data-success="Bien" for="nombre">Nombre</label>
+	        </div>
+	        <div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <input type="text" name="supplier" id="proveedor" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="proveedor">Proveedor</label>
+	        </div>
+	        <div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <input type="text" name="price" id="precio" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="precio">Precio</label>
 	        </div>
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
 	          <input type="text" name="description" id="descripcion" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Descripcion</label>
+	          <label data-error="Error" data-success="Bien" for="descripcion">Descripcion</label>
 	        </div>
 
+            <div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="number" name="quantity" id="quantity" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="quantity">Cantidad</label>
+	        </div>
+	        
 	        <div class="md-form mb-4">
 	          	<select id="unidadMedida" name="unity_m" class="custom-select">
 				  <option value="" disabled selected>Unidad de medida</option>
@@ -88,16 +102,16 @@
 				  <option value="Tn">Tn</option>
 				</select>
 	        </div>
-            <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="number" name="quantity" id="quantity" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
-	        </div>
 
+	          <label data-error="Error" data-success="Bien" for="fechaV">F.Vencimiento</label>
 	        <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="date" id="fechaV" name="date_maturity" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass"></label>
+	        </div>
+	          <label data-error="Error" data-success="Bien" for="fechaC">F.Compra</label>
+	        <div class="md-form mb-4">
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
+	          <input type="date" id="fechaC" autofocus="true" name="date" class="form-control validate">
 	        </div>
 
 	      </div>
@@ -272,7 +286,6 @@
 
                         });
                     });
-
 
 		                    // alert('error');
 		        },

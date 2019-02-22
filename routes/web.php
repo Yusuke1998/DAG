@@ -26,20 +26,19 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 		return view('dashboard');
 	})->name('dashboard');
 
+	// ENTRADAS
 	Route::resource('entradas','EntranceController');
 	Route::get('entradas','EntranceController@index')->name('entradas');
-	// Route::post('entradas','EntranceController@store')->name('entradas.store');
 	Route::get('entradas/eliminar/{id}','EntranceController@eliminar')->name('entradas.eliminar');
 	Route::post('entradas/editar/{id}','EntranceController@editar')->name('entradas.editar');
+	// ENTRADAS
 
-
+	// SALIDAS
 	Route::resource('salidas','DeliveryController');
     Route::get('salidas','DeliveryController@index')->name('salidas');
-
+	Route::get('salidas/eliminar/{id}','DeliveryController@eliminar')->name('salidas.eliminar');
     Route::post('salidas/editar/{id}','DeliveryController@editar')->name('salidas.editar');
-
-	//Route::get('salidas/eliminar/{id}','DeliveryController@eliminar')->name('salidas.eliminar');
-	//Route::post('salidas/editar/{id}','DeliveryController@editar')->name('salidas.editar');
+	// SALIDAS
 
 	Route::get('consolidados','ConsolidatedController@index')->name('consolidados');
 
