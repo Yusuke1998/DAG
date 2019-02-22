@@ -13,7 +13,7 @@ class UsersController extends Controller
     {
         $this->middleware('admin');
     }
-    
+
     public function index()
     {
         $usuarios = User::all();
@@ -25,7 +25,7 @@ class UsersController extends Controller
         $model = User::all();
         // $model=["info"=>"No funciona"];
         // return DataTable($model)->toJson();
-        return $model;     
+        return $model;
     }
 
     public function create()
@@ -35,7 +35,8 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $usuarios = User::create($request->all());
+        return Response()->json($usuarios);
     }
 
     public function show($id)

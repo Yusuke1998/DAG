@@ -23,8 +23,17 @@
 		      <td>{{ $usuario->email }}</td>
 		      <td>{{ $usuario->type }}</td>
 		      <td>
+<<<<<<< HEAD
 		      	{{-- <a class="btn btn-info btn-sm" onclick="editar({{$usuario->id}})">Editar</a> --}}
 		      	<a class="" onclick="eliminar({{$usuario->id}})">Eliminar</a>
+=======
+                @if($usuario->id==1)
+		      	<a class="btn btn-info btn-sm" onclick="eliminar({{$usuario->id}})" style='display:none;'>Eliminar</a>
+                @endif
+                @if($usuario->id!=1)
+		      	<a class="btn btn-info btn-sm" onclick="eliminar({{$usuario->id}})">Eliminar</a>
+                @endif
+>>>>>>> 28b2b029a7ea9bb41c1aec705079322b4a3516ff
 		      </td>
 		    </tr>
 		    @endforeach
@@ -32,33 +41,90 @@
 		</table>
     </div>
     <div class="col">
-      algo ahi!
+    <form id="my_form" method="post">
+        {{ csrf_field() }}
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Nuevo Usuario</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="text" id="name" name="name" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="reception">Nombre</label>
+              </div>
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="email" id="email" name="email" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="reception">Email</label>
+              </div>
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="password" id="password" name="password" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="reception">Contraseña</label>
+              </div>
+              <select class="browser-default custom-select" name="type">
+              <option value="" disabled selected>Tipo de Usuario</option>
+				  <option value="administrador">administrador</option>
+				  <option value="consultor">consultor</option>
+
+              </select>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button id="esubmit" class="btn btn-default">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 @section('my-js')
 <script>
 
-// $(document).ready(function() {
-//     $('#user_table').DataTable( {
-//         "processing": true,
-//         "serverSide": true,
-//         "ajax": "",
-//   		"columns": [
-//             { "data": "id" },
-//             { "data": "name" },
-//             { "data": "email" },
-//             { "data": "type" },
-//         ]
-//     });
-// });
+$('#esubmit').on('click', function(e){
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var form = $('#my_form').serialize();
+        var url = '{{ Route('usuarios.store') }}';
+
+        console.log(form);
+        console.log(url);
+
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: form,
+            dataType: 'json',
+            success: function(data) {
+                    alertify.success("agregado con exito");
+                    console.log('success');
+                    console.log(data);
+                // alert('success');
+            },
+            error: function(data) {
+                    alertify.error("Fallo al agregar");
+                var errors = data.responseJSON;
+                // alert('error');
+            }
+        });
+    });
 
 // function editar(id){
 // 	console.log(id);
 // }
 
 function eliminar(id){
-      
+
         $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -71,7 +137,7 @@ function eliminar(id){
         $.ajax({
             type: "get",
             url: url2,
-            success: function() { 
+            success: function() {
                 $("#user_table").load("#user_table");
                 console.log("Success");
                 alertify.success("Eliminado con exito");
