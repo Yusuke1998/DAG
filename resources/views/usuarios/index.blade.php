@@ -23,17 +23,12 @@
 		      <td>{{ $usuario->email }}</td>
 		      <td>{{ $usuario->type }}</td>
 		      <td>
-<<<<<<< HEAD
-		      	{{-- <a class="btn btn-info btn-sm" onclick="editar({{$usuario->id}})">Editar</a> --}}
-		      	<a class="" onclick="eliminar({{$usuario->id}})">Eliminar</a>
-=======
                 @if($usuario->id==1)
 		      	<a class="btn btn-info btn-sm" onclick="eliminar({{$usuario->id}})" style='display:none;'>Eliminar</a>
                 @endif
                 @if($usuario->id!=1)
 		      	<a class="btn btn-info btn-sm" onclick="eliminar({{$usuario->id}})">Eliminar</a>
                 @endif
->>>>>>> 28b2b029a7ea9bb41c1aec705079322b4a3516ff
 		      </td>
 		    </tr>
 		    @endforeach
