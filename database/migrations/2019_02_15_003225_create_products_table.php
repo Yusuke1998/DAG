@@ -13,7 +13,6 @@ class CreateProductsTable extends Migration
             $table->string('code')->unique();
             $table->string('name')->unique();
             $table->string('description')->nullable();
-            $table->string('image')->nullable();
             $table->string('unity_m')->nullable();
             $table->double('quantity')->nullable();
             $table->string('date_maturity')->nullable();
