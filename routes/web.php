@@ -78,9 +78,11 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 
 
 	// Reportes
-	Route::get('reporte/general','ProductController@pdf_general')->name('pdf.general');
-	Route::get('reporte/productos','ProductController@pdf_productos')->name('pdf.productos');
-	Route::get('reporte/producto/{id}','ProductController@pdf_producto_id')->name('pdf.producto_id');
+	Route::get('reporte/general/pdf','ProductController@pdf_general')->name('pdf.general');
+	Route::get('reporte/producto/{id}/pdf','ProductController@pdf_producto_id')->name('pdf.producto_id');
+
+	Route::get('reporte/general/excel','ProductController@excel_general')->name('excel.general');
+	Route::get('reporte/producto/{id}/excel','ProductController@excel_producto_id')->name('excel.producto_id');
 	// Reportes
 
 });

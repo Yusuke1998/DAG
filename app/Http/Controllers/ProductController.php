@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Product;
 use App\Shopping;
 use App\Entrance;
@@ -117,19 +118,53 @@ class ProductController extends Controller
         return $pdf->stream('reporte_general.pdf');
     }
 
-    public function pdf_productos(){
-        $productos = Product::all();
-
-        $pdf = PDF::loadView('reportes.productos', compact('productos'));
-        return $pdf->stream('reporte_productos.pdf');
-    }
-
     public function pdf_producto_id($id){
         $producto = Product::find($id);
 
         $pdf = PDF::loadView('reportes.producto', compact('producto'));
         return $pdf->stream('reporte_producto.pdf');
     }
+
+    public function excel_general(){
+
+        Excel::create('reportes_productos', function($excel) {
+            $excel->sheet('DGA', function($sheet) {
+                $productos = Product::all();
+                $sheet->row(1, [
+                    'Codigo','Nombre','Descripcion','Unidad de medida','Cantidad','Fecha de vencimiento',
+                ]);
+
+                foreach ($productos as $index => $producto) {
+                    $sheet->row($index+2, [
+                        $producto->code, $producto->name, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
+                    ]); 
+                }
+                $sheet->setOrientation('landscape');
+            });
+        })->export('xls');
+    }
+
+    public function excel_producto_id($id){
+        Excel::create('reportes_producto', function($excel) use($id) {
+            $excel->sheet('DGA', function($sheet) use($id) {
+                $producto = Product::find($id);
+                $sheet->row(1, [
+                    'Codigo','Nombre','Descripcion','Unidad de medida','Cantidad','Fecha de vencimiento',
+                ]);
+                $sheet->row(2, [
+                        $producto->code, $producto->name, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
+                ]);
+                $sheet->row(3, [
+                    'Entradas','Salidas',
+                ]);
+                $sheet->row(4, [
+                    $producto->entrances->count(),$producto->deliverys->count(),
+                ]);
+                $sheet->setOrientation('landscape');
+            });
+        })->export('xls');
+    }
+
 
     public function entradas($id)
     {

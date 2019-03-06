@@ -19,8 +19,8 @@
           <!--Card-->
           <div class="card">
            <div class="card-header">Consolidados
-            {{-- <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('pdf.productos') }}" title="">pdf de productos</a> --}}
-            <a class="btn btn-sm btn-warning" target="_blank" href="{{ route('pdf.general') }}" title="">pdf general</a>
+            <a class="btn btn-sm btn-info" target="_blank" href="{{ route('pdf.general') }}" title="">pdf general</a>
+            <a class="btn btn-sm btn-info" target="_blank" href="{{ route('excel.general') }}" title="">excel general</a>
            </div>
             <!--Card content-->
             <div class="card-body">
@@ -51,8 +51,8 @@
                   <td>{{ $producto->deliverys()->count('quantity') }}</td>
                   <td>{{ $producto->quantity+$producto->entrances()->count('quantity')-$producto->deliverys()->count('quantity') }}</td>
                   <td>
-                      {{-- <a class="btn btn-sm" id="mostrar" onclick="ver({{ $producto->id }});" title="Ver detalles del producto">Ver</a> --}}
                       <a class="btn btn-sm" id="pdf" target="_blank" href="{{ route('pdf.producto_id',$producto->id) }}" title="Pdf con detalles del producto">PDF</a>
+                      <a class="btn btn-sm" id="excel" target="_blank" href="{{ route('excel.producto_id',$producto->id) }}" title="Excel con detalles del producto">EXcEL</a>
                   </td>
                 </tr>
                 @empty

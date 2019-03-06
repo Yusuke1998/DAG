@@ -4,8 +4,8 @@
 <div class="container">
 
   <div class="row">
-    <div class="col">
-      	<table id="user_table" class="table">
+    <div id="all-users" class="col">
+    <table id="user_table" class="table">
 		  <thead class="black white-text">
 		    <tr>
 		      <th scope="col">#</th>
@@ -104,19 +104,14 @@ $('#esubmit').on('click', function(e){
                     alertify.success("agregado con exito");
                     console.log('success');
                     console.log(data);
-                // alert('success');
+                    $("#all-users").load(" #all-users");
             },
             error: function(data) {
                     alertify.error("Fallo al agregar");
-                var errors = data.responseJSON;
-                // alert('error');
+                    var errors = data.responseJSON;
             }
         });
     });
-
-// function editar(id){
-// 	console.log(id);
-// }
 
 function eliminar(id){
 
@@ -135,6 +130,7 @@ function eliminar(id){
             success: function() {
                 $("#user_table").load("#user_table");
                 console.log("Success");
+                $("#all-users").load(" #all-users");
                 alertify.success("Eliminado con exito");
 
             },error: function(){
