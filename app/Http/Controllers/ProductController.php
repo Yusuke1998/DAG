@@ -94,8 +94,15 @@ class ProductController extends Controller
     }
 
     public function ajax_editar($id){
-        $producto = Product::find($id);
-        return Response()->json($producto);
+        $data = Product::select('products.code', 'products.name', 'products.description',
+                                'products.unity_m', 'products.quantity', 'products.date_maturity',
+                                'shoppings.date', 'shoppings.supplier', 'shoppings.price',
+                                'shoppings.quantity')
+                ->join('shoppings', 'products.id', '=', 'shoppings.product_id')
+                ->get();
+
+        //$producto = Product::find($id);
+        return Response()->json($data);
 
     }
 
@@ -137,7 +144,7 @@ class ProductController extends Controller
                 foreach ($productos as $index => $producto) {
                     $sheet->row($index+2, [
                         $producto->code, $producto->name, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
-                    ]); 
+                    ]);
                 }
                 $sheet->setOrientation('landscape');
             });

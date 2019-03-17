@@ -28,10 +28,6 @@
 				      <td>{{ $producto->quantity }}</td>
 
 				      <td>
-                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#entranceModal" onclick="entradaP({{ $producto->id }});" title="">Entradas</a>
-
-                            <a class="btn btn-sm" href="#" data-toggle="modal" data-target="#deliveryModal" onclick="salidaP({{ $producto->id }});" title="">Salidas</a>
-
 				      		<a class="btn btn-sm" href="#" data-toggle="modal" data-target="#updateModal" onclick="editarP({{ $producto->id }});" title="">Editar</a>
 
 				      		<a class="btn btn-sm" id="eliminar" href="{{ Route('productos.eliminar',$producto->id) }}" title="">Eliminar</a>
@@ -92,27 +88,24 @@
 	          <i class="fas fa-lock prefix grey-text"></i>
 	          <input type="number" name="quantity" id="quantity" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="quantity">Cantidad</label>
-	        </div>
-	        
-	        <div class="md-form mb-4">
-	          	<select id="unidadMedida" name="unity_m" class="custom-select">
-				  <option value="" disabled selected>Unidad de medida</option>
-				  <option value="Gr">Gr</option>
-				  <option value="Kg">Kg</option>
-				  <option value="Tn">Tn</option>
-				</select>
+					</div>
+
+					<div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="text" name="unity_m" id="unidadMedida" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="quantity">Presentacion</label>
 	        </div>
 
 	          <label data-error="Error" data-success="Bien" for="fechaV">F.Vencimiento</label>
-	        <div class="md-form mb-4">
+	        	<div class="md-form mb-4">
 	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="date" id="fechaV" name="date_maturity" class="form-control validate">
-	        </div>
+	        	</div>
 	          <label data-error="Error" data-success="Bien" for="fechaC">F.Compra</label>
-	        <div class="md-form mb-4">
+	        	<div class="md-form mb-4">
 	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="date" id="fechaC" autofocus="true" name="date" class="form-control validate">
-	        </div>
+	        	</div>
 
 	      </div>
 
@@ -151,22 +144,31 @@
 	          <i class="fas fa-envelope prefix grey-text"></i>
 	          <input type="text" name="name" id="nombreu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Nombre</label>
+					</div>
+
+					<div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <input type="text" name="supplier" id="proveedoru" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="proveedor">Proveedor</label>
+	        </div>
+	        <div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <input type="text" name="price" id="preciou" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="precio">Precio</label>
 	        </div>
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
 	          <input type="text" name="description" id="descripcionu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Descripcion</label>
+					</div>
+
+					<div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="text" name="unity_m" id="unidadMedidau" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Presentacion</label>
 	        </div>
 
-	        <div class="md-form mb-4">
-	          	<select id="unidadMedidau" name="unity_mu" class="custom-select">
-				  <option value="" disabled selected>Unidad de medida</option>
-				  <option value="Gr">Gr</option>
-				  <option value="Kg">Kg</option>
-				  <option value="Tn">Tn</option>
-				</select>
-	        </div>
             <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
 	          <input type="number" name="quantity" id="quantityu" class="form-control validate">
@@ -176,9 +178,15 @@
 
 	        <div class="md-form mb-4">
 	          <i class="fas fa-lock prefix grey-text"></i>
-	          <input type="date" id="date_maturityu" name="date_maturityu" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass"></label>
-	        </div>
+	          <input type="date" id="fechaVu" name="date_maturity" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="fechaV">F.Vencimiento</label>
+					</div>
+
+					<div class="md-form mb-4">
+	          <i class="fas fa-lock prefix grey-text"></i>
+	          <input type="date" id="fechaCu" name="date" class="form-control validate">
+	          <label data-error="Error" data-success="Bien" for="fechaV">F.Compra</label>
+					</div>
 
 	      </div>
 
@@ -244,12 +252,15 @@
 		        type: 'post',
 		        url: url2,
 		        success: function(data) {
-                    $('#codigou').val(data.code)
-                    $('#nombreu').val(data.name)
-                    $('#descripcionu').val(data.description)
-                    $('#unidadMedidau').val(data.unity_m)
-                    $('#quantityu').val(data.quantity)
-                    $('#date_maturityu').val(data.date_maturity)
+                    $('#codigou').val(data[0].code)
+                    $('#nombreu').val(data[0].name)
+                    $('#proveedoru').val(data[0].supplier)
+                    $('#preciou').val(data[0].price)
+                    $('#descripcionu').val(data[0].description)
+                    $('#unidadMedidau').val(data[0].unity_m)
+                    $('#quantityu').val(data[0].quantity)
+                    $('#fechaVu').val(data[0].date_maturity)
+                    $('#fechaCu').val(data[0].date)
                     console.log(data);
 
                     $('#bsubmitu').on('click', function(e){
@@ -309,7 +320,7 @@
 
             var urle = location.href+'/entradas/'+id;
 
-            console.log(urle); 
+            console.log(urle);
 		    $.ajax({
 		        type: 'get',
 		        url: urle,
@@ -335,7 +346,7 @@
 
             var urls = location.href+'/salidas/'+id;
 
-            console.log(urls); 
+            console.log(urls);
 		    $.ajax({
 		        type: 'get',
 		        url: urls,

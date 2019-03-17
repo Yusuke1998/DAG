@@ -1491,16 +1491,16 @@
         },
         {
             "name": "mews/captcha",
-            "version": "2.2.5",
+            "version": "2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mewebstudio/captcha.git",
-                "reference": "44ed8d66aa6f27443ff51bbf48a5b28cb958d75f"
+                "reference": "44320039158d90c064f64ab577c37d54dc4d5424"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mewebstudio/captcha/zipball/44ed8d66aa6f27443ff51bbf48a5b28cb958d75f",
-                "reference": "44ed8d66aa6f27443ff51bbf48a5b28cb958d75f",
+                "url": "https://api.github.com/repos/mewebstudio/captcha/zipball/44320039158d90c064f64ab577c37d54dc4d5424",
+                "reference": "44320039158d90c064f64ab577c37d54dc4d5424",
                 "shasum": ""
             },
             "require": {
@@ -1554,7 +1554,7 @@
                 "laravel5 Captcha",
                 "laravel5 Security"
             ],
-            "time": "2019-01-21T08:00:11+00:00"
+            "time": "2019-03-07T07:53:33+00:00"
         },
         {
             "name": "monolog/monolog",
