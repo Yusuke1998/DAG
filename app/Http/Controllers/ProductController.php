@@ -94,14 +94,12 @@ class ProductController extends Controller
     }
 
     public function ajax_editar($id){
-        $data = Product::select('products.code', 'products.name', 'products.description',
+        $data = Product::select('products.code', 'products.name', 'products.type', 'products.description',
                                 'products.unity_m', 'products.quantity', 'products.date_maturity',
                                 'shoppings.date', 'shoppings.supplier', 'shoppings.price',
                                 'shoppings.quantity')
-                ->join('shoppings', 'products.id', '=', 'shoppings.product_id')
+                ->join('shoppings', 'products.id', '=', 'shoppings.product_id')->where('product_id',$id)
                 ->get();
-
-        //$producto = Product::find($id);
         return Response()->json($data);
 
     }

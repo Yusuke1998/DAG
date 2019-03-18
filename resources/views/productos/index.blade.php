@@ -1,4 +1,4 @@
-@extends('template.layout')
+ @extends('template.layout')
 @section('title') Productos @stop
 @section('content')
 	<div class="container">
@@ -13,7 +13,8 @@
 				      <th scope="col">#</th>
 				      <th scope="col">Codigo</th>
 				      <th scope="col">Nombre</th>
-				      <th scope="col">Unidad de Medida</th>
+				      <th scope="col">Tipo</th>
+				      <th scope="col">Presentación</th>
 				      <th scope="col">Cantidad</th>
 				      <th scope="col">accion</th>
 				    </tr>
@@ -24,6 +25,7 @@
                       <th>{{ $producto->id }}</th>
 				      <td>{{ $producto->code }}</td>
 				      <td>{{ $producto->name }}</td>
+				      <td>{{ $producto->type }}</td>
 				      <td>{{ $producto->unity_m }}</td>
 				      <td>{{ $producto->quantity }}</td>
 
@@ -67,6 +69,16 @@
 	          <input type="text" name="name" id="nombre" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="nombre">Nombre</label>
 	        </div>
+	        <div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <select type="text" name="type" id="tipo" class="form-control validate">
+	          		<option value="Comida">Comida</option>
+	          		<option value="Materiales">Materiales</option>
+	          		<option value="Herramientas">Herramientas</option>
+	          		<option value="Otros">Otros</option>
+	          </select>
+	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Tipo</label>
+			</div>
 	        <div class="md-form mb-5">
 	          <i class="fas fa-envelope prefix grey-text"></i>
 	          <input type="text" name="supplier" id="proveedor" class="form-control validate">
@@ -144,7 +156,17 @@
 	          <i class="fas fa-envelope prefix grey-text"></i>
 	          <input type="text" name="name" id="nombreu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Nombre</label>
-					</div>
+			</div>
+			<div class="md-form mb-5">
+	          <i class="fas fa-envelope prefix grey-text"></i>
+	          <select type="text" name="type" id="tipou" class="form-control validate">
+	          		<option value="Comida">Comida</option>
+	          		<option value="Materiales">Materiales</option>
+	          		<option value="Herramientas">Herramientas</option>
+	          		<option value="Otros">Otros</option>
+	          </select>
+	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Tipo</label>
+			</div>
 
 					<div class="md-form mb-5">
 	          <i class="fas fa-envelope prefix grey-text"></i>
@@ -254,6 +276,7 @@
 		        success: function(data) {
                     $('#codigou').val(data[0].code)
                     $('#nombreu').val(data[0].name)
+                    $('#tipou').val(data[0].type)
                     $('#proveedoru').val(data[0].supplier)
                     $('#preciou').val(data[0].price)
                     $('#descripcionu').val(data[0].description)
@@ -273,7 +296,6 @@
                         var formu = $('#my_formu').serialize();
                         var url3 = location.href+'/'+id;
                         console.log(formu);
-
 
                         $.ajax({
                             type: 'post',
