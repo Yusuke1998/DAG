@@ -50,8 +50,8 @@
 			<tr>
 				<th>Codigo</th>
 				<th>Producto</th>
-				<th>Descripción</th>
-				<th>U/M</th>
+				<th>Tipo</th>
+				<th>Presentacion</th>
 				<th>Inicial</th>
 				<th>Entradas</th>
 				<th>Salidas</th>
@@ -63,7 +63,7 @@
 			<tr>
 				<td>{{ $producto->code }}</td>
 				<td>{{ $producto->name }}</td>
-				<td>{{ $producto->description }}</td>
+				<td>{{ $producto->type }}</td>
 				<td>{{ $producto->unity_m }}</td>
 				<td>{{ $producto->quantity }}</td>
 				<td>{{ $producto->entrances()->count('quantity') }}</td>

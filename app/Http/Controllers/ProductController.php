@@ -138,12 +138,12 @@ class ProductController extends Controller
             $excel->sheet('DGA', function($sheet) {
                 $productos = Product::all();
                 $sheet->row(1, [
-                    'Codigo','Nombre','Descripcion','Unidad de medida','Cantidad','Fecha de vencimiento',
+                    'Codigo','Nombre','Tipo','Descripcion','Presentacion','Cantidad','Fecha de vencimiento',
                 ]);
 
                 foreach ($productos as $index => $producto) {
                     $sheet->row($index+2, [
-                        $producto->code, $producto->name, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
+                        $producto->code, $producto->name, $producto->type, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
                     ]);
                 }
                 $sheet->setOrientation('landscape');
@@ -156,10 +156,10 @@ class ProductController extends Controller
             $excel->sheet('DGA', function($sheet) use($id) {
                 $producto = Product::find($id);
                 $sheet->row(1, [
-                    'Codigo','Nombre','Descripcion','Unidad de medida','Cantidad','Fecha de vencimiento',
+                    'Codigo','Nombre','Tipo','Descripcion','Presentacion','Cantidad','Fecha de vencimiento',
                 ]);
                 $sheet->row(2, [
-                        $producto->code, $producto->name, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
+                        $producto->code, $producto->name, $producto->type, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
                 ]);
                 $sheet->row(3, [
                     'Entradas','Salidas',

@@ -57,15 +57,15 @@
 			<tr>
 				<th>Codigo</th>
 				<th>Producto</th>
-				<th>Descripción</th>
-				<th>U/M</th>
+				<th>Tipo</th>
+				<th>Presentacion</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>{{ $producto->code }}</td>
 				<td>{{ $producto->name }}</td>
-				<td>{{ $producto->description }}</td>
+				<td>{{ $producto->type }}</td>
 				<td>{{ $producto->unity_m }}</td>
 			</tr>
 		</tbody>
