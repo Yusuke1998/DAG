@@ -60,51 +60,51 @@
 	      </div>
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
-	          <i class="fas fa-user prefix grey-text"></i>
+	          {{-- <i class="fas fa-user prefix grey-text"></i> --}}
 	          <input type="number" name="code" id="codigo" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="codigo">Codigo</label>
 	        </div>
 	        <div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
+	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="name" id="nombre" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="nombre">Nombre</label>
 	        </div>
 	        <div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
 	          <select type="text" name="type" id="tipo" class="form-control validate">
+	          		<option selected disabled>Tipo</option>
 	          		<option value="Comida">Comida</option>
 	          		<option value="Materiales de limpieza y otros">Materiales de limpieza y otros</option>
 	          		<option value="Herramientas y ferreteria">Herramientas y ferreteria</option>
 	          		<option value="Material de oficina">Material de oficina</option>
 	          		<option value="Equipos bienes nacionales y otros">Equipos bienes nacionales y otros</option>
 	          </select>
-	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Tipo</label>
+	          {{-- <label data-error="Error" data-success="Bien" for="orangeForm-email">Tipo</label> --}}
 			</div>
 	        <div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
+	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="supplier" id="proveedor" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="proveedor">Proveedor</label>
 	        </div>
 	        <div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
+	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="price" id="precio" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="precio">Precio</label>
 	        </div>
 
 	        <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="text" name="description" id="descripcion" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="descripcion">Descripcion</label>
 	        </div>
 
             <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="number" name="quantity" id="quantity" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="quantity">Cantidad</label>
 					</div>
 
 					<div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="text" name="unity_m" id="unidadMedida" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="quantity">Presentacion</label>
 	        </div>
@@ -142,71 +142,71 @@
 	  <div class="modal-dialog modal-md" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title w-100" id="myModalLabelu">Editar entrada</h4>
+	        <h4 class="modal-title w-100" id="myModalLabelu">Editar producto</h4>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
-	          <i class="fas fa-user prefix grey-text"></i>
+	          {{-- <i class="fas fa-user prefix grey-text"></i> --}}
 	          <input type="number" name="code" id="codigou" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-name">Codigo</label>
 	        </div>
 	        <div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
+	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="name" id="nombreu" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Nombre</label>
+	          <label data-error="Error" data-success="Bien" for="nombreu">Nombre</label>
 			</div>
 			<div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
-	          <select type="text" name="type" id="tipou" class="form-control validate">
+	          <select type="text" name="type" id="tipou" class="browser-default custom-select">
+	          		<option selected disabled>Tipo</option>
 	          		<option value="Comida">Comida</option>
-	          		<option value="Materiales">Materiales</option>
-	          		<option value="Herramientas">Herramientas</option>
-	          		<option value="Otros">Otros</option>
+	          		<option value="Materiales de limpieza y otros">Materiales de limpieza y otros</option>
+	          		<option value="Herramientas y ferreteria">Herramientas y ferreteria</option>
+	          		<option value="Material de oficina">Material de oficina</option>
+	          		<option value="Equipos bienes nacionales y otros">Equipos bienes nacionales y otros</option>
 	          </select>
-	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Tipo</label>
 			</div>
 
 					<div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
+	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="supplier" id="proveedoru" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="proveedor">Proveedor</label>
 	        </div>
 	        <div class="md-form mb-5">
-	          <i class="fas fa-envelope prefix grey-text"></i>
+	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="price" id="preciou" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="precio">Precio</label>
 	        </div>
 
 	        <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="text" name="description" id="descripcionu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Descripcion</label>
 					</div>
 
 					<div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="text" name="unity_m" id="unidadMedidau" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Presentacion</label>
 	        </div>
 
             <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="number" name="quantity" id="quantityu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
               <input type="hidden" name="_method" value="PUT">
 	        </div>
 
 	        <div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="date" id="fechaVu" name="date_maturity" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="fechaV">F.Vencimiento</label>
 					</div>
 
 					<div class="md-form mb-4">
-	          <i class="fas fa-lock prefix grey-text"></i>
+	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="date" id="fechaCu" name="date" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="fechaV">F.Compra</label>
 					</div>
@@ -238,9 +238,7 @@
 
             var form = $('#my_form').serialize();
             console.log(form);
-		    // var form = $('#my_form').FormData();
 		    var url = '{{ Route('productos.store') }}';
-		    // var parametros = new FormData(this);
 
 		    $.ajax({
 		        type: 'post',
