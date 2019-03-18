@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'code','name','description','unity_m','quantity','date_maturity',
+        'code','name','type','description','unity_m','quantity','date_maturity',
     ];
 
     public function area(){

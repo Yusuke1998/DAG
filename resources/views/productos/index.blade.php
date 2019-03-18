@@ -73,9 +73,10 @@
 	          <i class="fas fa-envelope prefix grey-text"></i>
 	          <select type="text" name="type" id="tipo" class="form-control validate">
 	          		<option value="Comida">Comida</option>
-	          		<option value="Materiales">Materiales</option>
-	          		<option value="Herramientas">Herramientas</option>
-	          		<option value="Otros">Otros</option>
+	          		<option value="Materiales de limpieza y otros">Materiales de limpieza y otros</option>
+	          		<option value="Herramientas y ferreteria">Herramientas y ferreteria</option>
+	          		<option value="Material de oficina">Material de oficina</option>
+	          		<option value="Equipos bienes nacionales y otros">Equipos bienes nacionales y otros</option>
 	          </select>
 	          <label data-error="Error" data-success="Bien" for="orangeForm-email">Tipo</label>
 			</div>

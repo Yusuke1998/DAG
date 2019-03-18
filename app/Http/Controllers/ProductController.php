@@ -35,6 +35,7 @@ class ProductController extends Controller
             [
                 'code'              =>  'required',
                 'name'              =>  'required',
+                'type'              =>  'required',
                 'description'       =>  'max:150',
                 'unity_m'           =>  'required',
                 'quantity'          =>  'required',
@@ -53,6 +54,7 @@ class ProductController extends Controller
         $producto = Product::create([
             'code'              =>  $data['code'],
             'name'              =>  $data['name'],
+            'type'              =>  $data['type'],
             'description'       =>  $data['description'],
             'unity_m'           =>  $data['unity_m'],
             'quantity'          =>  $data['quantity'],
