@@ -38,6 +38,8 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
     Route::get('salidas','DeliveryController@index')->name('salidas');
 	Route::get('salidas/eliminar/{id}','DeliveryController@eliminar')->name('salidas.eliminar');
     Route::post('salidas/editar/{id}','DeliveryController@editar')->name('salidas.editar');
+
+    Route::post('salidas/cantidad','DeliveryController@cantidad')->name('salidas.cantidad');
 	// SALIDAS
 
 	Route::get('consolidados','ConsolidatedController@index')->name('consolidados');

@@ -8,6 +8,12 @@
 </head>
 <body>
 <style>
+
+	html {
+		padding: 1px;
+		margin: 0px;
+	}
+
 	.page-break {
 	    page-break-after: always;
 	}
@@ -24,7 +30,7 @@
 	  font-weight: bold;
 	}
 	
-	thead th, thead td {
+/*	thead th, thead td {
 	  padding: 10px 18px;
 	  border-bottom: 1px solid #111;
 	}
@@ -32,7 +38,7 @@
 	tfoot td {
 	  padding: 10px 18px 6px 18px;
 	  border-top: 1px solid #111;
-	}
+	}*/
 
 	td {
 		text-align: center;
@@ -50,8 +56,8 @@
 			<tr>
 				<th>Codigo</th>
 				<th>Producto</th>
-				<th>Descripción</th>
-				<th>U/M</th>
+				<th>Tipo</th>
+				<th>Presentacion</th>
 				<th>Inicial</th>
 				<th>Entradas</th>
 				<th>Salidas</th>
@@ -63,12 +69,14 @@
 			<tr>
 				<td>{{ $producto->code }}</td>
 				<td>{{ $producto->name }}</td>
-				<td>{{ $producto->description }}</td>
+				<td>{{ $producto->type }}</td>
 				<td>{{ $producto->unity_m }}</td>
 				<td>{{ $producto->quantity }}</td>
-				<td>{{ $producto->entrances()->count('quantity') }}</td>
-				<td>{{ $producto->deliverys()->count('quantity') }}</td>
-				<td>{{ $producto->quantity+$producto->entrances()->count('quantity')-$producto->deliverys()->count('quantity') }}</td>
+				<td>{{ $producto->entrances()->count('quantity') }}/{{ $producto->entrances()->sum('quantity') }}</td>
+				<td>{{ $producto->deliverys()->count('quantity') }}/{{ $producto->deliverys()->sum('quantity') }}</td>
+				<td>{{ $producto->quantity+
+                        $producto->entrances()->sum('quantity')-
+                        $producto->deliverys()->sum('quantity') }}</td>
 			</tr>
 			@endforeach
 		</tbody>
