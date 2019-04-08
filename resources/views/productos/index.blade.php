@@ -273,17 +273,19 @@
 		        type: 'post',
 		        url: url2,
 		        success: function(data) {
-                    $('#codigou').val(data[0].code)
-                    $('#nombreu').val(data[0].name)
-                    $('#tipou').val(data[0].type)
-                    $('#proveedoru').val(data[0].supplier)
-                    $('#preciou').val(data[0].price)
-                    $('#descripcionu').val(data[0].description)
-                    $('#unidadMedidau').val(data[0].unity_m)
-                    $('#quantityu').val(data[0].quantity)
-                    $('#fechaVu').val(data[0].date_maturity)
-                    $('#fechaCu').val(data[0].date)
+
                     console.log(data);
+
+                    $('#codigou').val(data.code);
+                    $('#nombreu').val(data.name);
+                    $('#tipou').val(data.type);
+                    $('#proveedoru').val(data.supplier);
+                    $('#preciou').val(data.price);
+                    $('#descripcionu').val(data.description);
+                    $('#unidadMedidau').val(data.unity_m);
+                    $('#quantityu').val(data.quantity);
+                    $('#fechaVu').val(data.date_maturity);
+                    $('#fechaCu').val(data.date);
 
                     $('#bsubmitu').on('click', function(e){
                         $.ajaxSetup({
@@ -291,39 +293,30 @@
 		                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		                    }
                         });
-                        console.log("funciona");
                         var formu = $('#my_formu').serialize();
                         var url3 = location.href+'/'+id;
-                        console.log(formu);
 
                         $.ajax({
                             type: 'post',
 		                    url: url3,
 		                    data: formu,
+		        			dataType: 'json',
 		                    success: function(data) {
-                                alert('aqui');
                                 console.log(data);
                                 $("#tb").load(" #tb");
                                 $('#updateModal').modal('toggle');
-                                alertify.error("agregado con exito");
+                                alertify.success("Agregado con exito");
 
                             },
-                            error: function(data) {
-                                $("#tb").load(" #tb");
-                                $('#updateModal').modal('toggle');
-                                alertify.success("agregado con exito");
-		                        console.log(data);
-		                        // alert('success');
+                            error: function() {
+                                alertify.error("Error detectado");
 		                    }
 
                         });
                     });
-
-		                    // alert('error');
 		        },
 		        error: function(data) {
 		            var errors = data.responseJSON;
-		            // alert('success');
 		        }
 		    });
 

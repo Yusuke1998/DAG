@@ -81,25 +81,43 @@ class ProductController extends Controller
         return Response()->json($data);
     }
 
-    public function show($id)
-    {
-        return view('productos.show');
-    }
-
     public function edit($id)
     {
         return view('productos.edit');
     }
 
     public function ajax_editar($id){
-        $data = Product::select('products.code', 'products.name', 'products.type', 'products.description',
-                                'products.unity_m', 'products.quantity', 'products.date_maturity',
-                                'shoppings.date', 'shoppings.supplier', 'shoppings.price',
-                                'shoppings.quantity')
-                ->join('shoppings', 'products.id', '=', 'shoppings.product_id')->where('product_id',$id)
-                ->get();
-        return Response()->json($data);
+        // $data = Product::select(
+        //     'products.code', 
+        //     'products.name', 
+        //     'products.type', 
+        //     'products.description',
+        //     'products.unity_m',
+        //     'products.quantity',
+        //     'products.date_maturity',
+        //     'shoppings.date',
+        //     'shoppings.supplier',
+        //     'shoppings.price',
+        //     'shoppings.quantity')
+        //         ->join('shoppings', 'products.id', '=', 'shoppings.product_id')->where('product_id',$id)
+        //         ->get();
 
+        $producto = Product::find($id);
+        $compra = $producto->shoppings()->first();
+
+        $data = [
+            'code'          =>  $producto->code,
+            'name'          =>  $producto->name,
+            'type'          =>  $producto->type,
+            'description'   =>  $producto->description,
+            'unity_m'       =>  $producto->unity_m,
+            'date_maturity' =>  $producto->date_maturity,
+            'quantity'      =>  $producto->quantity,
+            'supplier'      =>  ($compra)?$compra->supplier:'',
+            'price'         =>  ($compra)?$compra->price:'',
+        ];
+
+        return Response()->json($data);
     }
 
     public function editar($id)
@@ -111,6 +129,10 @@ class ProductController extends Controller
     {
         $edit = Product::find($id);
         $update = $edit->update($request->all());
+
+        $edit2 = Shopping::where('product_id',$id);
+        $update2 = $edit2->update($request->all());
+        
         return Response::json($update);
     }
 

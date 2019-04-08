@@ -50,7 +50,7 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 				['estado'=>'inicio del sistema','fecha'=>'13/02/2019'],
 				['nombre'=>'Jhonny Perez','correo'=>'jhperez@unerg.edu.ve'],
 				['nombre'=>'Fidel Herrera','correo'=>'fidelherrera@unerg.edu.ve'],
-				['estado'=>'sistema finalizado','fecha'=>'18/02/2019'],
+				['estado'=>'sistema finalizado','fecha'=>'08/04/2019'],
 			]
 		];
 	})->name('autores');
