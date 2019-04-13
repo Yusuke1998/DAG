@@ -86,6 +86,11 @@ class ProductController extends Controller
         return view('productos.edit');
     }
 
+    public function show($id)
+    {
+        return $id;
+    }
+
     public function ajax_editar($id){
         // $data = Product::select(
         //     'products.code', 
@@ -101,10 +106,8 @@ class ProductController extends Controller
         //     'shoppings.quantity')
         //         ->join('shoppings', 'products.id', '=', 'shoppings.product_id')->where('product_id',$id)
         //         ->get();
-
         $producto = Product::find($id);
         $compra = $producto->shoppings()->first();
-
         $data = [
             'code'          =>  $producto->code,
             'name'          =>  $producto->name,
@@ -127,13 +130,9 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $edit = Product::find($id);
-        $update = $edit->update($request->all());
-
-        $edit2 = Shopping::where('product_id',$id);
-        $update2 = $edit2->update($request->all());
-        
-        return Response::json($update);
+        $edit = Product::find($id)->update($request->all());
+        $edit2 = Shopping::where('product_id',$id)->update($request->all());
+        return json_encode($request);
     }
 
     public function pdf_general(){

@@ -135,10 +135,9 @@
 <!-- Central Modal Update -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	  aria-hidden="true">
-	<form action="location.href+'/editar/'+id;" method="post" id="my_formu">
+	<form method="post" id="my_form_u">
 	{{-- enctype='multipart/form-data' --}}
 	{{ csrf_field() }}
-	  <!-- Change class .modal-sm to change the size of the modal -->
 	  <div class="modal-dialog modal-md" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -149,12 +148,11 @@
 	      </div>
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
-	          {{-- <i class="fas fa-user prefix grey-text"></i> --}}
+	          <input type="hidden" name="_method" value="PUT">
 	          <input type="number" name="code" id="codigou" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-name">Codigo</label>
 	        </div>
 	        <div class="md-form mb-5">
-	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="name" id="nombreu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="nombreu">Nombre</label>
 			</div>
@@ -168,54 +166,44 @@
 	          		<option value="Equipos bienes nacionales y otros">Equipos bienes nacionales y otros</option>
 	          </select>
 			</div>
-
-					<div class="md-form mb-5">
-	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
+			<div class="md-form mb-5">
 	          <input type="text" name="supplier" id="proveedoru" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="proveedor">Proveedor</label>
 	        </div>
 	        <div class="md-form mb-5">
-	         {{--  <i class="fas fa-envelope prefix grey-text"></i> --}}
 	          <input type="text" name="price" id="preciou" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="precio">Precio</label>
 	        </div>
 
 	        <div class="md-form mb-4">
-	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="text" name="description" id="descripcionu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Descripcion</label>
-					</div>
+			</div>
 
-					<div class="md-form mb-4">
-	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
+			<div class="md-form mb-4">
 	          <input type="text" name="unity_m" id="unidadMedidau" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Presentacion</label>
 	        </div>
 
             <div class="md-form mb-4">
-	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="number" name="quantity" id="quantityu" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
-              <input type="hidden" name="_method" value="PUT">
 	        </div>
 
 	        <div class="md-form mb-4">
-	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="date" id="fechaVu" name="date_maturity" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="fechaV">F.Vencimiento</label>
-					</div>
+			</div>
 
-					<div class="md-form mb-4">
-	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
+			<div class="md-form mb-4">
 	          <input type="date" id="fechaCu" name="date" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="fechaV">F.Compra</label>
-					</div>
-
+			</div>
 	      </div>
 
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
-	        <button type="button" id="bsubmitu" class="btn btn-primary btn-sm">Guardar</button>
+	        <button type="button" id="bsubmitu" class="btn btn-primary btn-sm">Actualizar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -237,7 +225,6 @@
 		    });
 
             var form = $('#my_form').serialize();
-            console.log(form);
 		    var url = '{{ Route('productos.store') }}';
 
 		    $.ajax({
@@ -250,13 +237,10 @@
                         $('#createModal').modal('toggle');
                         alertify.success("agregado con exito");
     		            console.log('success: '+data);
-
-		            // alert('error');
 		        },
 		        error: function(data) {
                     alertify.error("Fallo al agregar");
 		            var errors = data.responseJSON;
-		            // alert('success');
 		        }
 		    });
 		});
@@ -268,14 +252,13 @@
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
             });
+
             var url2 = location.href+'/editar/'+id;
+
 		    $.ajax({
-		        type: 'post',
+		        type: 'get',
 		        url: url2,
 		        success: function(data) {
-
-                    console.log(data);
-
                     $('#codigou').val(data.code);
                     $('#nombreu').val(data.name);
                     $('#tipou').val(data.type);
@@ -286,39 +269,47 @@
                     $('#quantityu').val(data.quantity);
                     $('#fechaVu').val(data.date_maturity);
                     $('#fechaCu').val(data.date);
-
-                    $('#bsubmitu').on('click', function(e){
-                        $.ajaxSetup({
-		                    headers: {
-		                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		                    }
+				   
+				    $('#bsubmitu').on('click', function(e){  
+				        e.preventDefault();
+					    $.ajaxSetup({
+	                        headers: {
+	                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	                        }
                         });
-                        var formu = $('#my_formu').serialize();
-                        var url3 = location.href+'/'+id;
 
-                        $.ajax({
-                            type: 'post',
-		                    url: url3,
-		                    data: formu,
-		        			dataType: 'json',
+		                var my_form_u = $('#my_form_u').serialize();
+		                var urlu = window.location.href+'/'+id;
+
+		                $.ajax({
+		                    type: 'post',
+		                    url: urlu,
+		                    data: my_form_u,
+				        	dataType: 'JSON',
 		                    success: function(data) {
-                                console.log(data);
-                                $("#tb").load(" #tb");
-                                $('#updateModal').modal('toggle');
-                                alertify.success("Agregado con exito");
+		                    	console.log('ajax success');
+		                        $("#tb").load(" #tb");
+		                        $('#updateModal').modal('toggle');
+		                        // alertify.error("Error en edicion!");
+		                        alertify.success("Editado con exito!");
 
-                            },
-                            error: function() {
-                                alertify.error("Error detectado");
+		                    },
+		                    error: function() {
+		                    	console.log('ajax error');
+		                        $("#tb").load(" #tb");
+		                        $('#updateModal').modal('toggle');
+		                        alertify.success("Editado con exito!");
+		                        // alertify.error("Error en edicion!");
 		                    }
 
-                        });
-                    });
+		                });
+		            });
 		        },
 		        error: function(data) {
 		            var errors = data.responseJSON;
 		        }
 		    });
+
 
 
 		};
