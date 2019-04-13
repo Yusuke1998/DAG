@@ -112,7 +112,7 @@
 <textarea type="text" id="commentary" name="commentary" class="md-textarea form-control" rows="3"></textarea>
 <label data-error="wrong" data-success="right" for="commentary">Comentario</label>
 </div>
-<select class="browser-default custom-select" name="product_id">
+<select class="browser-default custom-select" name="product_id" id="product_id">
 <option selected disabled>Productos</option>
 @foreach($productos as $producto)
 <option value="{{ $producto->id }}">{{ $producto->name }}</option>
@@ -203,26 +203,45 @@ $('#esubmit').on('click', function(e){
 
     var form = $('#my_form').serialize();
     var url = '{{ Route('salidas.store') }}';
-    console.log(form);
-    console.log(url);
+    var url2 = '{{ Route('salidas.cantidad') }}';
+
+    var producto = $('#product_id').val();
+    var cantidad = $('#quantity').val();
 
     $.ajax({
             type: 'post',
-            url: url,
-            data: form,
+            url: url2,
+            data: {"producto":producto},
             dataType: 'json',
             success: function(data) {
-                        $("#tb").load(" #tb");
-                        $('#modalnewdeliveries').modal('toggle');
-                        alertify.success("agregado con exito");
-                        console.log('success');
-                        console.log(data);
+                    if (cantidad > data) {
+                        alertify.warning("La cantidad no puede ser mayor a la total existe");
+                    }else{
+                        $.ajax({
+                                type: 'post',
+                                url: url,
+                                data: form,
+                                dataType: 'json',
+                                success: function(data) {
+                                            $("#tb").load(" #tb");
+                                            $('#modalnewdeliveries').modal('toggle');
+                                            alertify.success("agregado con exito");
+                                            console.log('success');
+                                            console.log(data);
+                                },
+                                error: function(data) {
+                                        alertify.error("Fallo al agregar");
+                                    var errors = data.responseJSON;
+                                }
+                            });
+                    }
             },
             error: function(data) {
                     alertify.error("Fallo al agregar");
                 var errors = data.responseJSON;
             }
         });
+
 
 });
 

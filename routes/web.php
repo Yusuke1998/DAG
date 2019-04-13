@@ -38,6 +38,8 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
     Route::get('salidas','DeliveryController@index')->name('salidas');
 	Route::get('salidas/eliminar/{id}','DeliveryController@eliminar')->name('salidas.eliminar');
     Route::post('salidas/editar/{id}','DeliveryController@editar')->name('salidas.editar');
+
+    Route::post('salidas/cantidad','DeliveryController@cantidad')->name('salidas.cantidad');
 	// SALIDAS
 
 	Route::get('consolidados','ConsolidatedController@index')->name('consolidados');
@@ -48,7 +50,7 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 				['estado'=>'inicio del sistema','fecha'=>'13/02/2019'],
 				['nombre'=>'Jhonny Perez','correo'=>'jhperez@unerg.edu.ve'],
 				['nombre'=>'Fidel Herrera','correo'=>'fidelherrera@unerg.edu.ve'],
-				['estado'=>'sistema finalizado','fecha'=>'18/02/2019'],
+				['estado'=>'sistema finalizado','fecha'=>'08/04/2019'],
 			]
 		];
 	})->name('autores');
@@ -61,8 +63,11 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 
 	// Productos
 	Route::resource('productos','ProductController');
-	Route::get('productos/editar/{id}','ProductController@editar')->name('productos.editar');
-	Route::post('productos/editar/{id}','ProductController@ajax_editar')->name('productos.ajax_editar');
+
+	// Route::put('productos/editar/{id}','ProductController@actualizar')->name('productos.editar');
+	
+	Route::get('productos/editar/{id}','ProductController@ajax_editar')->name('productos.ajax_editar');
+	
 	Route::get('productos/eliminar/{id}','ProductController@eliminar')->name('productos.eliminar');
 	// Productos
 

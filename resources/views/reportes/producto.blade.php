@@ -50,10 +50,10 @@
 	<p style="text-align: right;">Fecha: {{ date('d/m/Y') }}</p>
 	<p align="center">DIRECCIÓN GENERAL DE ADMINISTRACIÓN</p>
 	<small>
-		<p align="center">Reporte general de {{$producto->name}}.</p>
+		<p align="center"><b>{{$producto->name}}.</b></p>
 	</small>
 	<table class="table">
-		<thead>
+		<thead align="center">
 			<tr>
 				<th>Codigo</th>
 				<th>Producto</th>
@@ -61,7 +61,7 @@
 				<th>Presentacion</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody align="center">
 			<tr>
 				<td>{{ $producto->code }}</td>
 				<td>{{ $producto->name }}</td>
@@ -72,14 +72,15 @@
 			</tr>
 	</table>
 	<hr>
-	<table class="table">
-		<thead>
+	<table class="table" border="1">
+		<thead align="center">
 			<tr>
 				<th>Entradas</th>
 				<th>Salidas</th>
+				<th>Existencia total del producto</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody align="left">
 			<tr>
 				<td>
 				@foreach($producto->entrances as $entradas)
@@ -100,6 +101,17 @@
 					<li>Area: {{$salidas->area->name}}</li>
 				</ul>
 				@endforeach
+				</td>
+				<td>
+					<ul>
+						<li>
+							{{ 	
+								$producto->quantity+
+						        $producto->entrances()->sum('quantity')-
+						        $producto->deliverys()->sum('quantity') 
+						    }} {{ $producto->unity_m }}
+						</li>
+					</ul>
 				</td>
 			</tr>
 		</tbody>

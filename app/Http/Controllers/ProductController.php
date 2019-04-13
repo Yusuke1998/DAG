@@ -45,10 +45,6 @@ class ProductController extends Controller
                 'price'             =>  'required',
             ]);
 
-        // if ($productos = Product::create($data)) {
-        //     return Response()->json($productos);
-        // }
-
         // FLECHAS --->
 
         $producto = Product::create([
@@ -85,25 +81,46 @@ class ProductController extends Controller
         return Response()->json($data);
     }
 
-    public function show($id)
-    {
-        return view('productos.show');
-    }
-
     public function edit($id)
     {
         return view('productos.edit');
     }
 
-    public function ajax_editar($id){
-        $data = Product::select('products.code', 'products.name', 'products.type', 'products.description',
-                                'products.unity_m', 'products.quantity', 'products.date_maturity',
-                                'shoppings.date', 'shoppings.supplier', 'shoppings.price',
-                                'shoppings.quantity')
-                ->join('shoppings', 'products.id', '=', 'shoppings.product_id')->where('product_id',$id)
-                ->get();
-        return Response()->json($data);
+    public function show($id)
+    {
+        return $id;
+    }
 
+    public function ajax_editar($id){
+        // $data = Product::select(
+        //     'products.code', 
+        //     'products.name', 
+        //     'products.type', 
+        //     'products.description',
+        //     'products.unity_m',
+        //     'products.quantity',
+        //     'products.date_maturity',
+        //     'shoppings.date',
+        //     'shoppings.supplier',
+        //     'shoppings.price',
+        //     'shoppings.quantity')
+        //         ->join('shoppings', 'products.id', '=', 'shoppings.product_id')->where('product_id',$id)
+        //         ->get();
+        $producto = Product::find($id);
+        $compra = $producto->shoppings()->first();
+        $data = [
+            'code'          =>  $producto->code,
+            'name'          =>  $producto->name,
+            'type'          =>  $producto->type,
+            'description'   =>  $producto->description,
+            'unity_m'       =>  $producto->unity_m,
+            'date_maturity' =>  $producto->date_maturity,
+            'quantity'      =>  $producto->quantity,
+            'supplier'      =>  ($compra)?$compra->supplier:'',
+            'price'         =>  ($compra)?$compra->price:'',
+        ];
+
+        return Response()->json($data);
     }
 
     public function editar($id)
@@ -113,13 +130,15 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $edit = Product::find($id);
-        $update = $edit->update($request->all());
-        return Response::json($update);
+        $edit = Product::find($id)->update($request->all());
+        $edit2 = Shopping::where('product_id',$id)->update($request->all());
+        return json_encode($request);
     }
 
     public function pdf_general(){
         $productos = Product::all();
+        $entrances = Entrance::all();
+        $salidas   = Delivery::all();
 
         $pdf = PDF::loadView('reportes.general', compact('productos'));
         return $pdf->stream('reporte_general.pdf');
@@ -138,12 +157,26 @@ class ProductController extends Controller
             $excel->sheet('DGA', function($sheet) {
                 $productos = Product::all();
                 $sheet->row(1, [
-                    'Codigo','Nombre','Tipo','Descripcion','Presentacion','Cantidad','Fecha de vencimiento',
+                    'Codigo','Nombre','Tipo','Descripcion','Presentacion','Cantidad','Fecha de vencimiento','Inicial','Entradas/Cantidad','Salidas/Cantidad','Existencias',
                 ]);
 
                 foreach ($productos as $index => $producto) {
                     $sheet->row($index+2, [
-                        $producto->code, $producto->name, $producto->type, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
+                        $producto->code, 
+                        $producto->name, 
+                        $producto->type, 
+                        $producto->description, 
+                        $producto->unity_m, 
+                        $producto->quantity, 
+                        $producto->date_maturity,
+                        $producto->quantity,
+
+                        $producto->entrances()->count('quantity')."/".$producto->entrances()->sum('quantity'),
+                        $producto->deliverys()->count('quantity')."/".$producto->deliverys()->sum('quantity'),
+
+                        $producto->quantity+
+                        $producto->entrances()->sum('quantity')-
+                        $producto->deliverys()->sum('quantity')
                     ]);
                 }
                 $sheet->setOrientation('landscape');
@@ -162,10 +195,14 @@ class ProductController extends Controller
                         $producto->code, $producto->name, $producto->type, $producto->description, $producto->unity_m, $producto->quantity, $producto->date_maturity
                 ]);
                 $sheet->row(3, [
-                    'Entradas','Salidas',
+                    'Entradas/Cantidad','Salidas/Cantidad','Existencias',
                 ]);
                 $sheet->row(4, [
-                    $producto->entrances->count(),$producto->deliverys->count(),
+                    $producto->entrances->count('quantity')."/".$producto->entrances->sum('quantity'),
+                    $producto->deliverys->count('quantity')."/".$producto->deliverys->sum('quantity'),
+                    $producto->quantity+
+                    $producto->entrances()->sum('quantity')-
+                    $producto->deliverys()->sum('quantity')." ".$producto->unity_m
                 ]);
                 $sheet->setOrientation('landscape');
             });

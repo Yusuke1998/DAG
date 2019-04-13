@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Delivery;
+use App\Entrance;
 use App\Product;
 use App\Area;
 
@@ -31,6 +32,18 @@ class DeliveryController extends Controller
     {
         $salidas = Delivery::create($request->all());
         return Response()->json($salidas);
+    }
+
+    public function cantidad(Request $request){
+
+        $entrada = Entrance::where('product_id',$request->producto)->sum('quantity');
+        $salida = Delivery::where('product_id',$request->producto)->sum('quantity');
+
+        $producto = Product::find($request->producto);
+
+        $cantidad = $producto->quantity + $entrada - $salida;
+
+        return Response()->json($cantidad);
     }
 
     public function show(Delivery $salidas)
