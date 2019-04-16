@@ -1,0 +1,90 @@
+[33mcommit 7dcf367c542478400d175ddf7fc8309d4aa5aae4[m[33m ([m[1;36mHEAD -> [m[1;32mdeve[m[33m, [m[1;31morigin/deve[m[33m)[m
+Merge: 78a7dcd 25f8d48
+Author: fidelwx <fidel_herrera128@hotmail.com>
+Date:   Sat Feb 16 14:05:14 2019 -0400
+
+    Merge branch 'deve' of https://github.com/Direccion-Informatica/DGA into deve
+
+[33mcommit 78a7dcdd8f1b40132fad2a1c6166fa394075e7d1[m
+Author: fidelwx <fidel_herrera128@hotmail.com>
+Date:   Sat Feb 16 14:04:47 2019 -0400
+
+    graficas
+
+[33mcommit 25f8d48c0708a3c9bdab3482711e706c16252c52[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Sat Feb 16 11:37:49 2019 -0400
+
+    Validaciones en el controlador
+
+[33mcommit ddcaeb42ebae7a98fde05defa50437037024cb31[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Sat Feb 16 10:33:53 2019 -0400
+
+    Por fin el puto ajax corre
+
+[33mcommit e060952ba305367c98c26dacddb3c4592909ce04[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Fri Feb 15 21:04:06 2019 -0400
+
+    new changes, null ajax
+
+[33mcommit 62fc3afc0e5decc96c083ba37cd81d044c16c038[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32mdev[m[33m)[m
+Author: Fidel Herrera <fidel_herrera128@hotmail.com>
+Date:   Fri Feb 15 15:29:07 2019 -0400
+
+    ajax sin terminar
+
+[33mcommit 5b2061540a3866605c0e9efaf49e00de3b5d5e94[m
+Author: Fidel Herrera <fidel_herrera128@hotmail.com>
+Date:   Fri Feb 15 10:38:57 2019 -0400
+
+    se agrego alertify
+
+[33mcommit 74621dd6573c2fc8f095fb25026ff6e3f23483bd[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Fri Feb 15 07:36:22 2019 -0400
+
+    new modals, controller and route
+
+[33mcommit 9cfb2d5e404f962da3fc0540d1604d77a0c0e458[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Thu Feb 14 23:55:00 2019 -0400
+
+    new middleware, solution to errors :v
+
+[33mcommit 4fee6cbea1e57d0ec62c04e72c5e0834eb5c23e9[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Thu Feb 14 23:20:52 2019 -0400
+
+    new changes, views, controllers, models, auth
+
+[33mcommit d3641240666f0dbdf4701ae6e8acb64a1dcdde47[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Thu Feb 14 06:39:03 2019 -0400
+
+    make auth and edit views
+
+[33mcommit 86ade3c2e5cecbb99b616666de48f97d09b31d6f[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Wed Feb 13 21:28:10 2019 -0400
+
+    controller, routes, view
+
+[33mcommit 2d5be67a244ece161b113c84f6cd8ee2159942cb[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Wed Feb 13 21:19:46 2019 -0400
+
+    Template for sistem it cool :v
+
+[33mcommit c48cfd98161993fd8f68e3c04551805957a635b6[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Wed Feb 13 15:27:43 2019 -0400
+
+    view template
+
+[33mcommit 0b75735688a4dda4ed70b4d531aae8b72f501fd3[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Yusuke1998 <jhonnyjose1998@gmail.com>
+Date:   Wed Feb 13 13:44:08 2019 -0400
+
+    inicio del inventario
