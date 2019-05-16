@@ -26,6 +26,14 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 		return view('dashboard');
 	})->name('dashboard');
 
+	// AREAS
+	Route::get('areas','AreaController@index')->name('areas.index');
+	Route::post('areas','AreaController@store')->name('areas.store');
+	Route::get('areas/editar/{id}','AreaController@editar')->name('areas.editar');
+	Route::put('areas/actualizar/{id}','AreaController@update')->name('areas.update');
+	Route::get('areas/eliminar/{id}','AreaController@destroy')->name('areas.destroy');
+	// AREAS
+
 	// ENTRADAS
 	Route::resource('entradas','EntranceController');
 	Route::get('entradas','EntranceController@index')->name('entradas');
@@ -64,12 +72,19 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	// Productos
 	Route::resource('productos','ProductController');
 
-	// Route::put('productos/editar/{id}','ProductController@actualizar')->name('productos.editar');
 	
 	Route::get('productos/editar/{id}','ProductController@ajax_editar')->name('productos.ajax_editar');
 	
 	Route::get('productos/eliminar/{id}','ProductController@eliminar')->name('productos.eliminar');
 	// Productos
+
+	// Comida
+	Route::get('comida','ProductController@comida_index')->name('comida.index');
+	Route::post('comida','ProductController@comida_store')->name('comida.store');
+	Route::put('comida/actualizar/{id}','ProductController@comida_update')->name('comida.update');
+	Route::get('comida/editar/{id}','ProductController@comida_editar')->name('comida.editar');
+	Route::get('comida/eliminar/{id}','ProductController@comida_destroy')->name('comida.destroy');
+	// Comida
 
 	// Entradas y salidas por producto
 	Route::get('productos/entradas/{id}','ProductController@entradas')->name('productos.entradas');

@@ -107,6 +107,11 @@
 <input type="number" name="quantity" id="quantity" class="form-control validate">
 <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
 </div>
+<div class="md-form mb-4">
+    {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
+    <input type="text" name="unity_m" id="unidadMedida" class="form-control validate">
+    <label data-error="Error" data-success="Bien" for="unidadMedida">Presentacion</label>
+  </div>
 <div class="md-form mb-5">
 <i class="fas fa-pencil-alt prefix"></i>
 <textarea type="text" id="commentary" name="commentary" class="md-textarea form-control" rows="3"></textarea>
@@ -165,10 +170,15 @@
 <input type="number" name="quantity" id="quantityu" class="form-control validate">
 <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
 </div>
+<div class="md-form mb-4">
+    {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
+    <input type="text" name="unity_m" id="unidadMedidau" class="form-control validate">
+    <label data-error="Error" data-success="Bien" for="unidadMedidau">Presentacion</label>
+  </div>
 <div class="md-form mb-5">
 <i class="fas fa-pencil-alt prefix"></i>
 <textarea type="text" id="commentaryu" name="commentary" class="md-textarea form-control" rows="3"></textarea>
-<label data-error="wrong" data-success="right" for="commentary">Comentario</label>
+<label data-error="wrong" data-success="right" for="commentaryu">Comentario</label>
 </div>
 <select class="browser-default custom-select" id="product_idu" name="product_id">
 <option selected disabled>Productos</option>
@@ -217,23 +227,23 @@ $('#esubmit').on('click', function(e){
                     if (cantidad > data) {
                         alertify.warning("La cantidad no puede ser mayor a la total existe");
                     }else{
-                        $.ajax({
-                                type: 'post',
-                                url: url,
-                                data: form,
-                                dataType: 'json',
-                                success: function(data) {
-                                            $("#tb").load(" #tb");
-                                            $('#modalnewdeliveries').modal('toggle');
-                                            alertify.success("agregado con exito");
-                                            console.log('success');
-                                            console.log(data);
-                                },
-                                error: function(data) {
-                                        alertify.error("Fallo al agregar");
-                                    var errors = data.responseJSON;
-                                }
-                            });
+                    $.ajax({
+                        type: 'post',
+                        url: url,
+                        data: form,
+                        dataType: 'json',
+                        success: function(data) {
+                                    $("#tb").load(" #tb");
+                                    $('#modalnewdeliveries').modal('toggle');
+                                    alertify.success("agregado con exito");
+                                    console.log('success');
+                                    console.log(data);
+                        },
+                        error: function(data) {
+                                alertify.error("Fallo al agregar");
+                            var errors = data.responseJSON;
+                        }
+                    });
                     }
             },
             error: function(data) {
@@ -264,6 +274,7 @@ $.ajax({
             $('#functionary_eu').val(data.functionary_e)
             $('#functionary_ru').val(data.functionary_r)
             $('#quantityu').val(data.quantity)
+            $('#unidadMedidau').val(data.unity_m)
             $('#commentaryu').val(data.commentary)
             $('#dateu').val(data.date)
             $('#product_idu').val(data.product_id)

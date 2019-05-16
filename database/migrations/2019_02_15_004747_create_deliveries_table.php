@@ -11,10 +11,11 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('quantity');
+            $table->string('unity_m');
             $table->string('date');
-            $table->string('commentary')->nullable();
             $table->string('functionary_e');
             $table->string('functionary_r');
+            $table->string('commentary')->nullable();
             $table->integer('area_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');

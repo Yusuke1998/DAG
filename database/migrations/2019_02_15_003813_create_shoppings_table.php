@@ -12,8 +12,9 @@ class CreateShoppingsTable extends Migration
             $table->increments('id');
             $table->string('date');
             $table->string('supplier');
-            $table->integer('price');
             $table->integer('quantity');
+            $table->string('unity_m');
+            $table->integer('price');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
