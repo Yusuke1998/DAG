@@ -45,8 +45,6 @@ class ProductController extends Controller
                 'price'             =>  'required',
             ]);
 
-        // FLECHAS --->
-
         $producto = Product::create([
             'code'              =>  $data['code'],
             'name'              =>  $data['name'],
@@ -92,20 +90,7 @@ class ProductController extends Controller
     }
 
     public function ajax_editar($id){
-        // $data = Product::select(
-        //     'products.code', 
-        //     'products.name', 
-        //     'products.type', 
-        //     'products.description',
-        //     'products.unity_m',
-        //     'products.quantity',
-        //     'products.date_maturity',
-        //     'shoppings.date',
-        //     'shoppings.supplier',
-        //     'shoppings.price',
-        //     'shoppings.quantity')
-        //         ->join('shoppings', 'products.id', '=', 'shoppings.product_id')->where('product_id',$id)
-        //         ->get();
+
         $producto = Product::find($id);
         $compra = $producto->shoppings()->first();
         $data = [
@@ -155,7 +140,7 @@ class ProductController extends Controller
 
         Excel::create('reportes_productos', function($excel) {
             $excel->sheet('DGA', function($sheet) {
-                $productos = Product::all();
+                $productos = Product::all();    
                 $sheet->row(1, [
                     'Codigo','Nombre','Tipo','Descripcion','Presentacion','Cantidad','Fecha de vencimiento','Inicial','Entradas/Cantidad','Salidas/Cantidad','Existencias',
                 ]);
@@ -234,11 +219,6 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy($id)
-    {
-        //
-    }
-
     public function eliminar($id)
     {
         $producto = Product::find($id)->delete();
@@ -254,4 +234,117 @@ class ProductController extends Controller
         $model = Delivery::all();
         return datatables($model)->toJson();
     }
+
+    // Comida
+    public function comida_index(){
+        $comidas = Product::where('type','Comida')->get();
+        return view('comida.index',compact('comidas',$comidas));
+    }
+
+    public function comida_store(Request $request){
+        $data = [
+            'code'          =>  $request->code,
+            'name'          =>  $request->name,
+            'description'   =>  $request->description,
+            'unity_m'       =>  $request->unity_m,
+            'date'          =>  $request->date,
+            'date_maturity' =>  $request->date_maturity,
+            'quantity'      =>  $request->quantity,
+            'supplier'      =>  $request->supplier,
+            'price'         =>  $request->price,
+        ];
+
+        $comida = Product::create([
+            'code'           => $data['code'],
+            'name'           => $data['name'],
+            'description'    => $data['description'],
+            'type'           => 'Comida',
+            'unity_m'        => $data['unity_m'],
+            'date_maturity'  => $data['date_maturity'],
+            'quantity'       => $data['quantity'],
+        ]);
+
+        $compra = Shopping::create([
+            'date'       => $data['date'],
+            'supplier'   => $data['supplier'],
+            'price'      => $data['price'],
+            'unity_m'    => $data['unity_m'],
+            'quantity'   => $data['quantity'],
+            'product_id' => $comida->id,
+        ]);
+
+        return Response()->json($data);
+    }
+
+    public function comida_editar($id){
+
+        $producto = Product::find($id);
+        $compra = $producto->shoppings()->first();
+        $data = [
+            'code'          =>  $producto->code,
+            'name'          =>  $producto->name,
+            'type'          =>  $producto->type,
+            'description'   =>  $producto->description,
+            'unity_m'       =>  $producto->unity_m,
+            'date_maturity' =>  $producto->date_maturity,
+            'quantity'      =>  $producto->quantity,
+            'supplier'      =>  ($compra)?$compra->supplier:'',
+            'price'         =>  ($compra)?$compra->price:'',
+        ];
+        return Response()->json($data);
+    }
+
+    public function comida_update(Request $request, $id){
+
+        $data = [
+            'code'          =>  $request->code,
+            'name'          =>  $request->name,
+            'type'          =>  'Comida',
+            'description'   =>  $request->description,
+            'unity_m'       =>  $request->unity_m,
+            'date_maturity' =>  $request->date_maturity,
+            'date'          =>  $request->date,
+            'supplier'      =>  $request->supplier,
+            'price'         =>  $request->price,
+            'quantity'      =>  $request->quantity,
+            'product_id'    =>  $id
+        ];
+
+        $comida = Product::find($id);
+        $comida->code           = $data['code'];
+        $comida->name           = $data['name'];
+        $comida->description    = $data['description'];
+        $comida->type           = $data['type'];
+        $comida->unity_m        = $data['unity_m'];
+        $comida->date_maturity  = $data['date_maturity'];
+        $comida->quantity       = $data['quantity'];
+        $comida->save();
+
+        if(!$comida->shoppings){
+            $compra = new Shopping();
+            $compra->unity_m    = $data['unity_m'];
+            $compra->date       = $data['date'];
+            $compra->supplier   = $data['supplier'];
+            $compra->price      = $data['price'];
+            $compra->quantity   = $data['quantity'];
+            $compra->product_id = $data['product_id'];
+            $compra->save();
+        }else{
+            $compra = Shopping::where('product_id',$id)->update([
+                'date'       => $data['date'],
+                'supplier'   => $data['supplier'],
+                'price'      => $data['price'],
+                'unity_m'    => $data['unity_m'],
+                'quantity'   => $data['quantity'],
+                'product_id' => $data['product_id'],
+            ]);
+        }
+        return json_encode(compact('data1','data2'));
+    }
+
+    public function comida_destroy($id){
+        $producto = Product::find($id)->delete();
+        return back();
+    }
+    // Comida
 }

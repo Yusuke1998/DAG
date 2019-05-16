@@ -1,5 +1,5 @@
  @extends('template.layout')
-@section('title') Productos @stop
+@section('title') Comida @stop
 @section('content')
 	<div class="container">
 		<div class="row">
@@ -20,25 +20,26 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    @foreach($productos as $producto)
+				    @foreach($comidas as $comida)
 				    <tr>
-                      <th>{{ $producto->id }}</th>
-				      <td>{{ $producto->code }}</td>
-				      <td>{{ $producto->name }}</td>
-				      <td>{{ $producto->type }}</td>
-				      <td>{{ $producto->unity_m }}</td>
-				      <td>{{ $producto->quantity }}</td>
+                      <th>{{ $comida->id }}</th>
+				      <td>{{ $comida->code }}</td>
+				      <td>{{ $comida->name }}</td>
+				      <td>{{ $comida->type }}</td>
+				      <td>{{ $comida->unity_m }}</td>
+				      <td>{{ $comida->quantity }}</td>
 
 				      <td>
-				      		<a class="btn btn-sm" href="#" data-toggle="modal" data-target="#updateModal" onclick="editarP({{ $producto->id }});" title="">Editar</a>
+				      		<a class="btn btn-sm" data-toggle="modal" data-target="#updateModal" onclick="editarP({{ $comida->id }});" title="">Editar</a>
 
-				      		<a class="btn btn-sm" id="eliminar" href="{{ Route('productos.eliminar',$producto->id) }}" title="">Eliminar</a>
+				      		<a class="btn btn-sm" id="eliminar" href="{{ Route('comida.destroy',$comida->id) }}" title="">Eliminar</a>
 				      </td>
 				    </tr>
 				    @endforeach
 				  </tbody>
 				</table>
-
+				<a href="#" class="btn btn-warning btn-sm">PDF GENERAL</a>
+				<a href="#" class="btn btn-warning btn-sm">EXCEL GENERAL</a>
 		    </div>
 		</div>
 	</div>
@@ -46,7 +47,7 @@
 <!-- Central Modal Small -->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	  aria-hidden="true">
-	<form action="{{ route('productos.store') }}" method="post" id="my_form">
+	<form action="{{ route('comida.store') }}" method="post" id="my_form">
 	{{-- enctype='multipart/form-data' --}}
 	{{ csrf_field() }}
 	  <!-- Change class .modal-sm to change the size of the modal -->
@@ -71,12 +72,7 @@
 	        </div>
 	        <div class="md-form mb-5">
 	          <select type="text" name="type" id="tipo" class="form-control validate">
-	          		<option selected disabled>Tipo</option>
-	          		<option value="Comida">Comida</option>
-	          		<option value="Materiales de limpieza y otros">Materiales de limpieza y otros</option>
-	          		<option value="Herramientas y ferreteria">Herramientas y ferreteria</option>
-	          		<option value="Material de oficina">Material de oficina</option>
-	          		<option value="Equipos bienes nacionales y otros">Equipos bienes nacionales y otros</option>
+	          		<option selected disabled value="Comida">Comida</option>
 	          </select>
 	          {{-- <label data-error="Error" data-success="Bien" for="orangeForm-email">Tipo</label> --}}
 			</div>
@@ -101,23 +97,23 @@
 	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="number" name="quantity" id="quantity" class="form-control validate">
 	          <label data-error="Error" data-success="Bien" for="quantity">Cantidad</label>
-			</div>
+					</div>
 
-			<div class="md-form mb-4">
+					<div class="md-form mb-4">
 	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
 	          <input type="text" name="unity_m" id="unidadMedida" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="quantity">Presentacion</label>
+	          <label data-error="Error" data-success="Bien" for="unidadMedida">Presentacion</label>
 	        </div>
 
 	          <label data-error="Error" data-success="Bien" for="fechaV">F.Vencimiento</label>
 	        	<div class="md-form mb-4">
 	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
-	          <input type="date" id="fechaV" name="date_maturity" class="form-control validate">
+	          		<input type="date" id="fechaV" name="date_maturity" class="form-control validate">
 	        	</div>
 	          <label data-error="Error" data-success="Bien" for="fechaC">F.Compra</label>
 	        	<div class="md-form mb-4">
 	          {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
-	          <input type="date" id="fechaC" autofocus="true" name="date" class="form-control validate">
+	          		<input type="date" id="fechaC" autofocus="true" name="date" class="form-control validate">
 	        	</div>
 
 	      </div>
@@ -158,12 +154,7 @@
 			</div>
 			<div class="md-form mb-5">
 	          <select type="text" name="type" id="tipou" class="browser-default custom-select">
-	          		<option selected disabled>Tipo</option>
-	          		<option value="Comida">Comida</option>
-	          		<option value="Materiales de limpieza y otros">Materiales de limpieza y otros</option>
-	          		<option value="Herramientas y ferreteria">Herramientas y ferreteria</option>
-	          		<option value="Material de oficina">Material de oficina</option>
-	          		<option value="Equipos bienes nacionales y otros">Equipos bienes nacionales y otros</option>
+	          		<option selected disabled value="Comida">Comida</option>
 	          </select>
 			</div>
 			<div class="md-form mb-5">
@@ -182,22 +173,22 @@
 
 			<div class="md-form mb-4">
 	          <input type="text" name="unity_m" id="unidadMedidau" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Presentacion</label>
+	          <label data-error="Error" data-success="Bien" for="unidadMedidau">Presentacion</label>
 	        </div>
 
             <div class="md-form mb-4">
 	          <input type="number" name="quantity" id="quantityu" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
+	          <label data-error="Error" data-success="Bien" for="quantityu">Cantidad</label>
 	        </div>
 
 	        <div class="md-form mb-4">
 	          <input type="date" id="fechaVu" name="date_maturity" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="fechaV">F.Vencimiento</label>
+	          <label data-error="Error" data-success="Bien" for="fechaVu">F.Vencimiento</label>
 			</div>
 
 			<div class="md-form mb-4">
 	          <input type="date" id="fechaCu" name="date" class="form-control validate">
-	          <label data-error="Error" data-success="Bien" for="fechaV">F.Compra</label>
+	          <label data-error="Error" data-success="Bien" for="fechaCu">F.Compra</label>
 			</div>
 	      </div>
 
@@ -217,16 +208,13 @@
 
 		$('#bsubmit').on('click', function(e){
     		e.preventDefault();
-
     		$.ajaxSetup({
 		        headers: {
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
 		    });
-
             var form = $('#my_form').serialize();
-		    var url = '{{ Route('productos.store') }}';
-
+		    var url = '{{ Route('comida.store') }}';
 		    $.ajax({
 		        type: 'post',
 		        url: url,
@@ -245,16 +233,13 @@
 		    });
 		});
 
-
 		function editarP(id){
             $.ajaxSetup({
 		        headers: {
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
             });
-
             var url2 = location.href+'/editar/'+id;
-
 		    $.ajax({
 		        type: 'get',
 		        url: url2,
@@ -277,10 +262,11 @@
 	                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	                        }
                         });
-
 		                var my_form_u = $('#my_form_u').serialize();
-		                var urlu = window.location.href+'/'+id;
+		                // var urlu = window.location.href+'/'+id;
+            			var urlu = location.href+'/actualizar/'+id;
 
+            			console.log(urlu);
 		                $.ajax({
 		                    type: 'post',
 		                    url: urlu,
@@ -292,16 +278,13 @@
 		                        $('#updateModal').modal('toggle');
 		                        // alertify.error("Error en edicion!");
 		                        alertify.success("Editado con exito!");
-
 		                    },
 		                    error: function() {
 		                    	console.log('ajax error');
 		                        $("#tb").load(" #tb");
 		                        $('#updateModal').modal('toggle');
 		                        alertify.success("Editado con exito!");
-		                        // alertify.error("Error en edicion!");
 		                    }
-
 		                });
 		            });
 		        },
@@ -309,65 +292,7 @@
 		            var errors = data.responseJSON;
 		        }
 		    });
-
-
-
 		};
-
-
-		function entradaP(id){
-
-            $.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		        }
-            });
-
-            var urle = location.href+'/entradas/'+id;
-
-            console.log(urle);
-		    $.ajax({
-		        type: 'get',
-		        url: urle,
-		        dataType: 'json',
-		        success: function(data) {
-                    console.log(data);
-		            // alert('success');
-		        },
-		        error: function(data) {
-                    console.log(data);
-		            // alert('error');
-		        }
-		    });
-		};
-
-		function salidaP(id){
-
-            $.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		        }
-            });
-
-            var urls = location.href+'/salidas/'+id;
-
-            console.log(urls);
-		    $.ajax({
-		        type: 'get',
-		        url: urls,
-		        dataType: 'json',
-		        success: function(data) {
-                    console.log(data);
-		            // alert('success');
-		        },
-		        error: function(data) {
-                    console.log(data);
-		            // alert('error');
-		        }
-		    });
-		};
-
-
 	</script>
 
 	@stop

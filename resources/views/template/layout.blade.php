@@ -67,7 +67,13 @@
               <a class="nav-link waves-effect" href="{{ URL('/') }}">INICIO</a>
             </li>
             <li class="nav-item {{ (request()->is('inventario/productos'))?'active':'' }}">
-              <a class="nav-link waves-effect" href="{{ URL('/inventario/productos') }}">PRODUCTOS</a>
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/productos') }}">INVENTARIO</a>
+            </li>
+            <li class="nav-item {{ (request()->is('inventario/comida'))?'active':'' }}">
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/comida') }}">COMIDA</a>
+            </li>
+            <li class="nav-item {{ (request()->is('inventario/areas'))?'active':'' }}">
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/areas') }}">AREAS</a>
             </li>
             <li class="nav-item {{ (request()->is('inventario/entradas'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/entradas') }}">ENTRADAS</a>

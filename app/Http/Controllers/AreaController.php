@@ -14,36 +14,36 @@ class AreaController extends Controller
 
     public function index()
     {
-        //
-    }
-
-    public function create()
-    {
-        //
+        $areas = Area::all();
+        return view('areas.index',compact('areas',$areas));
     }
 
     public function store(Request $request)
     {
-        //
+        $areas = Area::create($request->all());
+        return Response()->json($areas);
     }
 
-    public function show(Area $area)
+    public function show($id)
     {
         //
     }
 
-    public function edit(Area $area)
+    public function editar($id)
     {
-        //
+        $area = Area::find($id);
+        return Response()->json($area);
     }
 
-    public function update(Request $request, Area $area)
+    public function update(Request $request, $id)
     {
-        //
+        $edit = Area::find($id)->update($request->all());
+        return Response()->json($edit);
     }
 
-    public function destroy(Area $area)
+    public function destroy($id)
     {
-        //
+        $area = Area::find($id)->delete();
+        return back();
     }
 }

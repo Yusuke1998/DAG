@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Delivery extends Model
 {
     protected $fillable = [
-    	'quantity','date','commentary','functionary_e','functionary_r','area_id','product_id',
+    	'quantity','date','commentary','functionary_e','functionary_r','area_id','product_id','unity_m'
     ];
 
     public function product(){

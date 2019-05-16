@@ -99,6 +99,11 @@
                 <input type="number" name="quantity" id="quantity" class="form-control validate">
                 <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
               </div>
+              <div class="md-form mb-4">
+                {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
+                <input type="text" name="unity_m" id="unidadMedida" class="form-control validate">
+                <label data-error="Error" data-success="Bien" for="quantity">Presentacion</label>
+              </div>
               <div class="md-form mb-5">
                 <i class="fas fa-pencil-alt prefix"></i>
                 <textarea type="text" id="commentary" name="commentary" class="md-textarea form-control" rows="3"></textarea>
@@ -161,6 +166,11 @@
                 <input type="number" name="quantity" id="quantityu" class="form-control validate">
                 <label data-error="Error" data-success="Bien" for="orangeForm-pass">Cantidad</label>
               </div>
+              <div class="md-form mb-4">
+            {{-- <i class="fas fa-lock prefix grey-text"></i> --}}
+                <input type="text" name="unity_m" id="unidadMedidau" class="form-control validate">
+                <label data-error="Error" data-success="Bien" for="quantity">Presentacion</label>
+              </div>
               <select class="browser-default custom-select" id="product_idu" name="product_id">
                 <option selected disabled>Productos</option>
                 @foreach($productos as $producto)
@@ -203,9 +213,6 @@
 
         var form = $('#my_form').serialize();
         var url = '{{ Route('entradas.store') }}';
-
-        console.log(form);
-        console.log(url);
 
         $.ajax({
             type: 'post',
@@ -250,6 +257,7 @@
                     $('#supplieru').val(data.supplier)
                     $('#priceu').val(data.price)
                     $('#quantityu').val(data.quantity)
+                    $('#unidadMedidau').val(data.unity_m)
 
                     $('#bsubmitu').on('click', function(e){
                         e.preventDefault();
