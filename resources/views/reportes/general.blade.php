@@ -1,7 +1,7 @@
 @extends('layouts.template-reporte')
 @section('content')
 	<small>
-		<p align="center">Reporte general de productos.</p>
+		<p align="center">Reporte general.</p>
 	</small>
 	<table class="table">
 		<thead>

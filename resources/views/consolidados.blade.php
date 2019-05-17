@@ -18,10 +18,23 @@
         <div class="col-md-12 mb-12">
           <!--Card-->
           <div class="card">
-           <div class="card-header">Consolidados
-            <a class="btn btn-sm btn-info" target="_blank" href="{{ route('pdf.general') }}" title="">pdf general</a>
-            <a class="btn btn-sm btn-info" target="_blank" href="{{ route('excel.general') }}" title="">excel general</a>
-           </div>
+           <div class="card-header">Consolidados</div>
+           
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+              <a class="btn btn-sm btn-info" target="_blank" href="{{ route('pdf.general') }}" title="">pdf general</a>
+
+              <a class="btn btn-sm btn-info" target="_blank" href="{{ route('pdf.general.comida') }}" title="">pdf general comida</a>
+
+              <a class="btn btn-sm btn-info" target="_blank" href="{{ route('pdf.general.otro') }}" title="">pdf general productos</a>
+            </div>
+            <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+              <a class="btn btn-sm btn-info" target="_blank" href="{{ route('excel.general') }}" title="">excel general</a>
+
+              <a class="btn btn-sm btn-info" target="_blank" href="{{ route('excel.general.comida') }}" title="">excel general comida</a>
+
+              <a class="btn btn-sm btn-info" target="_blank" href="{{ route('excel.general.otro') }}" title="">excel general productos</a>
+            </div>
+
             <!--Card content-->
             <div class="card-body">
 

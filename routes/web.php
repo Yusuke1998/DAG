@@ -59,6 +59,7 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 				['nombre'=>'Jhonny Perez','correo'=>'jhperez@unerg.edu.ve'],
 				['nombre'=>'Fidel Herrera','correo'=>'fidelherrera@unerg.edu.ve'],
 				['estado'=>'sistema finalizado','fecha'=>'08/04/2019'],
+				['estado'=>'actualizaciones','fecha'=>'17/05/2019'],
 			]
 		];
 	})->name('autores');
@@ -101,6 +102,11 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 	Route::get('reportes','ReportesController@index')->name('reportes.index');
 		// PDF
 		Route::get('reporte/general/pdf','ReportesController@pdf_general')->name('pdf.general');
+
+		Route::get('reporte/general/comida/pdf','ReportesController@pdf_general_comida')->name('pdf.general.comida');
+
+		Route::get('reporte/general/otro/pdf','ReportesController@pdf_general_otro')->name('pdf.general.otro');
+
 		Route::get('reporte/producto/{id}/pdf','ReportesController@pdf_producto_id')->name('pdf.producto_id');
 
 		Route::get('reporte/anio/pdf/{type}','ReportesController@pdf_anio')->name('pdf.anio');
@@ -111,6 +117,9 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 		Route::get('reporte/salidas/{date}/{type}/{format}','ReportesController@reporte_salidas')->name('reporte.salidas');
 		// EXCEL
 		Route::get('reporte/general/excel','ReportesController@excel_general')->name('excel.general');
+		Route::get('reporte/general/comida/excel','ReportesController@excel_general_comida')->name('excel.general.comida');
+		Route::get('reporte/general/otro/excel','ReportesController@excel_general_otro')->name('excel.general.otro');
+
 		Route::get('reporte/producto/{id}/excel','ReportesController@excel_producto_id')->name('excel.producto_id');
 		Route::get('reporte/anio/excel/{type}','ReportesController@excel_anio')->name('excel.anio');
 		Route::get('reporte/mes/excel/{type}','ReportesController@excel_mes')->name('excel.mes');

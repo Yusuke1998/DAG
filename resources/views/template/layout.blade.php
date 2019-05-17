@@ -67,7 +67,7 @@
               <a class="nav-link waves-effect" href="{{ URL('/') }}">INICIO</a>
             </li>
             <li class="nav-item {{ (request()->is('inventario/productos'))?'active':'' }}">
-              <a class="nav-link waves-effect" href="{{ URL('/inventario/productos') }}">INVENTARIO</a>
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/productos') }}">PRODUCTOS</a>
             </li>
             <li class="nav-item {{ (request()->is('inventario/comida'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/comida') }}">COMIDA</a>
@@ -130,12 +130,18 @@
         </a>
         <a href="{{ URL('/inventario/productos') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-table mr-3"></i>PRODUCTOS</a>
+        <a href="{{ URL('/inventario/comida') }}" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-table mr-3"></i>COMIDA</a>
+        <a href="{{ URL('/inventario/areas') }}" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-table mr-3"></i>AREAS</a>
         <a href="{{ URL('/inventario/entradas') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-table mr-3"></i>ENTRADAS</a>
         <a href="{{ URL('/inventario/salidas') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-map mr-3"></i>SALIDAS</a>
         <a href="{{ URL('/inventario/consolidados') }}" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-money-bill-alt mr-3"></i>CONSOLIDADOS</a>
+        <a href="{{ URL('/inventario/reportes') }}" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-money-bill-alt mr-3"></i>REPORTES</a>
       </div>
 
     </div>

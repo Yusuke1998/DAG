@@ -16,7 +16,7 @@
 		</thead>
 		<tbody align="center">
 			@foreach($salidas as $dato)
-				@if($dato->product->type != 'Comida')
+				@if($dato->product->type == 'Comida')
 				<tr>
 					<td>{{ $dato->product->name }}</td>
 					<td>{{ $dato->functionary_e }}</td>

@@ -25,6 +25,18 @@ class ReportesController extends Controller
         return $pdf->stream('reporte_general.pdf');
     }
 
+    public function pdf_general_comida(){
+        $productos = Product::where('type','Comida')->get();
+        $pdf = PDF::loadView('reportes.general', compact('productos'));
+        return $pdf->stream('reporte_general.pdf');
+    }
+
+    public function pdf_general_otro(){
+        $productos = Product::where('type','!=','Comida')->get();
+        $pdf = PDF::loadView('reportes.general', compact('productos'));
+        return $pdf->stream('reporte_general.pdf');
+    }
+
     public function pdf_producto_id($id){
         $producto = Product::find($id);
 
@@ -120,6 +132,72 @@ class ReportesController extends Controller
         })->export('xls');
     }
 
+    public function excel_general_comida(){
+
+        Excel::create('reportes_productos', function($excel) {
+            $excel->sheet('DGA', function($sheet) {
+                $productos = Product::where('type','Comida')->get();    
+                $sheet->row(1, [
+                    'Codigo','Nombre','Tipo','Descripcion','Presentacion','Cantidad','Fecha de vencimiento','Inicial','Entradas/Cantidad','Salidas/Cantidad','Existencias',
+                ]);
+
+                foreach ($productos as $index => $producto) {
+                    $sheet->row($index+2, [
+                        $producto->code, 
+                        $producto->name, 
+                        $producto->type, 
+                        $producto->description, 
+                        $producto->unity_m, 
+                        $producto->quantity, 
+                        $producto->date_maturity,
+                        $producto->quantity,
+
+                        $producto->entrances()->count('quantity')."/".$producto->entrances()->sum('quantity'),
+                        $producto->deliverys()->count('quantity')."/".$producto->deliverys()->sum('quantity'),
+
+                        $producto->quantity+
+                        $producto->entrances()->sum('quantity')-
+                        $producto->deliverys()->sum('quantity')
+                    ]);
+                }
+                $sheet->setOrientation('landscape');
+            });
+        })->export('xls');
+    }
+
+    public function excel_general_otro(){
+
+        Excel::create('reportes_productos', function($excel) {
+            $excel->sheet('DGA', function($sheet) {
+                $productos = Product::where('type','!=','Comida')->get();    
+                $sheet->row(1, [
+                    'Codigo','Nombre','Tipo','Descripcion','Presentacion','Cantidad','Fecha de vencimiento','Inicial','Entradas/Cantidad','Salidas/Cantidad','Existencias',
+                ]);
+
+                foreach ($productos as $index => $producto) {
+                    $sheet->row($index+2, [
+                        $producto->code, 
+                        $producto->name, 
+                        $producto->type, 
+                        $producto->description, 
+                        $producto->unity_m, 
+                        $producto->quantity, 
+                        $producto->date_maturity,
+                        $producto->quantity,
+
+                        $producto->entrances()->count('quantity')."/".$producto->entrances()->sum('quantity'),
+                        $producto->deliverys()->count('quantity')."/".$producto->deliverys()->sum('quantity'),
+
+                        $producto->quantity+
+                        $producto->entrances()->sum('quantity')-
+                        $producto->deliverys()->sum('quantity')
+                    ]);
+                }
+                $sheet->setOrientation('landscape');
+            });
+        })->export('xls');
+    }
+
     public function excel_producto_id($id){
         Excel::create('reportes_producto', function($excel) use($id) {
             $excel->sheet('DGA', function($sheet) use($id) {
@@ -152,14 +230,22 @@ class ReportesController extends Controller
             $data = Product::where('type','Comida')
             ->whereYear('created_at', '=', $fecha)->get();
 
-            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
-            return $pdf->stream('reporte_comida_anio.pdf');
+            Excel::create('reporte_comida_año', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
         }else{
             $data = Product::where('type','!=','Comida')
             ->whereYear('created_at', '=', $fecha)->get();
 
-            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
-            return $pdf->stream('reporte_producto_anio.pdf');
+            Excel::create('reporte_producto_año', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
         }
     }
 
@@ -170,14 +256,22 @@ class ReportesController extends Controller
             $data = Product::where('type','Comida')
             ->whereMonth('created_at', '=', $fecha)->get();
 
-            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
-            return $pdf->stream('reporte_comida_mes.pdf');
+            Excel::create('reporte_comida_mes', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
         }else{
             $data = Product::where('type','!=','Comida')
             ->whereMonth('created_at', '=', $fecha)->get();
 
-            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
-            return $pdf->stream('reporte_producto_mes.pdf');
+            Excel::create('reporte_producto_mes', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
         }
     }
 
@@ -188,54 +282,93 @@ class ReportesController extends Controller
             $data = Product::where('type','Comida')
             ->whereDate('created_at', '=', $fecha)->get();
 
-            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
-            return $pdf->stream('reporte_comida_dia.pdf');
+            Excel::create('reporte_comida_dia', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
         }else{
             $data = Product::where('type','!=','Comida')
             ->whereDate('created_at', '=', $fecha)->get();
 
-            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
-            return $pdf->stream('reporte_producto_dia.pdf');
+            Excel::create('reporte_producto_dia', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
         }
     }
 
     public function reporte_entradas($fecha,$tipo,$formato){
+        if ($tipo == 'Comida' && $formato == 'EXCEL') {
+            $vista = 'reportes.reporte-entrada-comida-fecha-excel';
+        }elseif($tipo == 'Comida' && $formato == 'PDF'){
+            $vista = 'reportes.reporte-entrada-comida-fecha';
+        }elseif($tipo != 'Comida' && $formato == 'EXCEL'){
+            $vista = 'reportes.reporte-entrada-fecha-excel';
+        }elseif($tipo != 'Comida' && $formato == 'PDF'){
+            $vista = 'reportes.reporte-entrada-fecha';
+        }
+
         if ($fecha == 'Dia') {
             $fecha = Carbon::now()->format('Y-m-d');
             $entradas = Entrance::whereDate('date', '=', $fecha)->get();
         }elseif ($fecha == 'Mes') {
             $fecha = Carbon::now()->format('m');
-            $entradas = Entrance::whereMonth('created_at','=',$fecha)->get();
+            $entradas = Entrance::whereMonth('date','=',$fecha)->get();
         }elseif ($fecha == 'Anio') {
             $fecha = Carbon::now()->format('Y');
-            $entradas = Entrance::whereYear('created_at','=',$fecha)->get();
+            $entradas = Entrance::whereYear('date','=',$fecha)->get();
         }
 
         if ($formato == 'PDF') {
-            $pdf = PDF::loadView('reportes.reporte-entrada-fecha', compact('entradas','fecha','tipo'));
+            $pdf = PDF::loadView($vista, compact('entradas','fecha','tipo'));
             return $pdf->stream('reporte_entradas.pdf');
         }else{
-            // EXCEL
+            Excel::create('reporte_entradas', function($excel) use($vista, $entradas, $fecha, $tipo){
+                $excel->sheet('DAG', function($sheet) use($vista, $entradas, $fecha, $tipo){
+                    $sheet->loadView($vista,
+                        ['entradas'=>$entradas,'fecha'=>$fecha, 'tipo'=>$tipo]);
+                });
+            })->download('xls');
         }
     }
 
     public function reporte_salidas($fecha,$tipo,$formato){
+        if ($tipo == 'Comida' && $formato == 'EXCEL') {
+            $vista = 'reportes.reporte-salida-comida-fecha-excel';
+        }elseif($tipo == 'Comida' && $formato == 'PDF'){
+            $vista = 'reportes.reporte-salida-comida-fecha';
+        }elseif($tipo != 'Comida' && $formato == 'EXCEL'){
+            $vista = 'reportes.reporte-salida-fecha-excel';
+        }elseif($tipo != 'Comida' && $formato == 'PDF'){
+            $vista = 'reportes.reporte-salida-fecha';
+        }
+
         if ($fecha == 'Dia') {
             $fecha = Carbon::now()->format('Y-m-d');
             $salidas = Delivery::whereDate('date', '=', $fecha)->get();
         }elseif ($fecha == 'Mes') {
             $fecha = Carbon::now()->format('m');
-            $salidas = Delivery::whereMonth('created_at','=',$fecha)->get();
+            $salidas = Delivery::whereMonth('date','=',$fecha)->get();
         }elseif ($fecha == 'Anio') {
             $fecha = Carbon::now()->format('Y');
-            $salidas = Delivery::whereYear('created_at','=',$fecha)->get();
+            $salidas = Delivery::whereYear('date','=',$fecha)->get();
         }
 
         if ($formato == 'PDF') {
-            $pdf = PDF::loadView('reportes.reporte-salida-fecha', compact('salidas','fecha','tipo'));
+            $pdf = PDF::loadView($vista, compact('salidas','fecha','tipo'));
             return $pdf->stream('reporte_salidas.pdf');
+
         }else{
-            // EXCEL
+            Excel::create('reporte_salidas', function($excel) use($vista, $salidas, $fecha, $tipo){
+                $excel->sheet('DAG', function($sheet) use($vista, $salidas, $fecha, $tipo){
+                    $sheet->loadView($vista,
+                        ['salidas'=>$salidas,'fecha'=>$fecha, 'tipo'=>$tipo]);
+                });
+            })->download('xls');
         }
     }
 
