@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2019 at 01:33 PM
+-- Generation Time: May 17, 2019 at 02:42 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -41,16 +41,16 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'ÁREA DE INGENIERÍA AGRONÓMICA', NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15'),
-(2, 'ÁREA DE CIENCIAS DE LA SALUD', NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15'),
-(3, 'ÁREA DE ODONTOLOGÍA', NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15'),
-(4, 'ÁREA DE CIENCIAS DE LA EDUCACIÓN', NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15'),
-(5, 'ÁREA DE CS. ECONÓMICAS Y SOCIALES', NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15'),
-(6, 'ÁREA DE INGENIERÍA EN SISTEMAS', NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15'),
-(7, 'ÁREA DE ARQUITECTURA Y TECNOLOGÍA', NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15'),
-(8, 'ÁREA DE CS. POLÍTICAS Y JURÍDICAS', NULL, '2019-04-07 15:31:16', '2019-04-07 15:31:16'),
-(9, 'ÁREA DE HUMANIDADES, LETRAS Y ARTES', NULL, '2019-04-07 15:31:16', '2019-04-07 15:31:16'),
-(10, 'ÁREA DE CIENCIAS VETERINARIAS', NULL, '2019-04-07 15:31:16', '2019-04-07 15:31:16');
+(1, 'ÁREA DE INGENIERÍA AGRONÓMICA', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(2, 'ÁREA DE CIENCIAS DE LA SALUD', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(3, 'ÁREA DE ODONTOLOGÍA', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(4, 'ÁREA DE CIENCIAS DE LA EDUCACIÓN', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(5, 'ÁREA DE CS. ECONÓMICAS Y SOCIALES', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(6, 'ÁREA DE INGENIERÍA EN SISTEMAS', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(7, 'ÁREA DE ARQUITECTURA Y TECNOLOGÍA', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(8, 'ÁREA DE CS. POLÍTICAS Y JURÍDICAS', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(9, 'ÁREA DE HUMANIDADES, LETRAS Y ARTES', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
+(10, 'ÁREA DE CIENCIAS VETERINARIAS', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46');
 
 -- --------------------------------------------------------
 
@@ -61,10 +61,11 @@ INSERT INTO `areas` (`id`, `name`, `description`, `created_at`, `updated_at`) VA
 CREATE TABLE `deliveries` (
   `id` int(10) UNSIGNED NOT NULL,
   `quantity` int(11) NOT NULL,
+  `unity_m` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `commentary` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `functionary_e` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `functionary_r` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `commentary` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `area_id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -80,11 +81,12 @@ CREATE TABLE `deliveries` (
 CREATE TABLE `entrances` (
   `id` int(10) UNSIGNED NOT NULL,
   `reception` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `commentary` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `quantity` int(11) NOT NULL,
+  `unity_m` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `supplier` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
+  `commentary` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -357,8 +359,9 @@ CREATE TABLE `shoppings` (
   `id` int(10) UNSIGNED NOT NULL,
   `date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `supplier` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
+  `unity_m` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` int(11) NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -402,7 +405,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `type`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$10$axUjxmv8ugPjwtLPaE0DGOqLndcNWDihBqOlFnonugEQp3DTvDG1u', 'administrador', NULL, NULL, '2019-04-07 15:31:15', '2019-04-07 15:31:15');
+(1, 'admin', 'admin@admin.com', '$2y$10$axUjxmv8ugPjwtLPaE0DGOqLndcNWDihBqOlFnonugEQp3DTvDG1u', 'administrador', NULL, NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46');
 
 --
 -- Indexes for dumped tables
