@@ -26,7 +26,7 @@
             <div class="card-body">
 
               <!-- Table  -->
-              <table id="table_server" class="table table-hover">
+              <table id="tb" class="table table-hover">
                 <!-- Table head -->
                 <thead class="blue-grey lighten-4">
                   <tr>
@@ -63,7 +63,7 @@
                 </tbody>
                 <!-- Table body -->
               </table>
-              <!-- Table  -->
+
             </div>
 
           </div>

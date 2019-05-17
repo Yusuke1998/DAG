@@ -98,11 +98,24 @@ Route::group(['prefix'	=>	'inventario', 'middleware'	=>	'auth'],function(){
 
 
 	// Reportes
-	Route::get('reporte/general/pdf','ProductController@pdf_general')->name('pdf.general');
-	Route::get('reporte/producto/{id}/pdf','ProductController@pdf_producto_id')->name('pdf.producto_id');
+	Route::get('reportes','ReportesController@index')->name('reportes.index');
+		// PDF
+		Route::get('reporte/general/pdf','ReportesController@pdf_general')->name('pdf.general');
+		Route::get('reporte/producto/{id}/pdf','ReportesController@pdf_producto_id')->name('pdf.producto_id');
 
-	Route::get('reporte/general/excel','ProductController@excel_general')->name('excel.general');
-	Route::get('reporte/producto/{id}/excel','ProductController@excel_producto_id')->name('excel.producto_id');
+		Route::get('reporte/anio/pdf/{type}','ReportesController@pdf_anio')->name('pdf.anio');
+		Route::get('reporte/mes/pdf/{type}','ReportesController@pdf_mes')->name('pdf.mes');
+		Route::get('reporte/dia/pdf/{type}','ReportesController@pdf_dia')->name('pdf.dia');
+		// PDF
+		Route::get('reporte/entradas/{date}/{type}/{format}','ReportesController@reporte_entradas')->name('reporte.entradas');
+		Route::get('reporte/salidas/{date}/{type}/{format}','ReportesController@reporte_salidas')->name('reporte.salidas');
+		// EXCEL
+		Route::get('reporte/general/excel','ReportesController@excel_general')->name('excel.general');
+		Route::get('reporte/producto/{id}/excel','ReportesController@excel_producto_id')->name('excel.producto_id');
+		Route::get('reporte/anio/excel/{type}','ReportesController@excel_anio')->name('excel.anio');
+		Route::get('reporte/mes/excel/{type}','ReportesController@excel_mes')->name('excel.mes');
+		Route::get('reporte/dia/excel/{type}','ReportesController@excel_dia')->name('excel.dia');
+		// EXCEL
 	// Reportes
 
 });

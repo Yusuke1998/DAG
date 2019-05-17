@@ -1,4 +1,4 @@
- @extends('template.layout')
+@extends('template.layout')
 @section('title') Productos @stop
 @section('content')
 	<div class="container">

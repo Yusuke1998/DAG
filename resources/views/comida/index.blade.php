@@ -1,4 +1,4 @@
- @extends('template.layout')
+@extends('template.layout')
 @section('title') Comida @stop
 @section('content')
 	<div class="container">
@@ -38,8 +38,6 @@
 				    @endforeach
 				  </tbody>
 				</table>
-				<a href="#" class="btn btn-warning btn-sm">PDF GENERAL</a>
-				<a href="#" class="btn btn-warning btn-sm">EXCEL GENERAL</a>
 		    </div>
 		</div>
 	</div>

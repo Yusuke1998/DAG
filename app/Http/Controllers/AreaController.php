@@ -24,11 +24,6 @@ class AreaController extends Controller
         return Response()->json($areas);
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function editar($id)
     {
         $area = Area::find($id);
