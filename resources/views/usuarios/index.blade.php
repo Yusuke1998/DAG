@@ -64,7 +64,7 @@
               <select class="browser-default custom-select" name="type">
               <option value="" disabled selected>Tipo de Usuario</option>
 				  <option value="administrador">administrador</option>
-				  <option value="consultor">consultor</option>
+				  <option value="almacenista">almacenista</option>
 
               </select>
             </div>

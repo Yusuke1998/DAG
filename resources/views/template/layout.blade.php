@@ -66,6 +66,7 @@
             <li class="nav-item {{ (request()->is('inventario/inicio'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/') }}">INICIO</a>
             </li>
+            @if(\Auth::User()->type == "almacenista" || \Auth::User()->type == "administrador")
             <li class="nav-item {{ (request()->is('inventario/productos'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/productos') }}">PRODUCTOS</a>
             </li>
@@ -87,6 +88,7 @@
             <li class="nav-item {{ (request()->is('inventario/reportes'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/reportes') }}">REPORTES</a>
             </li>
+            @endif
             @if(\Auth::User()->type == "administrador")
             <li class="nav-item {{ (request()->is('inventario/bitacora'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/bitacora') }}">BITACORA</a>

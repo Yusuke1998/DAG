@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2019 at 02:42 PM
+-- Generation Time: May 18, 2019 at 06:03 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -41,16 +41,33 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'ÁREA DE INGENIERÍA AGRONÓMICA', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(2, 'ÁREA DE CIENCIAS DE LA SALUD', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(3, 'ÁREA DE ODONTOLOGÍA', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(4, 'ÁREA DE CIENCIAS DE LA EDUCACIÓN', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(5, 'ÁREA DE CS. ECONÓMICAS Y SOCIALES', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(6, 'ÁREA DE INGENIERÍA EN SISTEMAS', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(7, 'ÁREA DE ARQUITECTURA Y TECNOLOGÍA', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(8, 'ÁREA DE CS. POLÍTICAS Y JURÍDICAS', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(9, 'ÁREA DE HUMANIDADES, LETRAS Y ARTES', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46'),
-(10, 'ÁREA DE CIENCIAS VETERINARIAS', NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46');
+(1, 'ÁREA DE INGENIERÍA AGRONÓMICA', NULL, '2019-05-18 16:02:20', '2019-05-18 16:02:20'),
+(2, 'ÁREA DE CIENCIAS DE LA SALUD', NULL, '2019-05-18 16:02:20', '2019-05-18 16:02:20'),
+(3, 'ÁREA DE ODONTOLOGÍA', NULL, '2019-05-18 16:02:20', '2019-05-18 16:02:20'),
+(4, 'ÁREA DE CIENCIAS DE LA EDUCACIÓN', NULL, '2019-05-18 16:02:21', '2019-05-18 16:02:21'),
+(5, 'ÁREA DE CS. ECONÓMICAS Y SOCIALES', NULL, '2019-05-18 16:02:21', '2019-05-18 16:02:21'),
+(6, 'ÁREA DE INGENIERÍA EN SISTEMAS', NULL, '2019-05-18 16:02:21', '2019-05-18 16:02:21'),
+(7, 'ÁREA DE ARQUITECTURA Y TECNOLOGÍA', NULL, '2019-05-18 16:02:21', '2019-05-18 16:02:21'),
+(8, 'ÁREA DE CS. POLÍTICAS Y JURÍDICAS', NULL, '2019-05-18 16:02:21', '2019-05-18 16:02:21'),
+(9, 'ÁREA DE HUMANIDADES, LETRAS Y ARTES', NULL, '2019-05-18 16:02:21', '2019-05-18 16:02:21'),
+(10, 'ÁREA DE CIENCIAS VETERINARIAS', NULL, '2019-05-18 16:02:21', '2019-05-18 16:02:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `binnacles`
+--
+
+CREATE TABLE `binnacles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `action` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `small_description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -116,7 +133,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2019_02_15_004321_create_areas_table', 1),
 (6, '2019_02_15_004323_create_sites_table', 1),
 (7, '2019_02_15_004700_create_entrances_table', 1),
-(8, '2019_02_15_004747_create_deliveries_table', 1);
+(8, '2019_02_15_004747_create_deliveries_table', 1),
+(9, '2019_05_18_082500_create_binnacles_table', 1);
 
 -- --------------------------------------------------------
 
@@ -391,9 +409,9 @@ CREATE TABLE `sites` (
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` enum('administrador','consultor') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('administrador','almacenista') COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -405,7 +423,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `type`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$10$axUjxmv8ugPjwtLPaE0DGOqLndcNWDihBqOlFnonugEQp3DTvDG1u', 'administrador', NULL, NULL, '2019-05-17 12:39:46', '2019-05-17 12:39:46');
+(1, 'admin', 'admin@admin.com', '$2y$10$3hPGJuLSp.P2UEvrCIxOr.2zhgylUdYz/VxUYqQ7GwK368lqE4rsK', 'administrador', NULL, NULL, '2019-05-18 16:02:20', '2019-05-18 16:02:20'),
+(2, 'almacenista', 'almacenista@almacenista.com', '$2y$10$ctZtWXbuFoNPUknBPsYXpeBTv1wBMWv4V8LuntdOHn7GVx5K9Vh6u', 'almacenista', NULL, NULL, '2019-05-18 16:02:20', '2019-05-18 16:02:20');
 
 --
 -- Indexes for dumped tables
@@ -417,6 +436,13 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `type`, `email_verified_
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `areas_name_unique` (`name`);
+
+--
+-- Indexes for table `binnacles`
+--
+ALTER TABLE `binnacles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `binnacles_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `deliveries`
@@ -450,7 +476,6 @@ ALTER TABLE `password_resets`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `products_code_unique` (`code`),
   ADD UNIQUE KEY `products_name_unique` (`name`);
 
 --
@@ -487,6 +512,12 @@ ALTER TABLE `areas`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `binnacles`
+--
+ALTER TABLE `binnacles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `deliveries`
 --
 ALTER TABLE `deliveries`
@@ -502,7 +533,7 @@ ALTER TABLE `entrances`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -526,11 +557,17 @@ ALTER TABLE `sites`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `binnacles`
+--
+ALTER TABLE `binnacles`
+  ADD CONSTRAINT `binnacles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `deliveries`
