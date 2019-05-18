@@ -10,6 +10,7 @@ use App\Product;
 use App\Shopping;
 use App\Entrance;
 use App\Delivery;
+use App\Binnacle;
 
 class ReportesController extends Controller
 {
@@ -77,6 +78,26 @@ class ReportesController extends Controller
 
             $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
             return $pdf->stream('reporte_producto_mes.pdf');
+        }
+    }
+
+    public function pdf_semana($type){
+        $fecha = Carbon::now()->format('Y-m-d');
+        $InicioSemana = Carbon::now()->startOfWeek();
+        $FinSemana = Carbon::now()->endOfWeek();
+
+        if ($type == 'Comida') {
+            $data = Product::where('type','Comida')
+            ->whereBetween('created_at', [$InicioSemana,$FinSemana])->get();
+
+            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
+            return $pdf->stream('reporte_comida_semana.pdf');
+        }else{
+            $data = Product::where('type','!=','Comida')
+            ->whereBetween('created_at', [$InicioSemana,$FinSemana])->get();
+
+            $pdf = PDF::loadView('reportes.reporte-fecha', compact('data','fecha','type'));
+            return $pdf->stream('reporte_producto_semana.pdf');
         }
     }
 
@@ -275,6 +296,34 @@ class ReportesController extends Controller
         }
     }
 
+    public function excel_semana($type){
+        $fecha = Carbon::now()->format('Y-m-d');
+        $InicioSemana = Carbon::now()->startOfWeek();
+        $FinSemana = Carbon::now()->endOfWeek();
+
+        if ($type == 'Comida') {
+            $data = Product::where('type','Comida')
+            ->whereBetween('created_at', [$InicioSemana,$FinSemana])->get();
+
+            Excel::create('reporte_comida_semana', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
+        }else{
+            $data = Product::where('type','!=','Comida')
+            ->whereBetween('created_at', [$InicioSemana,$FinSemana])->get();
+
+            Excel::create('reporte_producto_semana', function($excel) use($data, $fecha, $type){
+                $excel->sheet('DAG', function($sheet) use($data, $fecha, $type){
+                    $sheet->loadView('reportes.reporte-fecha-excel',
+                        ['data'=>$data,'fecha'=>$fecha, 'type'=>$type]);
+                });
+            })->download('xls');
+        }
+    }
+
     public function excel_dia($type){
         $fecha = Carbon::now()->format('Y-m-d');
 
@@ -315,6 +364,11 @@ class ReportesController extends Controller
         if ($fecha == 'Dia') {
             $fecha = Carbon::now()->format('Y-m-d');
             $entradas = Entrance::whereDate('date', '=', $fecha)->get();
+        }elseif ($fecha == 'Semana') {
+            $InicioSemana = Carbon::now()->startOfWeek();
+            $FinSemana = Carbon::now()->endOfWeek();
+            $fecha = Carbon::now()->format('m-Y');
+            $entradas = Entrance::whereBetween('date', [$InicioSemana,$FinSemana])->get();
         }elseif ($fecha == 'Mes') {
             $fecha = Carbon::now()->format('m');
             $entradas = Entrance::whereMonth('date','=',$fecha)->get();
@@ -350,6 +404,11 @@ class ReportesController extends Controller
         if ($fecha == 'Dia') {
             $fecha = Carbon::now()->format('Y-m-d');
             $salidas = Delivery::whereDate('date', '=', $fecha)->get();
+        }elseif ($fecha == 'Semana') {
+            $InicioSemana = Carbon::now()->startOfWeek();
+            $FinSemana = Carbon::now()->endOfWeek();
+            $fecha = Carbon::now()->format('m-Y');
+            $salidas = Delivery::whereBetween('date', [$InicioSemana,$FinSemana])->get();
         }elseif ($fecha == 'Mes') {
             $fecha = Carbon::now()->format('m');
             $salidas = Delivery::whereMonth('date','=',$fecha)->get();
@@ -372,4 +431,33 @@ class ReportesController extends Controller
         }
     }
 
+    public function bitacora_pdf($tipo){
+        switch ($tipo) {
+            case 'todo':
+            $bitacoras = Binnacle::all();
+                break;
+            case 'dia':
+            $fecha = Carbon::now()->format('Y-m-d');
+            $bitacoras = Binnacle::whereDate('date', '=', $fecha)->get();
+                break;
+            case 'semana':
+            $InicioSemana = Carbon::now()->startOfWeek();
+            $FinSemana = Carbon::now()->endOfWeek();
+            $bitacoras = Binnacle::wwhereBetween('date', [$InicioSemana,$FinSemana])->get();
+                break;
+            case 'mes':
+            $fecha = Carbon::now()->format('m');
+            $bitacoras = Binnacle::whereMonth('date','=',$fecha)->get();
+                break;
+            case 'anio':
+            $fecha = Carbon::now()->format('Y');
+            $bitacoras = Binnacle::whereYear('date','=',$fecha)->get()();
+                break;
+            default:
+            $bitacoras = Binnacle::all();
+                break;
+        }
+        $pdf = PDF::loadView('reportes.bitacora', compact('bitacoras'));
+        return $pdf->stream('reporte_bitacora.pdf');
+    }
 }

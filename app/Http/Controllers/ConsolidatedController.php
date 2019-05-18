@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use App\Delivery;
+use App\Binnacle;
 use App\Entrance;
 use App\Product;
 use App\Shopping;
@@ -23,45 +25,13 @@ class ConsolidatedController extends Controller
         return view('consolidados',compact('productos'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
-
     public function tabla_consolidados($id)
     {
         $producto       = Product::find($id)->quantity;
         $entradas       = $producto->entrances()->count();
         $salidas        = $producto->deliverys()->count();
         $existencias    = $producto+$entradas-$salidas;
-
         $data = [$producto,$entradas,$salidas,$existencias];
-
         return Response()->json($data);
     }
 
@@ -80,7 +50,6 @@ class ConsolidatedController extends Controller
         $noviembre_e = DB::table('entrances')->whereMonth('date', '11')->count();
         $diciembre_e = DB::table('entrances')->whereMonth('date', '12')->count();
         $datae = [$enero_e,$febrero_e,$marzo_e,$abril_e,$mayo_e,$junio_e,$julio_e,$agosto_e,$septiembre_e,$octubre_e,$noviembre_e,$diciembre_e];
-
         $enero_s = DB::table('deliveries')->whereMonth('date', '01')->count();
         $febrero_s = DB::table('deliveries')->whereMonth('date', '02')->count();
         $marzo_s = DB::table('deliveries')->whereMonth('date', '03')->count();

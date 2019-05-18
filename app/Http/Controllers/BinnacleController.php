@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Binnacle;
 use Illuminate\Http\Request;
-use App\Shopping;
 
-class ShoppingController extends Controller
+class BinnacleController extends Controller
 {
     public function __construct()
     {
@@ -14,7 +14,8 @@ class ShoppingController extends Controller
 
     public function index()
     {
-        
+        $bitacoras = Binnacle::all();
+        return view('bitacora.index',compact('bitacoras'));
     }
 
     public function create()
@@ -27,22 +28,22 @@ class ShoppingController extends Controller
         //
     }
 
-    public function show(Shopping $shopping)
+    public function show(Binnacle $binnacle)
     {
         //
     }
 
-    public function edit(Shopping $shopping)
+    public function edit(Binnacle $binnacle)
     {
         //
     }
 
-    public function update(Request $request, Shopping $shopping)
+    public function update(Request $request, Binnacle $binnacle)
     {
         //
     }
 
-    public function destroy(Shopping $shopping)
+    public function destroy(Binnacle $binnacle)
     {
         //
     }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Product;
 use App\Shopping;
 use App\Entrance;
+use App\Binnacle;
 use App\Delivery;
 use Yajra\Datatables\Services\DataTable;
 
@@ -56,9 +58,18 @@ class ProductController extends Controller
         $compra = Shopping::create([
             'date'          =>  $data['date'],
             'supplier'      =>  $data['supplier'],
+            'unity_m'       =>  $data['unity_m'],
             'price'         =>  $data['price'],
             'quantity'      =>  $data['quantity'],
             'product_id'    =>  $producto->id,
+        ]);
+
+        $bitacora = Binnacle::create([
+            'user_id'           => \Auth::User()->id,
+            'action'            =>  'Crear',
+            'description'       =>  'Nuevo producto '.$producto->name.' cantidad: '.$producto->quantity.$producto->unity_m.'  agregado exitosamente!',
+            'small_description' =>  'Nuevo registro de producto',
+            'date'              =>  Carbon::now(),
         ]);
 
         return Response()->json($compra->all());
@@ -113,13 +124,18 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        $producto = Product::find($id);
+        $bitacora = Binnacle::create([
+            'user_id'           => \Auth::User()->id,
+            'action'            =>  'Editar',
+            'description'       =>  'Edicion de producto '.$producto->name.' cantidad: '.$producto->quantity.$producto->unity_m.'  editado exitosamente!',
+            'small_description' =>  'Edicion de producto',
+            'date'              =>  Carbon::now(),
+        ]);
         $edit = Product::find($id)->update($request->all());
         $edit2 = Shopping::where('product_id',$id)->update($request->all());
         return json_encode($request);
     }
-
-
-
 
     public function entradas($id)
     {
@@ -147,7 +163,17 @@ class ProductController extends Controller
 
     public function eliminar($id)
     {
-        $producto = Product::find($id)->delete();
+        $producto = Product::find($id);
+        $name = $producto->name;
+        $producto->delete();
+
+        $bitacora = Binnacle::create([
+            'user_id'           => \Auth::User()->id,
+            'action'            =>  'Eliminar',
+            'description'       =>  'Producto '.$name.' eliminado exitosamente!',
+            'small_description' =>  'Eliminacion de producto',
+            'date'              =>  Carbon::now(),
+        ]);
         return back();
     }
 
@@ -199,6 +225,14 @@ class ProductController extends Controller
             'product_id' => $comida->id,
         ]);
 
+        $bitacora = Binnacle::create([
+            'user_id'           => \Auth::User()->id,
+            'action'            =>  'Crear',
+            'description'       =>  'Nueva comida '.$comida->name.' cantidad: '.$comida->quantity.$comida->unity_m.'  agregada exitosamente!',
+            'small_description' =>  'Nuevo registro de comida',
+            'date'              =>  Carbon::now(),
+        ]);
+
         return Response()->json($data);
     }
 
@@ -246,6 +280,14 @@ class ProductController extends Controller
         $comida->quantity       = $data['quantity'];
         $comida->save();
 
+        $bitacora = Binnacle::create([
+            'user_id'           => \Auth::User()->id,
+            'action'            =>  'Editar',
+            'description'       =>  'Edicion de comida '.$comida->name.' cantidad: '.$comida->quantity.$comida->unity_m.'  editado exitosamente!',
+            'small_description' =>  'Edicion de producto',
+            'date'              =>  Carbon::now(),
+        ]);
+
         if(!$comida->shoppings){
             $compra = new Shopping();
             $compra->unity_m    = $data['unity_m'];
@@ -269,7 +311,16 @@ class ProductController extends Controller
     }
 
     public function comida_destroy($id){
-        $producto = Product::find($id)->delete();
+        $producto = Product::find($id);
+        $name = $producto->name;
+        $producto->delete();
+        $bitacora = Binnacle::create([
+            'user_id'           => \Auth::User()->id,
+            'action'            =>  'Eliminar',
+            'description'       =>  'Comida '.$name.' eliminada exitosamente!',
+            'small_description' =>  'Eliminacion de comida',
+            'date'              =>  Carbon::now(),
+        ]);
         return back();
     }
 

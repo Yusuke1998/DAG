@@ -88,6 +88,9 @@
               <a class="nav-link waves-effect" href="{{ URL('/inventario/reportes') }}">REPORTES</a>
             </li>
             @if(\Auth::User()->type == "administrador")
+            <li class="nav-item {{ (request()->is('inventario/bitacora'))?'active':'' }}">
+              <a class="nav-link waves-effect" href="{{ URL('/inventario/bitacora') }}">BITACORA</a>
+            </li>
             <li class="nav-item {{ (request()->is('inventario/usuarios'))?'active':'' }}">
               <a class="nav-link waves-effect" href="{{ URL('/inventario/usuarios') }}">USUARIOS</a>
             </li>

@@ -9,7 +9,6 @@ class IsAdminMiddleware
     public function handle($request, Closure $next)
     {
         if (Auth::check() && Auth::user()->type=='administrador') {
-
             return $next($request);
 
         }else{

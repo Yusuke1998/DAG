@@ -12,6 +12,7 @@
 		    		<thead>
 		    			<tr>
 		    				<th>DIA</th>
+		    				<th>SEMANA</th>
 		    				<th>MES</th>
 		    				<th>AÑO</th>
 		    			</tr>
@@ -22,6 +23,12 @@
 		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
 		    						<a href="{{ route('pdf.dia','Comida') }}" class="btn btn-primary btn-sm">PDF</a>
 		    						<a href="{{ route('excel.dia','Comida') }}" class="btn btn-primary btn-sm">EXCEL</a>
+		    					</div>
+		    				</td>
+		    				<td>
+		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+		    						<a href="{{ route('pdf.semana','Comida') }}" class="btn btn-primary btn-sm">PDF</a>
+		    						<a href="{{ route('excel.semana','Comida') }}" class="btn btn-primary btn-sm">EXCEL</a>
 		    					</div>
 		    				</td>
 		    				<td>
@@ -47,6 +54,7 @@
 		    		<thead>
 		    			<tr>
 		    				<th>DIA</th>
+		    				<th>SEMANA</th>
 		    				<th>MES</th>
 		    				<th>AÑO</th>
 		    			</tr>
@@ -57,6 +65,12 @@
 		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
 		    						<a href="{{ route('pdf.dia','Producto') }}" class="btn btn-primary btn-sm">PDF</a>
 		    						<a href="{{ route('excel.dia','Producto') }}" class="btn btn-primary btn-sm">EXCEL</a>
+		    					</div>
+		    				</td>
+		    				<td>
+		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+		    						<a href="{{ route('pdf.semana','Producto') }}" class="btn btn-primary btn-sm">PDF</a>
+		    						<a href="{{ route('excel.semana','Producto') }}" class="btn btn-primary btn-sm">EXCEL</a>
 		    					</div>
 		    				</td>
 		    				<td>
@@ -82,6 +96,7 @@
 		    		<thead>
 		    			<tr>
 		    				<th>DIA</th>
+		    				<th>SEMANA</th>
 		    				<th>MES</th>
 		    				<th>AÑO</th>
 		    			</tr>
@@ -92,6 +107,12 @@
 		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
 		    						<a href="{{ route('reporte.entradas',['Dia','Comida','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
 		    						<a href="{{ route('reporte.entradas',['Dia','Comida','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
+		    					</div>
+		    				</td>
+		    				<td>
+		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+		    						<a href="{{ route('reporte.entradas',['Semana','Comida','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
+		    						<a href="{{ route('reporte.entradas',['Semana','Comida','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
 		    					</div>
 		    				</td>
 		    				<td>
@@ -115,6 +136,7 @@
 		    		<thead>
 		    			<tr>
 		    				<th>DIA</th>
+		    				<th>SEMANA</th>
 		    				<th>MES</th>
 		    				<th>AÑO</th>
 		    			</tr>
@@ -125,6 +147,12 @@
 		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
 		    						<a href="{{ route('reporte.salidas',['Dia','Comida','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
 		    						<a href="{{ route('reporte.salidas',['Dia','Comida','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
+		    					</div>
+		    				</td>
+		    				<td>
+		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+		    						<a href="{{ route('reporte.salidas',['Semana','Comida','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
+		    						<a href="{{ route('reporte.salidas',['Semana','Comida','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
 		    					</div>
 		    				</td>
 		    				<td>
@@ -148,6 +176,7 @@
 		    		<thead>
 		    			<tr>
 		    				<th>DIA</th>
+		    				<th>SEMANA</th>
 		    				<th>MES</th>
 		    				<th>AÑO</th>
 		    			</tr>
@@ -158,6 +187,12 @@
 		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
 		    						<a href="{{ route('reporte.entradas',['Dia','Producto','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
 		    						<a href="{{ route('reporte.entradas',['Dia','Producto','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
+		    					</div>
+		    				</td>
+		    				<td>
+		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+		    						<a href="{{ route('reporte.entradas',['Semana','Producto','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
+		    						<a href="{{ route('reporte.entradas',['Semana','Producto','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
 		    					</div>
 		    				</td>
 		    				<td>
@@ -181,6 +216,7 @@
 		    		<thead>
 		    			<tr>
 		    				<th>DIA</th>
+		    				<th>SEMANA</th>
 		    				<th>MES</th>
 		    				<th>AÑO</th>
 		    			</tr>
@@ -191,6 +227,12 @@
 		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
 		    						<a href="{{ route('reporte.salidas',['Dia','Producto','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
 		    						<a href="{{ route('reporte.salidas',['Dia','Producto','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
+		    					</div>
+		    				</td>
+		    				<td>
+		    					<div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+		    						<a href="{{ route('reporte.salidas',['Semana','Producto','PDF']) }}" class="btn btn-primary btn-sm">PDF</a>
+		    						<a href="{{ route('reporte.salidas',['Semana','Producto','EXCEL']) }}" class="btn btn-primary btn-sm">EXCEL</a>
 		    					</div>
 		    				</td>
 		    				<td>
